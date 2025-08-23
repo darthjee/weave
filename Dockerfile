@@ -1,13 +1,18 @@
-FROM python:3.14-slim-bullsey
+FROM python:3.14-slim-bullseye
 
 RUN useradd -u 1000 app; \
     mkdir -p /home/app/app; \
     chown app.app -R /home/app
 
-COPY ./source/ /home/app/app/
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    && rm -rf /var/lib/apt/lists/*
+
+
+USER app
+COPY --chown=app:app ./source/requirements.txt /home/app/app/requirements.txt
+RUN pip install --no-cache-dir -r /home/app/app/requirements.txt
 
 WORKDIR /home/app/app/
 
-USER app
-
-CMD ["bash"]
+CMD ["python", "backend/main.py"]
