@@ -26,6 +26,12 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Debug
+          command: ls -lrt;
+      - run:
+          name: Debug2
+          command: ls source -lrt;
+      - run:
           name: Set folder
           command: cp source/* source/.??* ./ -r; rm source -rf
 
