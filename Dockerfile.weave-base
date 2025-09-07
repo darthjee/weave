@@ -14,4 +14,4 @@ USER app
 
 WORKDIR /home/app/app/
 
-CMD ["python", "backend/main.py"]
+CMD ["python", "main.py"]
