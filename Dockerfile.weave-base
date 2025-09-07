@@ -8,9 +8,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     && rm -rf /var/lib/apt/lists/*
 
-USER app
 COPY --chown=app:app ./source/requirements.txt /home/app/app/
 RUN pip install --no-cache-dir -r /home/app/app/requirements.txt
+USER app
 
 WORKDIR /home/app/app/
 
