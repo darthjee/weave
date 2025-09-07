@@ -1,0 +1,30 @@
+services:
+  #################### Base  ####################
+
+  base: &base
+    image: darthjee/weave
+    volumes:
+      - ./source:/home/app/app
+    links: []
+    env_file: .env
+
+  base_build:
+    <<: *base
+    build:
+      context: .
+      dockerfile: Dockerfile.weave
+    command: echo done
+
+  #################### CONTAINERS ####################
+
+  weave_app:
+    <<: *base
+    container_name: weave_app
+    depends_on: [base_build]
+    ports:
+      - 127.0.0.1:3000:3000
+
+  weave_tests:
+    <<: *base
+    container_name: weave_tests
+    depends_on: [base_build]
