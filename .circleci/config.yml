@@ -28,6 +28,9 @@ jobs:
       - run:
           name: Set folder
           command: cp source/* ./ -r; rm source -rf
+      - run:
+          name: Tests
+          command: python manage.py test
 
   checks:
     docker:
