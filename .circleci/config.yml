@@ -1,0 +1,58 @@
+version: 2
+workflows:
+  version: 2
+  test:
+    jobs:
+      - test:
+          filters:
+            tags:
+              only: /.*/
+      - checks:
+          filters:
+            tags:
+              only: /.*/
+      - build-and-release:
+          requires: [test, checks]
+          filters:
+            tags:
+              only: /.*/
+            branches:
+              only:
+                - main
+jobs:
+  test:
+    docker:
+      - image: cimg/python:3.12
+    steps:
+      - checkout
+      - run:
+          name: Set folder
+          command: cp source/* source/.??* ./ -r; rm source -rf
+      - run:
+          name: Install packages
+          command: pip install -r requirements.txt
+      - run:
+          name: Tests
+          command: pytest
+
+  checks:
+    docker:
+      - image: cimg/python:3.12
+    steps:
+      - checkout
+      - run:
+          name: Set folder
+          command: cp source/* source/.??* ./ -r; rm source -rf
+      - run:
+          name: Install packages
+          command: pip install -r requirements.txt
+      - run:
+          name: Check
+          command: flake8
+  build-and-release:
+    machine: true
+    steps:
+      - checkout
+      - run:
+          name: Trigger Deploy
+          command: scripts/deploy.sh deploy
