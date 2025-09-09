@@ -33,7 +33,7 @@ jobs:
           command: pip install -r requirements.txt
       - run:
           name: Tests
-          command: python manage.py test
+          command: pytest
 
   checks:
     docker:
