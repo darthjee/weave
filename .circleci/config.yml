@@ -27,7 +27,7 @@ jobs:
       - checkout
       - run:
           name: Set folder
-          command: cp source/* .??* ./ -r; rm source -rf
+          command: cp source/* source/.??* ./ -r; rm source -rf
       - run:
           name: Install packages
           command: pip install -r requirements.txt
@@ -42,7 +42,7 @@ jobs:
       - checkout
       - run:
           name: Set folder
-          command: cp source/* .??* ./ -r; rm source -rf
+          command: cp source/* source/.??* ./ -r; rm source -rf
       - run:
           name: Install packages
           command: pip install -r requirements.txt
