@@ -15,7 +15,7 @@ services:
     volumes:
       - ./source:/home/app/app
     links:
-      - oak_mysql:mysql
+      - weave_mysql:mysql
     env_file: .env
 
   base_build:
@@ -34,7 +34,7 @@ services:
     ports:
       - 127.0.0.1:3000:3000
     environment:
-      - OAK_MYSQL_PORT=3306
+      - WEAVE_MYSQL_PORT=3306
 
   weave_tests:
     <<: *base
