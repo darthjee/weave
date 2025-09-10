@@ -9,6 +9,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     default-libmysqlclient-dev \
     pkg-config \
     iputils-ping \
+    default-mysql-client \
     && rm -rf /var/lib/apt/lists/*
 
 COPY --chown=app:app ./source/requirements.txt /home/app/app/
