@@ -46,7 +46,7 @@ jobs:
           command: pip install -r requirements.txt
       - run:
           name: migrate
-          command: python manage.py migrate
+          command: bin/configure_databasae.sh all
       - run:
           name: Tests
           command: pytest
