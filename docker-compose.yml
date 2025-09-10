@@ -6,7 +6,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: oak
     ports:
-      - 127.0.0.1:$WEAVE_MYSQL_PORT:3306
+      - 127.0.0.1:$WEAVE_DB_PORT:3306
 
   #################### Base  ####################
 
@@ -34,7 +34,7 @@ services:
     ports:
       - 127.0.0.1:3000:3000
     environment:
-      - WEAVE_MYSQL_PORT=3306
+      - WEAVE_DB_PORT=3306
 
   weave_tests:
     <<: *base
