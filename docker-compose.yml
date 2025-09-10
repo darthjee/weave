@@ -1,11 +1,21 @@
 services:
+  weave_mysql:
+    image: mysql:9.3.0
+    container_name: weave_mysql
+    env_file: .env
+    environment:
+      MYSQL_ROOT_PASSWORD: oak
+    ports:
+      - 127.0.0.1:$WEAVE_MYSQL_PORT:3306
+
   #################### Base  ####################
 
   base: &base
     image: darthjee/weave
     volumes:
       - ./source:/home/app/app
-    links: []
+    links:
+      - oak_mysql:mysql
     env_file: .env
 
   base_build:
@@ -20,9 +30,11 @@ services:
   weave_app:
     <<: *base
     container_name: weave_app
-    depends_on: [base_build]
+    depends_on: [base_build, weave_mysql]
     ports:
       - 127.0.0.1:3000:3000
+    environment:
+      - OAK_MYSQL_PORT=3306
 
   weave_tests:
     <<: *base
