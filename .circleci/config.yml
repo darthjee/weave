@@ -23,14 +23,32 @@ jobs:
   test:
     docker:
       - image: cimg/python:3.12
+        environment:
+          WEAVE_MYSQL_HOST: mysql
+          WEAVE_MYSQL_PORT: 3306
+          WEAVE_MYSQL_USER: weave
+          WEAVE_MYSQL_NAME: weave
+          WEAVE_MYSQL_PASSWORD: weave
+      - image: cimg/mysql:8.0
+        name: mysql
+        environment:
+          MYSQL_DATABASE: weave
+          MYSQL_USER: weave
+          MYSQL_PASSWORD: weave
     steps:
       - checkout
       - run:
           name: Set folder
           command: cp source/* source/.??* ./ -r; rm source -rf
       - run:
+          name: Install MySQL client
+          command: sudo apt-get update && sudo apt-get install -y default-mysql-client
+      - run:
           name: Install packages
           command: pip install -r requirements.txt
+      - run:
+          name: migrate
+          command: bin/configure_database.sh all
       - run:
           name: Tests
           command: pytest
