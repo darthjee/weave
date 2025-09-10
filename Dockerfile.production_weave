@@ -18,9 +18,9 @@ USER app
 
 WORKDIR /home/app/app/
 
-CMD ["python", "manage.py", "runserver", "0.0.0.0:3000"]
-
 WORKDIR /home/app/app
 COPY --chown=app:app ./source/ /home/app/app/
 
 RUN pip install --no-cache-dir -r /home/app/app/requirements.txt
+
+CMD ["bin/server.sh"]
