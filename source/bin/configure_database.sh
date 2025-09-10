@@ -1,10 +1,12 @@
 #!/bin/bash
 
 create() {
+  echo "Creating database..."
   mysql -h "$WEAVE_MYSQL_HOST" -u "$WEAVE_MYSQL_USER" -p"$WEAVE_MYSQL_PASSWORD" < "mysql/create_dev_database.sql"
 }
 
 migrate() {
+  echo "Running migrations..."
   python manage.py migrate
 }
 
