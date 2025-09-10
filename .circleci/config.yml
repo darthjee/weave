@@ -23,6 +23,19 @@ jobs:
   test:
     docker:
       - image: cimg/python:3.12
+        environment:
+          OAK_MYSQL_HOST: mysql
+          OAK_MYSQL_PORT: 3306
+          OAK_MYSQL_USER: oak
+          OAK_MYSQL_NAME: oak
+          OAK_MYSQL_PASSWORD: oak
+          OAK_PASSWORD_SALT: abcd
+      - image: circleci/mysql:5.7
+        name: mysql
+        environment:
+          MYSQL_DATABASE: oak_test
+          MYSQL_USER: oak
+          MYSQL_PASSWORD: oak
     steps:
       - checkout
       - run:
