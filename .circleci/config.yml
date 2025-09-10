@@ -24,18 +24,18 @@ jobs:
     docker:
       - image: cimg/python:3.12
         environment:
-          OAK_MYSQL_HOST: mysql
-          OAK_MYSQL_PORT: 3306
-          OAK_MYSQL_USER: oak
-          OAK_MYSQL_NAME: oak
-          OAK_MYSQL_PASSWORD: oak
-          OAK_PASSWORD_SALT: abcd
+          WEAVE_MYSQL_HOST: mysql
+          WEAVE_MYSQL_PORT: 3306
+          WEAVE_MYSQL_USER: weave
+          WEAVE_MYSQL_NAME: weave
+          WEAVE_MYSQL_PASSWORD: weave
+          WEAVE_PASSWORD_SALT: abcd
       - image: circleci/mysql:5.7
         name: mysql
         environment:
-          MYSQL_DATABASE: oak_test
-          MYSQL_USER: oak
-          MYSQL_PASSWORD: oak
+          MYSQL_DATABASE: weave_test
+          MYSQL_USER: weave
+          MYSQL_PASSWORD: weave
     steps:
       - checkout
       - run:
