@@ -76,11 +76,11 @@ WSGI_APPLICATION = 'weave.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.environ.get('WEAVE_DB_NAME', 'weave'),
-        'USER': os.environ.get('WEAVE_DB_USER', 'weave'),
-        'PASSWORD': os.environ.get('WEAVE_DB_PASSWORD', ''),
-        'HOST': os.environ.get('WEAVE_DB_HOST', 'db'),
-        'PORT': os.environ.get('WEAVE_DB_PORT', '3306'),
+        'NAME': os.environ.get('WEAVE_MYSQL_NAME', 'weave'),
+        'USER': os.environ.get('WEAVE_MYSQL_USER', 'weave'),
+        'PASSWORD': os.environ.get('WEAVE_MYSQL_PASSWORD', ''),
+        'HOST': os.environ.get('WEAVE_MYSQL_HOST', 'db'),
+        'PORT': os.environ.get('WEAVE_MYSQL_PORT', '3306'),
         'OPTIONS': {
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
         },
