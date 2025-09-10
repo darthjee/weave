@@ -1,3 +1,3 @@
 #!/bin/bash
-SQL_COMMAND="CREATE DATABASE IF NOT EXISTS weave CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
-mysql -h "$WEAVE_MYSQL_HOST" -u root -p"$WEAVE_MYSQL_PASSWORD" -e "$SQL_COMMAND"
+
+mysql -h "$WEAVE_MYSQL_HOST" -u "$WEAVE_MYSQL_USER" -p"$WEAVE_MYSQL_PASSWORD" < "mysql/create_dev_database.sql"
