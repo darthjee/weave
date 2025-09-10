@@ -8,6 +8,11 @@ migrate() {
   python manage.py migrate
 }
 
+all() {
+  create
+  migrate
+}
+
 case "$1" in
   create)
     create
@@ -15,7 +20,10 @@ case "$1" in
   migrate)
     migrate
     ;;
+  all)
+    all
+    ;;
   *)
-    echo "Usage: $0 {create|migrate}"
+    echo "Usage: $0 {create|migrate|all}"
     ;;
 esac
