@@ -39,8 +39,23 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Debug 1
+          command: ls -lrt
+      - run:
+          name: Debug 2
+          command: ls -lrt source
+      - run:
+          name: Debug 3
+          command: ls -lrt source/bin
+      - run:
           name: Set folder
           command: cp source/* source/.??* ./ -r; rm source -rf
+      - run:
+          name: Debug 4
+          command: ls -lrt .
+      - run:
+          name: Debug 5
+          command: ls -lrt bin
       - run:
           name: Install packages
           command: pip install -r requirements.txt
