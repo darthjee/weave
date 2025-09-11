@@ -12,8 +12,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     default-mysql-client \
     && rm -rf /var/lib/apt/lists/*
 
-COPY --chown=app:app ./source/requirements.txt /home/app/app/
-RUN pip install --no-cache-dir -r /home/app/app/requirements_prod.txt
 USER app
 
 WORKDIR /home/app/app/
@@ -21,6 +19,6 @@ WORKDIR /home/app/app/
 WORKDIR /home/app/app
 COPY --chown=app:app ./source/ /home/app/app/
 
-RUN pip install --no-cache-dir -r /home/app/app/requirements.txt
+RUN pip install --no-cache-dir -r /home/app/app/requirements_prod.txt
 
 CMD ["bin/server.sh"]
