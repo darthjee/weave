@@ -42,3 +42,6 @@ dev:
 
 dev-up:
 	docker-compose up $(PROJECT)_app
+
+production-up:
+	docker-compose up $(PROJECT)_prod_app
