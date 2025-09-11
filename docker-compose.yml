@@ -8,7 +8,7 @@ services:
     ports:
       - 127.0.0.1:$WEAVE_MYSQL_PORT:3306
 
-  weave_mysql:
+  weave_prod_mysql:
     image: mysql:9.3.0
     container_name: weave_prod_mysql
     env_file: .env.prod
