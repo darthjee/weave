@@ -1,2 +1,3 @@
 source/db.sqlite3
 source/weave/__pycache__/
+.end.prod
