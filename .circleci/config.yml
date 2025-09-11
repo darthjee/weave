@@ -13,6 +13,12 @@ workflows:
               only: /.*/
       - build-and-release:
           requires: [test, checks]
+          filters:
+            tags:
+              only: /.*/
+            branches:
+              only:
+                - main
 jobs:
   test:
     docker:
@@ -67,4 +73,4 @@ jobs:
       - checkout
       - run:
           name: Trigger Deploy
-          command: scripts/deploy.sh force_deploy
+          command: scripts/deploy.sh deploy
