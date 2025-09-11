@@ -65,9 +65,7 @@ services:
     <<: *base
     container_name: weave_prod_app
     depends_on: [base_prod_build, weave_prod_mysql]
-    environment:
-      - STAGE=production
     ports:
       - 127.0.0.1:3000:3000
     environment:
-      - WEAVE_MYSQL_PORT=3306
+      - STAGE=production
