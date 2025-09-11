@@ -13,7 +13,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 COPY --chown=app:app ./source/requirements.txt /home/app/app/
-RUN pip install --no-cache-dir -r /home/app/app/requirements.txt
+RUN pip install --no-cache-dir -r /home/app/app/requirements_prod.txt
 USER app
 
 WORKDIR /home/app/app/
