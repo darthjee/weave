@@ -50,4 +50,4 @@ production: .env.prod
 	docker-compose run $(PROJECT)_prod_app /bin/bash
 
 .env.prod:
-	cp .env .env.prod
+	cp .env.prod.test .env.prod
