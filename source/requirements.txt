@@ -17,6 +17,7 @@ Pygments==2.19.2
 pytest==8.4.2
 pytest-django==4.11.1
 python-dateutil==2.9.0.post0
+ruff==0.13.0
 screen==1.0.1
 six==1.17.0
 sqlparse==0.5.3
