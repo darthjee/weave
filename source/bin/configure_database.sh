@@ -7,7 +7,7 @@ create() {
 
 migrate() {
   echo "Running migrations..."
-  python manage.py migrate
+  poetry run python manage.py migrate
 }
 
 all() {
