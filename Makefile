@@ -42,3 +42,12 @@ dev:
 
 dev-up:
 	docker-compose up $(PROJECT)_app
+
+production-up: .env.prod
+	docker-compose up $(PROJECT)_prod_app
+
+production: .env.prod
+	docker-compose run $(PROJECT)_prod_app /bin/bash
+
+.env.prod:
+	cp .env.prod.test .env.prod

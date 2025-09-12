@@ -32,8 +32,15 @@ services:
       dockerfile: Dockerfile.weave
     command: echo done
 
-  base_prod_build:
+  base_prod: &base_prod
     <<: *base
+    image: darthjee/production_weave
+    links:
+      - weave_prod_mysql:mysql
+    env_file: .env.prod
+
+  base_prod_build:
+    <<: *base_prod
     build:
       context: .
       dockerfile: Dockerfile.production_weave
@@ -62,10 +69,10 @@ services:
     command: /bin/bash
 
   weave_prod_app:
-    <<: *base
+    <<: *base_prod
     container_name: weave_prod_app
     depends_on: [base_prod_build, weave_prod_mysql]
     ports:
-      - 127.0.0.1:3000:3000
+      - 127.0.0.1:3000:8080
     environment:
       - STAGE=production
