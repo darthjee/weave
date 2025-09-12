@@ -12,11 +12,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     default-mysql-client \
     && rm -rf /var/lib/apt/lists/*
 
-COPY --chown=app:app ./source/requirements.txt /home/app/app/
+COPY --chown=app:app ./source/pyproject.toml /home/app/app/
 
-# Instala o Poetry
 RUN pip install --no-cache-dir poetry
 USER app
+RUN poetry install
 
 WORKDIR /home/app/app/
 
