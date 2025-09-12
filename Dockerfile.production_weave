@@ -15,7 +15,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 WORKDIR /home/app/app
 COPY --chown=app:app ./source/ /home/app/app/
 
-RUN pip install --no-cache-dir -r /home/app/app/requirements_prod.txt
+RUN pip install --no-cache-dir poetry
+
+# Instala apenas dependências de produção
+RUN poetry install --no-root --no-interaction --no-ansi --only main
 
 USER app
 
