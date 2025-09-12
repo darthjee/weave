@@ -66,7 +66,7 @@ jobs:
           command: pip install -r requirements.txt
       - run:
           name: Check
-          command: flake8
+          command: ruff check . --fix
   build-and-release:
     machine: true
     steps:
