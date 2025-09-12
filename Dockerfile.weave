@@ -1,6 +1,4 @@
 FROM darthjee/weave-base:0.0.1
 
-WORKDIR /home/app/app
-COPY --chown=app:app ./source/requirements.txt /home/app/app/
-
-RUN pip install --no-cache-dir -r /home/app/app/requirements.txt
+COPY --chown=app:app ./source/pyproject.toml /home/app/app/
+RUN poetry install --no-root
