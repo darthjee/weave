@@ -1,0 +1,11 @@
+line-length = 88
+exclude = [
+    ".git",
+    "__pycache__",
+    "build",
+    "dist",
+    "migrations",
+    "venv",
+    "static",
+    "node_modules"
+]
