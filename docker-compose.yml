@@ -63,6 +63,7 @@ services:
 
   weave_prod_app:
     <<: *base
+    env_file: .env.prod
     container_name: weave_prod_app
     depends_on: [base_prod_build, weave_prod_mysql]
     ports:
