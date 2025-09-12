@@ -1,4 +1,5 @@
 FROM darthjee/weave-base:0.0.1
 
 COPY --chown=app:app ./source/pyproject.toml /home/app/app/
+COPY --chown=app:app ./source/poetry.lock /home/app/app/
 RUN poetry install --no-root
