@@ -1,21 +1,17 @@
-[project]
+[tool.poetry]
 name = "weave"
 version = "0.1.0"
 description = "Weave Project"
-authors = [
-    {name = "Darthjee"}
-]
-license = {text = "MIT"}
+authors = [ "Darthjee" ]
+license = "MIT"
 readme = "README.md"
-requires-python = ">=3.12"
-dependencies = [
-    "django (==5.2.5)",
-    "django-admin (==2.0.2)",
-    "mysqlclient (==2.2.7)",
-    "gunicorn (==23.0.0)"
-]
 
-[tool.poetry]
+[tool.poetry.dependencies]
+python = ">=3.12"
+django = "5.2.5"
+django-admin = "2.0.2"
+mysqlclient = "2.2.7"
+gunicorn = "23.0.0"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "8.4.2"
