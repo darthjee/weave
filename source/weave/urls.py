@@ -16,13 +16,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from django.http import HttpResponse
+from django.shortcuts import render
 
 
 def home(request):
-    return HttpResponse("Hello, world!")
+    return render(request, "home.html")
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', home),  # Adiciona a rota /
+    path('', home),
 ]
