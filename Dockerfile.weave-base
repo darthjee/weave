@@ -17,8 +17,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN pip install --no-cache-dir poetry
 
 COPY --chown=app:app ./source/pyproject.toml ./source/poetry.lock* /home/app/app/
-RUN poetry install --no-root --no-interaction --no-ansi
 
 USER app
+RUN poetry install --no-root --no-interaction --no-ansi
 
 CMD ["bin/server.sh"]
