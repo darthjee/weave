@@ -2,7 +2,9 @@
 name = "weave"
 version = "0.1.0"
 description = "Weave Project"
-authors = "Darthjee"
+authors = [
+    {name = "Darthjee"}
+]
 license = "MIT"
 readme = "README.md"
 
