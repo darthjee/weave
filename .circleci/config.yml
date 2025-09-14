@@ -45,13 +45,13 @@ jobs:
           command: sudo apt-get update && sudo apt-get install -y default-mysql-client
       - run:
           name: Install packages
-          command: pip install -r requirements.txt
+          command: poetry install --no-root --no-interaction --no-ansi
       - run:
           name: migrate
           command: bin/configure_database.sh all
       - run:
           name: Tests
-          command: pytest
+          command: poetry run pytest
 
   checks:
     docker:
@@ -63,10 +63,10 @@ jobs:
           command: cp source/* ./ -r; rm source -rf
       - run:
           name: Install packages
-          command: pip install -r requirements.txt
+          command: poetry install --no-root --no-interaction --no-ansi
       - run:
           name: Check
-          command: ruff check . --fix
+          command: poetry run ruff check . --fix
   build-and-release:
     machine: true
     steps:
