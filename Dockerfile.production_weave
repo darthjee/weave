@@ -17,9 +17,8 @@ COPY --chown=app:app ./source/ /home/app/app/
 
 RUN pip install --no-cache-dir poetry
 
-# Instala apenas dependências de produção
-RUN poetry install --no-root --no-interaction --no-ansi --only main
 
 USER app
+RUN poetry install --no-root --no-interaction --no-ansi --only main
 
 CMD ["bin/server.sh"]
