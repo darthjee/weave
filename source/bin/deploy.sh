@@ -8,9 +8,10 @@ function build() {
   poetry run python manage.py collectstatic --noinput
 }
 
-function upload() {
-  # TODO: Implement upload logic
-  echo "Upload function not implemented yet."
+upload() {
+  LOCAL_DIR="static"
+
+  rsync -avz -e "ssh -p $SSH_PORT" static/ $SSH_USER@$SSH_HOST:$SSH_REMOTE_DIR
 }
 
 function all() {
