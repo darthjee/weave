@@ -10,7 +10,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     pkg-config \
     iputils-ping \
     default-mysql-client \
-    ssh rsync \
+    ssh rsync telnet \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /home/app/app

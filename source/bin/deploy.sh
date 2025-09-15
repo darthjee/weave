@@ -16,6 +16,7 @@ upload() {
   echo "$SSH_PRIVATE_KEY" > "$SSH_KEY_FILE"
   chmod 600 "$SSH_KEY_FILE"
 
+  set -x
   rsync -avz -e "ssh -p $SSH_PORT -i $SSH_KEY_FILE" static/ $SSH_USER@$SSH_HOST:$SSH_REMOTE_DIR
 
   # Remove arquivo temporário
