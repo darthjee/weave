@@ -8,6 +8,11 @@ function build() {
   poetry run python manage.py collectstatic --noinput
 }
 
+function upload() {
+  # TODO: Implement upload logic
+  echo "Upload function not implemented yet."
+}
+
 function all() {
   migrate
   build
@@ -20,10 +25,13 @@ case "$1" in
   build)
     build
     ;;
+  upload)
+    upload
+    ;;
   all)
     all
     ;;
   *)
-    echo "Usage: $0 {migrate|build|all}"
+    echo "Usage: $0 {migrate|build|upload|all}"
     ;;
 esac
