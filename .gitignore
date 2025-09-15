@@ -1,4 +1,5 @@
 source/db.sqlite3
 source/**/__pycache__/
+source/static/
 
 .env.prod
