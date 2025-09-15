@@ -7,16 +7,15 @@ wait_for_db() {
   echo "Waiting for database in $WEAVE_MYSQL_HOST:$WEAVE_MYSQL_PORT ..."
 
   for ((i=1; i<=MAX_RETRIES; i++)); do
-    if echo "" | telnet $WEAVE_MYSQL_HOST $WEAVE_MYSQL_PORT; then
-      exit 0
+    if mysqladmin ping -h"$WEAVE_MYSQL_HOST" -u"$WEAVE_MYSQL_USER" -p"$WEAVE_MYSQL_PASSWORD" --silent; then
+      return 0
     fi
 
     sleep "$RETRY_INTERVAL"
   done
 
   echo "Database inaccessible after $MAX_RETRIES attempts."
-  exit 1
-
+  return 1
 }
 
 create() {
