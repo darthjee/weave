@@ -71,15 +71,27 @@ services:
   weave_prod_app:
     <<: *base_prod
     container_name: weave_prod_app
-    depends_on: [base_prod_build, weave_prod_mysql, weave_static]
+    depends_on:
+      - base_prod_build
+      - weave_prod_mysql
+      - weave_prod_static
+      - weave_prod_ftp
     ports:
       - 127.0.0.1:3000:8080
     environment:
       - STAGE=production
 
-  weave_static:
+  weave_prod_static:
     image: httpd:latest
     volumes:
       - ./httpd:/usr/local/apache2/htdocs
     ports:
       - 127.0.0.1:3001:80
+  
+  weave_prod_ftp:
+    image: fauria/vsftpd
+    restart: always
+    environment:
+      - LOG_STDOUT=YES
+    volumes:
+      - ./httpd:/home/vsftpd
