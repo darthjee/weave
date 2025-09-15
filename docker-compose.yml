@@ -94,7 +94,7 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - PUBLIC_KEY=your_public_ssh_key_here
+      - PUBLIC_KEY=ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOhux+BjquEbSALd4AC32vMX1hzYG/2JWuJpLF3yaDX+
     volumes:
       - ./httpd:/data
     restart: always
