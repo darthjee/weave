@@ -82,5 +82,8 @@ jobs:
           name: Install packages
           command: poetry install --no-root --no-interaction --no-ansi
       - run:
+          name: Build static files
+          command: bin/deploy.sh build
+      - run:
           name: Upload static files
-          command: bin/deploy.sh all
+          command: bin/deploy.sh upload
