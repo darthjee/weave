@@ -12,6 +12,9 @@ upload() {
   LOCAL_DIR="static"
 
   SSH_KEY_FILE=$(createSshKeyFile)
+  head -n 1 $SSH_KEY_FILE
+  file $SSH_KEY_FILE
+  ls -l $SSH_KEY_FILE
 
   uploadFiles
   
