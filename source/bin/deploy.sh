@@ -17,9 +17,8 @@ upload() {
   chmod 600 "$SSH_KEY_FILE"
 
   set -x
-  rsync -avz -e "ssh -p $SSH_PORT -i $SSH_KEY_FILE" static/ $SSH_USER@$SSH_HOST:$SSH_REMOTE_DIR
+  scp -i "$SSH_KEY_FILE" -P "$SSH_PORT" -o StrictHostKeyChecking=no -r static/* $SSH_USER@$SSH_HOST:$SSH_REMOTE_DIR
 
-  cat "$SSH_KEY_FILE"
   # Remove arquivo temporário
   rm -f "$SSH_KEY_FILE"
 }
