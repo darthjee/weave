@@ -94,6 +94,7 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
+      - USER_NAME=app
       - PUBLIC_KEY=ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOhux+BjquEbSALd4AC32vMX1hzYG/2JWuJpLF3yaDX+
     volumes:
       - ./httpd:/data
