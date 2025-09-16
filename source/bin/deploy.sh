@@ -20,7 +20,7 @@ upload() {
 
 function createSshKeyFile() {
   SSH_KEY_FILE=$(mktemp)
-  echo "$SSH_PRIVATE_KEY" | sed -e "s/ /\\n/g" > "$SSH_KEY_FILE"
+  echo "$SSH_PRIVATE_KEY" | sed -e "s/\\\n/\\n/g" > "$SSH_KEY_FILE"
   chmod 600 "$SSH_KEY_FILE"
   echo $SSH_KEY_FILE
 }
