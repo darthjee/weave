@@ -8,9 +8,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     default-libmysqlclient-dev \
     pkg-config \
-    iputils-ping \
+    iputils-ping ssh \
     default-mysql-client \
-    ssh rsync telnet \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /home/app/app
