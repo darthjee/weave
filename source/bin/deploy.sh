@@ -16,9 +16,12 @@ upload() {
   echo "$SSH_PRIVATE_KEY" > "$SSH_KEY_FILE"
   chmod 600 "$SSH_KEY_FILE"
 
+
+  ssh -i "$SSH_KEY_FILE" -p "$SSH_PORT" -o StrictHostKeyChecking=no $SSH_USER@$SSH_HOST "mkdir -p $SSH_REMOTE_DIR"
+
   set -x
-  #scp -i "$SSH_KEY_FILE" -P "$SSH_PORT" -o StrictHostKeyChecking=no -r static/* $SSH_USER@$SSH_HOST:$SSH_REMOTE_DIR
-  rsync -avz -e "ssh -p $SSH_PORT -i $SSH_KEY_FILE" static/ $SSH_USER@$SSH_HOST:$SSH_REMOTE_DIR
+  scp -i "$SSH_KEY_FILE" -P "$SSH_PORT" -o StrictHostKeyChecking=no -r static/* $SSH_USER@$SSH_HOST:$SSH_REMOTE_DIR
+  #rsync -avz -e "ssh -p $SSH_PORT -i $SSH_KEY_FILE" static/ $SSH_USER@$SSH_HOST:$SSH_REMOTE_DIR
 
   # Remove arquivo temporário
   rm -f "$SSH_KEY_FILE"
