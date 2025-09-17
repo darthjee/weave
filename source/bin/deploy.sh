@@ -39,6 +39,7 @@ function uploadFiles() {
 function all() {
   migrate
   build
+  upload
 }
 
 case "$1" in
