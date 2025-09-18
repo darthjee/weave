@@ -19,8 +19,16 @@ workflows:
             branches:
               only:
                 - main
+      - build:
+          requires: [test, checks]
+          filters:
+            tags:
+              only: /.*/
+            branches:
+              only:
+                - main
       - upload_static_files:
-          requires: [build-and-release]
+          requires: [build]
           filters:
             tags:
               only: /.*/
@@ -82,6 +90,20 @@ jobs:
       - run:
           name: Trigger Deploy
           command: scripts/deploy.sh deploy
+  build-and-release:
+    machine: true
+    steps:
+      - checkout
+      - run:
+          name: Trigger Deploy
+          command: scripts/deploy.sh deploy
+  build:
+    machine: true
+    steps:
+      - checkout
+      - run:
+          name: Build
+          command: docker build -f Dockerfile.production_weave . -t darthjee/production_weave
   upload_static_files:
     docker:
       - image: cimg/python:3.12
