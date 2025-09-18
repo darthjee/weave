@@ -13,28 +13,10 @@ workflows:
               only: /.*/
       - build-and-release:
           requires: [test, checks]
-          filters:
-            tags:
-              only: /.*/
-            branches:
-              only:
-                - main
       - build:
           requires: [test, checks]
-          filters:
-            tags:
-              only: /.*/
-            branches:
-              only:
-                - main
       - upload_static_files:
           requires: [build]
-          filters:
-            tags:
-              only: /.*/
-            branches:
-              only:
-                - main
 jobs:
   test:
     docker:
