@@ -108,13 +108,6 @@ jobs:
     docker:
       - image: darthjee/production_weave
     steps:
-      - checkout
-      - run:
-          name: Set folder
-          command: cp source/* ./ -r; rm source -rf
-      - run:
-          name: Install packages
-          command: poetry install --no-root --no-interaction --no-ansi
       - run:
           name: Upload static files
           command: bin/deploy.sh build_and_upload
