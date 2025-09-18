@@ -9,6 +9,8 @@ extends: eslint:recommended
 overrides: []
 parserOptions:
   ecmaVersion: latest
+ignorePatterns:
+  - static/**/*.js
 rules:
   indent:
     - error
