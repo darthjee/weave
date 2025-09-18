@@ -47,7 +47,7 @@ jobs:
       - checkout
       - run:
           name: Set folder
-          command: cp source/* ./ -r; rm source -rf
+          command: cp source/* source/.??* ./ -r; rm source -rf
       - run:
           name: Install packages
           command: poetry install --no-root --no-interaction --no-ansi
@@ -65,7 +65,7 @@ jobs:
       - checkout
       - run:
           name: Set folder
-          command: cp source/* ./ -r; rm source -rf
+          command: cp source/* source/.??* ./ -r; rm source -rf
       - run:
           name: Poetry Install
           command: poetry install --no-root --no-interaction --no-ansi
@@ -92,7 +92,7 @@ jobs:
       - checkout
       - run:
           name: Set folder
-          command: cp source/* ./ -r; rm source -rf
+          command: cp source/* source/.??* ./ -r; rm source -rf
       - run:
           name: Install packages
           command: poetry install --no-root --no-interaction --no-ansi
