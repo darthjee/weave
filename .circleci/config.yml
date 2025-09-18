@@ -3,7 +3,11 @@ workflows:
   version: 2
   test:
     jobs:
-      - test:
+      - pytest:
+          filters:
+            tags:
+              only: /.*/
+      - jasmine:
           filters:
             tags:
               only: /.*/
@@ -12,7 +16,7 @@ workflows:
             tags:
               only: /.*/
       - build-and-release:
-          requires: [test, checks]
+          requires: [pytest, jasmine, checks]
           filters:
             tags:
               only: /.*/
@@ -28,7 +32,7 @@ workflows:
               only:
                 - main
 jobs:
-  test:
+  pytest:
     docker:
       - image: darthjee/circleci_weave-base:0.0.1
         environment:
@@ -49,7 +53,7 @@ jobs:
           name: Set folder
           command: cp source/* source/.??* ./ -r; rm source -rf
       - run:
-          name: Install packages
+          name: Poetry Install
           command: poetry install --no-root --no-interaction --no-ansi
       - run:
           name: migrate
@@ -57,6 +61,21 @@ jobs:
       - run:
           name: Tests
           command: poetry run pytest
+
+  jasmine:
+    docker:
+      - image: darthjee/circleci_weave-base:0.0.1
+    steps:
+      - checkout
+      - run:
+          name: Set folder
+          command: cp source/* source/.??* ./ -r; rm source -rf
+      - run:
+          name: Yarn install
+          command: yarn install
+      - run:
+          name: Tests
+          command: npm test
 
   checks:
     docker:
