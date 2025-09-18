@@ -1,4 +1,10 @@
 FROM darthjee/weave-base:0.0.1
 
-COPY --chown=app:app ./source/pyproject.toml ./source/poetry.lock* /home/app/app/
+
+COPY --chown=app:app \
+  ./source/pyproject.toml ./source/poetry.lock* \
+  ./source/package.json source/yarn.lock \
+  /home/app/app/
+
 RUN poetry install --no-root --no-interaction --no-ansi
+RUN yarn install
