@@ -22,7 +22,7 @@ RUN pip install --no-cache-dir poetry
 
 COPY --chown=app:app \
   ./source/pyproject.toml ./source/poetry.lock* \
-  ./source/package.json \
+  ./source/package.json source/yarn.lock \
   /home/app/app/
 
 USER app
