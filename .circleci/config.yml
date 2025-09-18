@@ -106,7 +106,7 @@ jobs:
           command: docker build -f Dockerfile.production_weave . -t darthjee/production_weave
   upload_static_files:
     docker:
-      - image: cimg/python:3.12
+      - image: darthjee/production_weave
     steps:
       - checkout
       - run:
