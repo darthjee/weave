@@ -1,0 +1,26 @@
+{
+  "name": "weave",
+  "version": "1.0.0",
+  "description": "Weave Node.js Proxy",
+  "main": "index.js",
+  "scripts": {
+    "test": "jasmine",
+    "lint": "eslint .",
+    "coverage": "nyc jasmine",
+    "report": "plato -r -d report ."
+  },
+  "author": "darthjee",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^8.0.0",
+    "jasmine": "^5.0.0",
+    "nyc": "^15.0.0",
+    "plato": "^1.7.0"
+  },
+  "jasmine": {
+    "spec_dir": "spec",
+    "spec_files": [
+      "**/*[sS]pec.js"
+    ]
+  }
+}
