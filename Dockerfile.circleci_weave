@@ -1,9 +1,18 @@
 FROM cimg/python:3.12
 
+USER root
+
+RUN curl -fsSL https://deb.nodesource.com/setup_22.x | bash - ; \
+    apt-get install -y nodejs; \
+    npm install yarn -g; \
+    rm -rf /var/lib/apt/lists/*
+
 COPY --chown=app:app \
   ./source/pyproject.toml ./source/poetry.lock* \
   ./source/package.json source/yarn.lock \
   /home/circleci/project/
+
+USER circleci
 
 RUN poetry install --no-root --no-interaction --no-ansi
 RUN yarn install
