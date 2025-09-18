@@ -17,11 +17,13 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /home/app/app
-COPY --chown=app:app ./source/ /home/app/app/
 
 RUN pip install --no-cache-dir poetry
 
+COPY --chown=app:app ./source/ /home/app/app/
+
 USER app
 RUN poetry install --no-root --no-interaction --no-ansi --only main
+RUN yarn install
 
 CMD ["bin/server.sh"]
