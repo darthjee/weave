@@ -6,6 +6,7 @@
   "scripts": {
     "test": "jasmine",
     "lint": "eslint .",
+    "lint_fix": "eslint . --fix",
     "coverage": "nyc jasmine",
     "report": "plato -r -d report ."
   },
