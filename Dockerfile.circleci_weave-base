@@ -1,32 +1,23 @@
-FROM python:3.12-slim-bullseye
+FROM cimg/python:3.12
 
-RUN useradd -u 1000 app; \
-    mkdir -p /home/app/app; \
-    chown app.app -R /home/app
+USER root
 
-WORKDIR /home/app/app/
-
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    build-essential \
+RUN apt-get update && apt-get install -y \
     default-libmysqlclient-dev \
-    pkg-config \
-    iputils-ping \
     default-mysql-client \
-    telnet curl ; \
+    nodejs; \
     curl -fsSL https://deb.nodesource.com/setup_22.x | bash - ; \
     apt-get install -y nodejs; \
     npm install yarn -g; \
     rm -rf /var/lib/apt/lists/*
 
-RUN pip install --no-cache-dir poetry
+USER circleci
 
 COPY --chown=app:app \
   ./source/pyproject.toml ./source/poetry.lock* \
   ./source/package.json source/yarn.lock \
-  /home/app/app/
+  /home/circleci/project/
 
-USER app
 RUN poetry install --no-root --no-interaction --no-ansi
 RUN yarn install
-
-CMD ["bin/server.sh"]
+RUN rm -rf /home/circleci/project/*

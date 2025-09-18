@@ -30,7 +30,7 @@ workflows:
 jobs:
   test:
     docker:
-      - image: cimg/python:3.12
+      - image: darthjee/circleci_weave-base:0.0.1
         environment:
           WEAVE_MYSQL_HOST: mysql
           WEAVE_MYSQL_PORT: 3306
@@ -47,10 +47,7 @@ jobs:
       - checkout
       - run:
           name: Set folder
-          command: cp source/* ./ -r; rm source -rf
-      - run:
-          name: Install MySQL client
-          command: sudo apt-get update && sudo apt-get install -y default-mysql-client
+          command: cp source/* source/.??* ./ -r; rm source -rf
       - run:
           name: Install packages
           command: poetry install --no-root --no-interaction --no-ansi
@@ -63,18 +60,24 @@ jobs:
 
   checks:
     docker:
-      - image: cimg/python:3.12
+      - image: darthjee/circleci_weave-base:0.0.1
     steps:
       - checkout
       - run:
           name: Set folder
-          command: cp source/* ./ -r; rm source -rf
+          command: cp source/* source/.??* ./ -r; rm source -rf
       - run:
-          name: Install packages
+          name: Poetry Install
           command: poetry install --no-root --no-interaction --no-ansi
       - run:
-          name: Check
+          name: Yarn install
+          command: yarn install
+      - run:
+          name: Check python Lint
           command: poetry run ruff check . --fix
+      - run:
+          name: Check JS Lint
+          command: npm run lint
   build-and-release:
     machine: true
     steps:
@@ -84,12 +87,12 @@ jobs:
           command: scripts/deploy.sh deploy
   upload_static_files:
     docker:
-      - image: cimg/python:3.12
+      - image: darthjee/circleci_weave-base:0.0.1
     steps:
       - checkout
       - run:
           name: Set folder
-          command: cp source/* ./ -r; rm source -rf
+          command: cp source/* source/.??* ./ -r; rm source -rf
       - run:
           name: Install packages
           command: poetry install --no-root --no-interaction --no-ansi
