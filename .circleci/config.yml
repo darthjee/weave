@@ -73,8 +73,11 @@ jobs:
           name: Install packages
           command: poetry install --no-root --no-interaction --no-ansi
       - run:
-          name: Check
+          name: Check python Lint
           command: poetry run ruff check . --fix
+      - run:
+          name: Check JS Lint
+          command: npm run lint
   build-and-release:
     machine: true
     steps:
