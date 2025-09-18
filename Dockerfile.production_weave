@@ -10,13 +10,16 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     pkg-config \
     iputils-ping ssh \
     default-mysql-client \
+    curl; \
+    curl -fsSL https://deb.nodesource.com/setup_22.x | bash - ; \
+    apt-get install -y nodejs; \
+    npm install yarn -g; \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /home/app/app
 COPY --chown=app:app ./source/ /home/app/app/
 
 RUN pip install --no-cache-dir poetry
-
 
 USER app
 RUN poetry install --no-root --no-interaction --no-ansi --only main
