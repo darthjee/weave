@@ -11,12 +11,13 @@ RUN apt-get update && apt-get install -y \
     npm install yarn -g; \
     rm -rf /var/lib/apt/lists/*
 
+USER circleci
+
 COPY --chown=app:app \
   ./source/pyproject.toml ./source/poetry.lock* \
   ./source/package.json source/yarn.lock \
   /home/circleci/project/
 
-USER circleci
-
 RUN poetry install --no-root --no-interaction --no-ansi
 RUN yarn install
+RUN rm -rf /home/circleci/project/*
