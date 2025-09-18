@@ -24,6 +24,6 @@ COPY --chown=app:app ./source/ /home/app/app/
 
 USER app
 RUN poetry install --no-root --no-interaction --no-ansi --only main
-RUN yarn install
+RUN yarn install --production
 
 CMD ["bin/server.sh"]
