@@ -4,7 +4,7 @@
   "description": "Weave Node.js Proxy",
   "main": "index.js",
   "scripts": {
-    "test": "jasmine",
+    "test": "nyc npx jasmine spec/**/*.js",
     "lint": "eslint .",
     "lint_fix": "eslint . --fix",
     "coverage": "nyc jasmine",

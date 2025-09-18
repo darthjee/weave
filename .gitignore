@@ -3,5 +3,5 @@ source/**/__pycache__/
 source/static/
 source/node_modules
 httpd/*
-
+source/.nyc_output/
 .env.prod
