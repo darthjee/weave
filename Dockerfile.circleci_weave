@@ -1,0 +1,9 @@
+FROM cimg/python:3.12
+
+COPY --chown=app:app \
+  ./source/pyproject.toml ./source/poetry.lock* \
+  ./source/package.json source/yarn.lock \
+  /home/circleci/project/
+
+RUN poetry install --no-root --no-interaction --no-ansi
+RUN yarn install
