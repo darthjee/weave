@@ -17,7 +17,7 @@ case "$1" in
     ;;
   lizard)
     poetry run lizard \
-      -x manage.py \
+      -x "./manage.py" \
       -x "./node_modules/*" \
       -x "./static/*" \
       -H -o lizard_report.html $CODE_DIR
