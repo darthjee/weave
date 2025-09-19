@@ -1,6 +1,5 @@
 FROM darthjee/weave-base:0.0.1
 
-
 COPY --chown=app:app \
   ./source/pyproject.toml ./source/poetry.lock* \
   ./source/package.json source/yarn.lock \
