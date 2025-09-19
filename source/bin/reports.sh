@@ -16,7 +16,11 @@ case "$1" in
     poetry run xenon $CODE_DIR --max-absolute B --max-modules A --max-average A --exclude $EXCLUDE
     ;;
   lizard)
-    poetry run lizard -x manage.py -x node_modules -x static -H -o lizard_report.html $CODE_DIR
+    poetry run lizard \
+      -x manage.py \
+      -x "./node_modules/*" \
+      -x "./static/*" \
+      -H -o lizard_report.html $CODE_DIR
     echo "Lizard HTML report generated: lizard_report.html"
     ;;
   *)
