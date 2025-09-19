@@ -8,7 +8,7 @@
     "lint": "eslint .",
     "lint_fix": "eslint . --fix",
     "coverage": "nyc jasmine",
-    "report": "plato -r -d report ."
+    "report": "plato -r --exclude '^(static|node_modules)/.*' -d report ."
   },
   "author": "darthjee",
   "license": "MIT",

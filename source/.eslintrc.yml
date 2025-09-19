@@ -24,3 +24,12 @@ rules:
   semi:
     - error
     - always
+  complexity:
+    - error
+    - 10
+  max-depth:
+    - error
+    - 4
+  max-lines:
+    - error
+    - 300

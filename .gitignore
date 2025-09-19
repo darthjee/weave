@@ -4,4 +4,7 @@ source/static/
 source/node_modules
 httpd/*
 source/.nyc_output/
+source/lizard_report.html
+source/report/
+
 .env.prod

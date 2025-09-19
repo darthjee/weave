@@ -97,6 +97,9 @@ jobs:
       - run:
           name: Check JS Lint
           command: npm run lint
+      - run:
+          name: Check Python complexity
+          command: bin/reports.sh ci
   build-and-release:
     machine: true
     steps:
