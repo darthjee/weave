@@ -1,23 +1,27 @@
-FROM cimg/python:3.12
+FROM darthjee/scripts:0.5.0 as scripts
+FROM darthjee/circleci_django:0.0.1 as base
+
+######################################
+
+FROM base as builder
+
+COPY --chown=circleci:circleci source/* /home/circleci/project
+ENV HOME_DIR /home/circleci
 
 USER root
-
-RUN apt-get update && apt-get install -y \
-    default-libmysqlclient-dev \
-    default-mysql-client \
-    nodejs; \
-    curl -fsSL https://deb.nodesource.com/setup_22.x | bash - ; \
-    apt-get install -y nodejs; \
-    npm install yarn -g; \
-    rm -rf /var/lib/apt/lists/*
+COPY --chown=circleci:circleci --from=scripts /home/scripts/builder/yarn_builder.sh /usr/local/sbin/yarn_builder.sh
+RUN /bin/bash yarn_builder.sh
 
 USER circleci
+COPY --chown=circleci:circleci --from=scripts /home/scripts/builder/poetry_builder.sh /usr/local/sbin/poetry_builder.sh
+RUN /bin/bash poetry_builder.sh
 
-COPY --chown=app:app \
-  ./source/pyproject.toml ./source/poetry.lock* \
-  ./source/package.json source/yarn.lock \
-  /home/circleci/project/
+#######################
+# FINAL IMAGE
+FROM base
 
-RUN poetry install --no-root --no-interaction --no-ansi
-RUN yarn install
-RUN rm -rf /home/circleci/project/*
+COPY --chown=circleci:circleci --from=builder /home/circleci/yarn/new/ /usr/local/share/.cache/yarn/v6/
+COPY --chown=circleci:circleci --from=builder /home/circleci/poetry/new/ /home/circleci/.cache/pypoetry/artifacts/
+USER circleci
+
+
