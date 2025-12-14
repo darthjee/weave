@@ -22,6 +22,6 @@ FROM base
 
 COPY --chown=circleci:circleci --from=builder /home/circleci/yarn/new/ /usr/local/share/.cache/yarn/v6/
 COPY --chown=circleci:circleci --from=builder /home/circleci/poetry/new/ /home/circleci/.cache/pypoetry/artifacts/
-USER app
+USER circleci
 
 
