@@ -1,29 +1,31 @@
-FROM python:3.12-slim-bullseye
+FROM darthjee/scripts:0.5.0 as scripts
+FROM darthjee/production_weave-base:0.0.1 as base
 
-RUN useradd -u 1000 app; \
-    mkdir -p /home/app/app; \
-    chown app.app -R /home/app
+######################################
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    build-essential \
-    default-libmysqlclient-dev \
-    pkg-config \
-    iputils-ping ssh \
-    default-mysql-client \
-    curl; \
-    curl -fsSL https://deb.nodesource.com/setup_22.x | bash - ; \
-    apt-get install -y nodejs; \
-    npm install yarn -g; \
-    rm -rf /var/lib/apt/lists/*
+FROM base as builder
 
-WORKDIR /home/app/app
+COPY --chown=app:app \
+  ./source/pyproject.toml ./source/poetry.lock* \
+  ./source/package.json source/yarn.lock \
+  /home/app/app/
 
-RUN pip install --no-cache-dir poetry
+ENV HOME_DIR /home/app
 
-COPY --chown=app:app ./source/ /home/app/app/
+USER root
+COPY --chown=app:app --from=scripts /home/scripts/builder/yarn_builder.sh /usr/local/sbin/yarn_builder.sh
+RUN /bin/bash yarn_builder.sh --production --frozen-lockfile
 
 USER app
-RUN poetry install --no-root --no-interaction --no-ansi --only main
-RUN yarn install --production
+COPY --chown=app:app --from=scripts /home/scripts/builder/poetry_builder.sh /usr/local/sbin/poetry_builder.sh
+RUN /bin/bash poetry_builder.sh --only main
 
-CMD ["bin/server.sh"]
+#######################
+# FINAL IMAGE
+FROM base
+ENV HOME_DIR /home/app
+
+# RUN poetry install --no-root --no-interaction --no-ansi
+COPY --chown=app:app --from=builder /home/app/yarn/new/ /usr/local/share/.cache/yarn/v6/
+COPY --chown=app:app --from=builder /home/app/poetry/new/ /home/app/.cache/pypoetry/artifacts/
+USER app

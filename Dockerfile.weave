@@ -1,9 +1,31 @@
-FROM darthjee/weave-base:0.0.1
+FROM darthjee/scripts:0.5.0 as scripts
+FROM darthjee/weave-base:0.0.1 as base
+
+######################################
+
+FROM base as builder
 
 COPY --chown=app:app \
   ./source/pyproject.toml ./source/poetry.lock* \
   ./source/package.json source/yarn.lock \
   /home/app/app/
 
-RUN poetry install --no-root --no-interaction --no-ansi
-RUN yarn install
+ENV HOME_DIR /home/app
+
+USER root
+COPY --chown=app:app --from=scripts /home/scripts/builder/yarn_builder.sh /usr/local/sbin/yarn_builder.sh
+RUN /bin/bash yarn_builder.sh
+
+USER app
+COPY --chown=app:app --from=scripts /home/scripts/builder/poetry_builder.sh /usr/local/sbin/poetry_builder.sh
+RUN /bin/bash poetry_builder.sh
+
+#######################
+# FINAL IMAGE
+FROM base
+ENV HOME_DIR /home/app
+
+# RUN poetry install --no-root --no-interaction --no-ansi
+COPY --chown=app:app --from=builder /home/app/yarn/new/ /usr/local/share/.cache/yarn/v6/
+COPY --chown=app:app --from=builder /home/app/poetry/new/ /home/app/.cache/pypoetry/artifacts/
+USER app
