@@ -6,7 +6,7 @@ if [ ! $APP_DIR ]; then
   APP_DIR=$HOME_DIR/app
 fi
 
-GLOBAL_CACHE_PATH=$HOME_DIR/.cache/pypoetry
+GLOBAL_CACHE_PATH=$HOME_DIR/.cache/pypoetry/artifacts
 USER_CACHE_PATH=$HOME_DIR/poetry/cached
 NEW_PACKAGES_PATH=$HOME_DIR/poetry/new
 
@@ -22,7 +22,7 @@ function installPackages() {
 }
 
 function copyNewPackages() {
-  for PACKAGE_FILE in $GLOBAL_CACHE_PATH/*/*/*/*/*/*; do
+  for PACKAGE_FILE in $GLOBAL_CACHE_PATH/*/*/*/*/*; do
     if [ -f "$PACKAGE_FILE" ]; then
       # Extract the relative path of the file
       RELATIVE_PATH=${PACKAGE_FILE##$GLOBAL_CACHE_PATH/}
