@@ -31,4 +31,4 @@ COPY --chown=app:app --from=builder /home/app/poetry/new/ /home/app/.cache/pypoe
 
 USER app
 
-RUN potry install
+RUN poetry install

@@ -30,4 +30,5 @@ COPY --chown=app:app --from=builder /home/app/yarn/new/ /usr/local/share/.cache/
 COPY --chown=app:app --from=builder /home/app/poetry/new/ /home/app/.cache/pypoetry/artifacts/
 
 USER app
-RUN potry install
+
+RUN poetry install
