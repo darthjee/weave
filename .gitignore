@@ -6,5 +6,6 @@ httpd/*
 source/.nyc_output/
 source/lizard_report.html
 source/report/
+source/weave/static/
 
 .env.prod
