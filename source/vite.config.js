@@ -7,7 +7,7 @@ export default defineConfig({
   plugins: [react()],
   build: {
     // outDir is relative to the root option
-    outDir: '../weave/static',
+    outDir: 'weave/static',
     emptyOutDir: true,
     // library mode: produce only JS bundle (no index.html)
     lib: {
