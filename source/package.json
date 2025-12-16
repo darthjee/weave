@@ -12,6 +12,10 @@
   },
   "author": "darthjee",
   "license": "MIT",
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
   "devDependencies": {
     "eslint": "^8.0.0",
     "eslint-config-standard": "^17.0.0",
