@@ -1,5 +1,5 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   // project root that contains index.html
@@ -15,10 +15,10 @@ export default defineConfig({
         entryFileNames: 'js/[name].js',
         chunkFileNames: 'js/[name].js',
         assetFileNames: ({ name }) => {
-          if (name && name.endsWith('.css')) return 'css/[name].[ext]'
-          return 'assets/[name].[ext]'
+          if (name && name.endsWith('.css')) return 'css/[name].[ext]';
+          return 'assets/[name].[ext]';
         }
       }
     }
   }
-})
+});

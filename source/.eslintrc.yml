@@ -9,6 +9,7 @@ extends: eslint:recommended
 overrides: []
 parserOptions:
   ecmaVersion: latest
+  sourceType: module
 ignorePatterns:
   - static/**/*.js
   - report/**
