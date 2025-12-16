@@ -11,6 +11,7 @@ parserOptions:
   ecmaVersion: latest
 ignorePatterns:
   - static/**/*.js
+  - report/**
 rules:
   indent:
     - error
