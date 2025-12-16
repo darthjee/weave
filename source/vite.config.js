@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   // project root that contains source files
-  root: 'source',
+  root: './',
   plugins: [react()],
   build: {
     // outDir is relative to the root option
