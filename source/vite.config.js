@@ -9,6 +9,7 @@ export default defineConfig({
     // outDir is relative to the root option
     outDir: 'weave/static',
     emptyOutDir: true,
+    minify: false,
     rollupOptions: {
       input: 'src/main.jsx',
       output: {
