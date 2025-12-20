@@ -5,6 +5,8 @@ import './hello';
 import './styles.css';
 import './main.css';
 
-createRoot(document.getElementById('root')).render(
-  <App />
-);
+(function () {
+  createRoot(document.getElementById('root')).render(
+    <App />
+  );
+})();
