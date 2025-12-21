@@ -9,8 +9,9 @@ export default defineConfig({
     // outDir is relative to the root option
     outDir: 'weave/static',
     emptyOutDir: true,
+    minify: false,
     rollupOptions: {
-      input: 'src/main.jsx',
+      input: 'frontend/src/js/main.jsx',
       output: {
         entryFileNames: 'js/[name].js',
         chunkFileNames: 'js/[name].js',
