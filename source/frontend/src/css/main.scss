@@ -1,6 +1,6 @@
 body {
-    background-color: #222222;
-    color: white;
+    background-color: #ffffff;
+    color: black;
 }
 
 .section-box {
@@ -9,8 +9,8 @@ body {
 
     .section-box-header {
         width: 100%;
-        height: 3px;
-        background-color: #ffffff;
+        height: 7px;
+        background-image: url('/static/images/top_border.jpg');
     }
 
     .section-box-left-border {
@@ -19,7 +19,7 @@ body {
         background-color: #ffffff;
         float: left;
         margin-right: 10px;
-        
+
     }
     .section-box-right-border {
         width: 3px;
@@ -28,7 +28,7 @@ body {
         float: right;
         margin-left: 10px;
     }
-    .section-box-header {
+    .section-box-footer {
         width: 100%;
         height: 3px;
         background-color: #ffffff;
