@@ -18,6 +18,13 @@ body {
             height: 7px;
             background-image: url('/static/images/top_left_corner.jpg');
         }
+
+        .section-box-top-right-corner {
+            float: right;
+            width: 10px;
+            height: 7px;
+            background-image: url('/static/images/top_right_corner.jpg');
+        }
     }
 
     .section-box-middle {
