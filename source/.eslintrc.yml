@@ -20,6 +20,7 @@ parserOptions:
   ecmaFeatures:
     jsx: true
 ignorePatterns:
+  - weave/static/**/*.js
   - static/**/*.js
   - report/**
 rules:
