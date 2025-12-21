@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 export default function SectionBox({ children }) {
   return (
     <div className="section-box">
-      <div className="section-box-header"></div>
+      <div className="section-box-header">
+        <div className="section-box-top-left-corner"></div>
+      </div>
       <div className="section-box-middle">
         <div className="section-box-left-border"></div>
         <div className="section-box-content">
