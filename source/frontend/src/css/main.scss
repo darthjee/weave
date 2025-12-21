@@ -5,5 +5,32 @@ body {
 
 .section-box {
     width: 100%;
-    height: 10 px;
+    height: auto;
+
+    .section-box-header {
+        width: 100%;
+        height: 3px;
+        background-color: #ffffff;
+    }
+
+    .section-box-left-border {
+        width: 3px;
+        height: auto;
+        background-color: #ffffff;
+        float: left;
+        margin-right: 10px;
+        
+    }
+    .section-box-right-border {
+        width: 3px;
+        height: auto;
+        background-color: #ffffff;
+        float: right;
+        margin-left: 10px;
+    }
+    .section-box-header {
+        width: 100%;
+        height: 3px;
+        background-color: #ffffff;
+    }
 }
