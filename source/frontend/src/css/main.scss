@@ -1,6 +1,6 @@
 body {
-    background-color: #222222;
-    color: white;
+    background-color: #ffffff;
+    color: black;
 }
 
 .section-box {
@@ -9,28 +9,64 @@ body {
 
     .section-box-header {
         width: 100%;
-        height: 3px;
-        background-color: #ffffff;
+        height: 7px;
+        background-image: url('/static/images/section_box/edgy/top_border.jpg');
+
+        .section-box-top-left-corner {
+            float: left;
+            width: 10px;
+            height: 7px;
+            background-image: url('/static/images/section_box/edgy/top_left_corner.jpg');
+        }
+
+        .section-box-top-right-corner {
+            float: right;
+            width: 10px;
+            height: 7px;
+            background-image: url('/static/images/section_box/edgy/top_right_corner.jpg');
+        }
     }
 
-    .section-box-left-border {
-        width: 3px;
-        height: auto;
-        background-color: #ffffff;
-        float: left;
-        margin-right: 10px;
+    .section-box-middle {
+        display: flex;
+        align-items: stretch;
         
+        .section-box-content {
+            flex-grow: 1;
+        }
+
+        .section-box-left-border {
+            margin: 0;
+            width: 7px;
+            background-image: url('/static/images/section_box/edgy/left_border.jpg');
+            flex-shrink: 0;
+        }
+
+        .section-box-right-border {
+            margin: 0;
+            width: 7px;
+            background-image: url('/static/images/section_box/edgy/right_border.jpg');
+            flex-shrink: 0;
+        }
     }
-    .section-box-right-border {
-        width: 3px;
-        height: auto;
-        background-color: #ffffff;
-        float: right;
-        margin-left: 10px;
-    }
-    .section-box-header {
+
+    .section-box-footer {
         width: 100%;
-        height: 3px;
-        background-color: #ffffff;
+        height: 7px;
+        background-image: url('/static/images/section_box/edgy/bottom_border.jpg');
+
+        .section-box-bottom-left-corner {
+            float: left;
+            width: 10px;
+            height: 7px;
+            background-image: url('/static/images/section_box/edgy/bottom_left_corner.jpg');
+        }
+
+        .section-box-bottom-right-corner {
+            float: right;
+            width: 10px;
+            height: 7px;
+            background-image: url('/static/images/section_box/edgy/bottom_right_corner.jpg');
+        }
     }
 }
