@@ -14,7 +14,10 @@ export default function SectionBox({ children }) {
         </div>
         <div className="section-box-right-border"></div>
       </div>
-      <div className="section-box-footer"></div>
+      <div className="section-box-footer">
+        <div className="section-box-bottom-left-corner"></div>
+        <div className="section-box-bottom-right-corner"></div>
+      </div>
     </div>
   );
 }
