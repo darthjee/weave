@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-export default function Box({ children }) {
+export default function SectionBox({ children }) {
   return (
     <div>
       {children}
@@ -8,6 +8,6 @@ export default function Box({ children }) {
   );
 }
 
-Box.propTypes = {
+SectionBox.propTypes = {
   children: PropTypes.node
 };

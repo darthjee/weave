@@ -1,10 +1,10 @@
-import Box from './Box';
+import SectionBox from './SectionBox';
 
 export default function Header() {
   return (
-    <Box>
+    <SectionBox>
       <h1>Weave React App Header</h1>
       <p>This is a minimal React app served by Django static files.</p>
-    </Box>
+    </SectionBox>
   );
 }
