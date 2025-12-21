@@ -24,8 +24,9 @@ body {
         display: flex;
         align-items: stretch;
         
-        //.section-box-content {
-        //}
+        .section-box-content {
+            flex-grow: 1;
+        }
 
         .section-box-left-border {
             margin: 0;
