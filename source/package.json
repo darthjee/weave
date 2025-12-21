@@ -20,6 +20,7 @@
   "devDependencies": {
     "vite": "^5.0.0",
     "@vitejs/plugin-react": "^4.0.0",
+    "sass": "^1.69.0",
     "eslint": "^8.0.0",
     "eslint-config-standard": "^17.0.0",
     "eslint-plugin-complexity": "^1.0.2",
