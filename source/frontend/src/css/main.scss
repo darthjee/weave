@@ -6,6 +6,8 @@ body {
 .section-box {
     width: 100%;
     height: auto;
+    display: flex;
+    align-items: stretch;
 
     .section-box-header {
         width: 100%;
@@ -13,23 +15,21 @@ body {
         background-image: url('/static/images/top_border.jpg');
     }
 
-    .section-box-content {
-        display: flex;
-        align-items: stretch;
-    }
+    //.section-box-content {
+    //}
 
     .section-box-left-border {
+        margin: 7px 0;
         width: 7px;
         background-image: url('/static/images/left_border.jpg');
         flex-shrink: 0;
-        margin-right: 10px;
     }
 
     .section-box-right-border {
+        margin: 7px 0;
         width: 7px;
         background-image: url('/static/images/right_border.jpg');
         flex-shrink: 0;
-        margin-left: 10px;
     }
 
     .section-box-footer {
