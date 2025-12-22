@@ -16,5 +16,7 @@ source/lizard_report.html
 source/report/
 source/weave/static/
 
+frontend/node_modules
+
 httpd/*
 .env.prod

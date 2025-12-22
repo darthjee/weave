@@ -64,7 +64,7 @@ services:
       context: .
       dockerfile: Dockerfile.vite_weave
     volumes:
-      - ./backend:/home/node/app
+      - ./frontend:/home/node/app
     ports:
       - 127.0.0.1:3030:8080
 
