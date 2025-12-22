@@ -15,8 +15,12 @@ workflows:
           filters:
             tags:
               only: /.*/
+      - frontend-checks:
+          filters:
+            tags:
+              only: /.*/
       - build-and-release:
-          requires: [pytest, jasmine, checks]
+          requires: [pytest, jasmine, frontend-checks, checks]
           filters:
             tags:
               only: /.*/
@@ -51,7 +55,7 @@ jobs:
       - checkout
       - run:
           name: Set folder
-          command: cp backend/* backend/.??* ./ -r; rm backend -rf
+          command: cp backend/* backend/.??* ./ -r; rm frontend backend -rf
       - run:
           name: Poetry Install
           command: poetry install --no-root --no-interaction --no-ansi
@@ -64,12 +68,12 @@ jobs:
 
   jasmine:
     docker:
-      - image: darthjee/circleci_weave-base:0.0.2
+      - image: darthjee/circleci_node:0.2.1
     steps:
       - checkout
       - run:
           name: Set folder
-          command: cp backend/* backend/.??* ./ -r; rm backend -rf
+          command: cp frontend/* frontend/.??* ./ -r; rm frontend backend -rf
       - run:
           name: Yarn install
           command: yarn install
@@ -84,22 +88,30 @@ jobs:
       - checkout
       - run:
           name: Set folder
-          command: cp backend/* backend/.??* ./ -r; rm backend -rf
+          command: cp backend/* backend/.??* ./ -r; rm frontend backend -rf
       - run:
           name: Poetry Install
           command: poetry install --no-root --no-interaction --no-ansi
       - run:
-          name: Yarn install
-          command: yarn install
-      - run:
           name: Check python Lint
           command: poetry run ruff check . --fix
       - run:
-          name: Check JS Lint
-          command: npm run lint
-      - run:
           name: Check Python complexity
           command: bin/reports.sh ci
+  frontend-checks:
+    docker:
+      - image: darthjee/circleci_node:0.2.1
+    steps:
+      - checkout
+      - run:
+          name: Set folder
+          command: cp frontend/* frontend/.??* ./ -r; rm frontend backend -rf
+      - run:
+          name: Yarn install
+          command: yarn install
+      - run:
+          name: Check JS Lint
+          command: npm run lint
   build-and-release:
     machine: true
     steps:
