@@ -63,6 +63,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.vite_weave
+    volumes:
+      - ./source:/home/node/app
     ports:
       - 127.0.0.1:3030:8080
 

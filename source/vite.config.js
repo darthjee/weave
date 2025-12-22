@@ -5,6 +5,10 @@ export default defineConfig({
   // project root that contains index.html
   root: './',
   plugins: [react()],
+  server: {
+    port: 8080,
+    host: true
+  },
   build: {
     // outDir is relative to the root option
     outDir: 'weave/static',
