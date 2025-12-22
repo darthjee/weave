@@ -51,7 +51,7 @@ jobs:
       - checkout
       - run:
           name: Set folder
-          command: cp source/* source/.??* ./ -r; rm source -rf
+          command: cp backend/* backend/.??* ./ -r; rm backend -rf
       - run:
           name: Poetry Install
           command: poetry install --no-root --no-interaction --no-ansi
@@ -69,7 +69,7 @@ jobs:
       - checkout
       - run:
           name: Set folder
-          command: cp source/* source/.??* ./ -r; rm source -rf
+          command: cp backend/* backend/.??* ./ -r; rm backend -rf
       - run:
           name: Yarn install
           command: yarn install
@@ -84,7 +84,7 @@ jobs:
       - checkout
       - run:
           name: Set folder
-          command: cp source/* source/.??* ./ -r; rm source -rf
+          command: cp backend/* backend/.??* ./ -r; rm backend -rf
       - run:
           name: Poetry Install
           command: poetry install --no-root --no-interaction --no-ansi
@@ -114,7 +114,7 @@ jobs:
       - checkout
       - run:
           name: Set folder
-          command: cp source/* source/.??* ./ -r; rm source -rf
+          command: cp backend/* backend/.??* ./ -r; rm backend -rf
       - run:
           name: Install packages
           command: poetry install --no-root --no-interaction --no-ansi

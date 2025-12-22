@@ -20,7 +20,7 @@ services:
   base: &base
     image: darthjee/weave
     volumes:
-      - ./source:/home/app/app
+      - ./backend:/home/app/app
     links:
       - weave_mysql:mysql
     env_file: .env
@@ -64,7 +64,7 @@ services:
       context: .
       dockerfile: Dockerfile.vite_weave
     volumes:
-      - ./source:/home/node/app
+      - ./backend:/home/node/app
     ports:
       - 127.0.0.1:3030:8080
 

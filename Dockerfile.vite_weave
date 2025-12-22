@@ -2,7 +2,7 @@ FROM darthjee/scripts:0.5.0 as scripts
 FROM darthjee/node:0.2.1 as base
 
 COPY --chown=node:node \
-  ./source/package.json source/yarn.lock \
+  ./backend/package.json backend/yarn.lock \
   /home/node/app/
 
 ######################################

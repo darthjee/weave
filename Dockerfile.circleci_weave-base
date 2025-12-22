@@ -5,7 +5,7 @@ FROM darthjee/circleci_django:0.0.1 as base
 
 FROM base as builder
 
-COPY --chown=circleci:circleci source/* /home/circleci/project
+COPY --chown=circleci:circleci backend/* /home/circleci/project
 ENV HOME_DIR /home/circleci
 
 USER root
