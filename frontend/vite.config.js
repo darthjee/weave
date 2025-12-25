@@ -16,7 +16,7 @@ export default defineConfig({
     emptyOutDir: true,
     minify: false,
     rollupOptions: {
-      input: 'frontend/src/js/main.jsx',
+      input: 'assets/js/main.jsx',
       output: {
         entryFileNames: 'js/[name].js',
         chunkFileNames: 'js/[name].js',
