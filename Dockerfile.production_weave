@@ -6,6 +6,15 @@ COPY --chown=app:app \
   /home/app/app/
 
 ######################################
+FROM darthjee/vite_weave-base:0.0.2 as fe-build
+
+COPY --chown=node:node ./frontend/ /home/node/app/
+
+RUN yarn install
+#RUN npm build
+CMD ["/bin/bash"]
+
+######################################
 
 FROM base as builder
 
