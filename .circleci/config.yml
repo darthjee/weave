@@ -119,17 +119,3 @@ jobs:
       - run:
           name: Trigger Deploy
           command: scripts/deploy.sh deploy
-  upload_static_files:
-    docker:
-      - image: darthjee/circleci_weave-base:0.0.2
-    steps:
-      - checkout
-      - run:
-          name: Set folder
-          command: cp backend/* backend/.??* ./ -r; rm backend -rf
-      - run:
-          name: Install packages
-          command: poetry install --no-root --no-interaction --no-ansi
-      - run:
-          name: Upload static files
-          command: bin/deploy.sh build_and_upload
