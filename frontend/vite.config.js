@@ -5,13 +5,18 @@ export default defineConfig({
   // project root that contains index.html
   root: './',
   plugins: [react()],
+  server: {
+    port: 8080,
+    host: true,
+    cors: true
+  },
   build: {
     // outDir is relative to the root option
     outDir: 'weave/static',
     emptyOutDir: true,
     minify: false,
     rollupOptions: {
-      input: 'frontend/src/js/main.jsx',
+      input: 'assets/js/main.jsx',
       output: {
         entryFileNames: 'js/[name].js',
         chunkFileNames: 'js/[name].js',

@@ -1,11 +1,22 @@
+backend/db.sqlite3
+backend/**/__pycache__/
+backend/static/
+backend/node_modules
+backend/.nyc_output/
+backend/lizard_report.html
+backend/report/
+backend/weave/static/
+
 source/db.sqlite3
 source/**/__pycache__/
 source/static/
 source/node_modules
-httpd/*
 source/.nyc_output/
 source/lizard_report.html
 source/report/
 source/weave/static/
 
+frontend/node_modules
+
+httpd/*
 .env.prod

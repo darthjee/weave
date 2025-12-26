@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "vite build",
-    "test": "nyc npx jasmine frontend/spec/**/*.js",
+    "server": "vite dev --host 0.0.0.0 --port 8080",
+    "test": "nyc npx jasmine spec/**/*.js",
     "lint": "eslint .",
     "lint_fix": "eslint . --fix",
     "coverage": "nyc jasmine",

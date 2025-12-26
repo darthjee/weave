@@ -20,7 +20,7 @@ services:
   base: &base
     image: darthjee/weave
     volumes:
-      - ./source:/home/app/app
+      - ./backend:/home/app/app
     links:
       - weave_mysql:mysql
     env_file: .env
@@ -52,11 +52,21 @@ services:
   weave_app: &weave_app
     <<: *base
     container_name: weave_app
-    depends_on: [base_build, weave_mysql]
+    depends_on: [base_build, weave_mysql, weave_fe]
     ports:
-      - 127.0.0.1:3000:8080
+      - 127.0.0.1:3030:8080
     environment:
       - WEAVE_MYSQL_PORT=3306
+
+  weave_fe:
+    container_name: weave_fe
+    build:
+      context: .
+      dockerfile: Dockerfile.vite_weave
+    volumes:
+      - ./frontend:/home/node/app
+    ports:
+      - 127.0.0.1:3000:8080
 
   weave_tests:
     <<: *base

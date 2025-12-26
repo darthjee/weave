@@ -1,16 +1,15 @@
 FROM darthjee/scripts:0.5.0 as scripts
-FROM darthjee/circleci_django:0.0.1 as base
+FROM darthjee/circleci_django:0.0.2 as base
 
 ######################################
 
 FROM base as builder
 
-COPY --chown=circleci:circleci source/* /home/circleci/project
-ENV HOME_DIR /home/circleci
+COPY --chown=circleci:circleci \
+  ./backend/pyproject.toml ./backend/poetry.lock* \
+  /home/circleci/project
 
-USER root
-COPY --chown=circleci:circleci --from=scripts /home/scripts/builder/yarn_builder.sh /usr/local/sbin/yarn_builder.sh
-RUN /bin/bash yarn_builder.sh
+ENV HOME_DIR /home/circleci
 
 USER circleci
 COPY --chown=circleci:circleci --from=scripts /home/scripts/builder/poetry_builder.sh /usr/local/sbin/poetry_builder.sh
@@ -20,7 +19,6 @@ RUN /bin/bash poetry_builder.sh
 # FINAL IMAGE
 FROM base
 
-COPY --chown=circleci:circleci --from=builder /home/circleci/yarn/new/ /usr/local/share/.cache/yarn/v6/
 COPY --chown=circleci:circleci --from=builder /home/circleci/poetry/new/ /home/circleci/.cache/pypoetry/artifacts/
 USER circleci
 
