@@ -128,7 +128,7 @@ USE_TZ = True
 STATIC_URL = os.environ.get('STATIC_URL', 'assets/')
 STATIC_ROOT = BASE_DIR / 'assets'
 STATICFILES_DIRS = [
-    BASE_DIR / 'assets',
+    BASE_DIR / 'assets_files',
 ]
 
 # Default primary key field type
