@@ -12,6 +12,7 @@ COPY --chown=node:node ./frontend/ /home/node/app/
 
 RUN yarn install
 RUN npm run build
+RUN rm $(find assets/images/ -iname "*.pbm")
 
 ######################################
 
