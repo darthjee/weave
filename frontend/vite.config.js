@@ -12,7 +12,7 @@ export default defineConfig({
   },
   build: {
     // outDir is relative to the root option
-    outDir: 'weave/static',
+    outDir: 'build',
     emptyOutDir: true,
     minify: false,
     rollupOptions: {
