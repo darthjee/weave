@@ -1,30 +1,35 @@
-import { defineConfig } from 'vite';
+import { defineConfig, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
 
-export default defineConfig({
-  // project root that contains index.html
-  root: './',
-  plugins: [react()],
-  server: {
-    port: 8080,
-    host: true,
-    cors: true
-  },
-  build: {
-    // outDir is relative to the root option
-    outDir: 'build',
-    emptyOutDir: true,
-    minify: false,
-    rollupOptions: {
-      input: 'assets/js/main.jsx',
-      output: {
-        entryFileNames: 'js/[name].js',
-        chunkFileNames: 'js/[name].js',
-        assetFileNames: ({ name }) => {
-          if (name && name.endsWith('.css')) return 'css/[name].[ext]';
-          return 'assets/[name].[ext]';
+export default defineConfig(({ mode }) => {
+  const env = loadEnv(mode, process.cwd(), '');
+  
+  return {
+    // project root that contains index.html
+    root: './',
+    base: env.ASSETS_BASE_URL || '/',
+    plugins: [react()],
+    server: {
+      port: 8080,
+      host: true,
+      cors: true
+    },
+    build: {
+      // outDir is relative to the root option
+      outDir: 'build',
+      emptyOutDir: true,
+      minify: false,
+      rollupOptions: {
+        input: 'assets/js/main.jsx',
+        output: {
+          entryFileNames: 'js/[name].js',
+          chunkFileNames: 'js/[name].js',
+          assetFileNames: ({ name }) => {
+            if (name && name.endsWith('.css')) return 'css/[name].[ext]';
+            return 'assets/[name].[ext]';
+          }
         }
       }
     }
-  }
+  };
 });
