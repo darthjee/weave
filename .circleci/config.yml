@@ -27,14 +27,6 @@ workflows:
             branches:
               only:
                 - main
-      - upload_static_files:
-          requires: [build-and-release]
-          filters:
-            tags:
-              only: /.*/
-            branches:
-              only:
-                - main
 jobs:
   pytest:
     docker:
