@@ -125,11 +125,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = os.environ.get('STATIC_URL', 'static/')
-STATIC_ROOT = BASE_DIR / 'static'
+STATIC_URL = os.environ.get('STATIC_URL', 'assets/')
+STATIC_ROOT = BASE_DIR / 'assets'
 STATICFILES_DIRS = [
-    BASE_DIR / 'weave' / 'static',
-    BASE_DIR / 'static_assets',
+    BASE_DIR / 'assets_files',
 ]
 
 # Default primary key field type

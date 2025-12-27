@@ -1,5 +1,5 @@
 FROM darthjee/scripts:0.5.0 as scripts
-FROM darthjee/vite_weave-base:0.0.2 as base
+FROM darthjee/node:0.2.1 as base
 
 COPY --chown=node:node \
   ./frontend/package.json frontend/yarn.lock \
@@ -23,3 +23,5 @@ ENV HOME_DIR /home/node
 COPY --chown=node:node --from=builder /home/node/yarn/new/ /usr/local/share/.cache/yarn/v6/
 
 USER node
+
+CMD ["npm", "run", "server"]
