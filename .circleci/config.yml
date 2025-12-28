@@ -133,7 +133,7 @@ jobs:
       - run:
           name: Generate key file
           command: |
-            echo "$SSH_PRIVATE_KEY" > ~/ssh_key
+            echo "$SSH_PRIVATE_KEY" | sed -e sed -e "s/\\\n/\n/g" > ~/ssh_key
             chmod 600 ~/ssh_key
             ssh-add ~/ssh_key
       - run:
