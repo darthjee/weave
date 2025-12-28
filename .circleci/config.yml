@@ -138,4 +138,4 @@ jobs:
             ssh-add ~/ssh_key
       - run:
           name: Upload assets
-          command: rsync -avz --delete dist/ $SSH_USER@$SSH_HOST:$SSH_REMOTE_DIR
+          command: rsync -avz --delete -e "ssh -o StrictHostKeyChecking=no" dist/ $SSH_USER@$SSH_HOST:$SSH_REMOTE_DIR
