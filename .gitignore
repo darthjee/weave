@@ -17,6 +17,7 @@ source/report/
 source/weave/static/
 
 frontend/node_modules
+frontend/dist
 
 httpd/*
 .env.prod
