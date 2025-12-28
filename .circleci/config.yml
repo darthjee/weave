@@ -28,10 +28,13 @@ workflows:
               only:
                 - main
       - upload_static_files:
-          requires: [pytest, jasmine, frontend-checks, checks]
+          requires: [build-and-release]
           filters:
             tags:
               only: /.*/
+            branches:
+              only:
+                - main
 jobs:
   pytest:
     docker:
