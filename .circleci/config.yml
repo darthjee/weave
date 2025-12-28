@@ -135,10 +135,7 @@ jobs:
           command: bin/deploy.sh build
       - run:
           name: Generate key file
-          command: |
-            echo "$SSH_PRIVATE_KEY" | sed -e "s/\\\n/\n/g" > ~/ssh_key
-            chmod 600 ~/ssh_key
-            ssh-add ~/ssh_key
+          command: bin/deploy.sh generate_key_file
       - run:
           name: Upload assets
-          command: rsync -avz --delete -e "ssh -o StrictHostKeyChecking=no" dist/ $SSH_USER@$SSH_HOST:$SSH_REMOTE_DIR
+          command: bin/deploy.sh upload
