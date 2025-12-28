@@ -135,7 +135,7 @@ jobs:
           command: |
             echo "$SSH_PRIVATE_KEY" > ~/ssh_key
             chmod 600 ~/ssh_key
-            export SSH_KEY_FILE_PATH=~/ssh_key
+            ssh-add ~/ssh_key
       - run:
           name: Upload assets
-          command: rsync -avz --delete -e \"ssh -i $SSH_KEY_FILE_PATH -p $SSH_PORT\" dist/ $SSH_USER@$SSH_HOST:$SSH_REMOTE_DIR
+          command: rsync -avz --delete dist/ $SSH_USER@$SSH_HOST:$SSH_REMOTE_DIR
