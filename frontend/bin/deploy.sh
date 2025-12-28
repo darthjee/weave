@@ -14,7 +14,15 @@ function run_generate_ssh_key_file() {
 
 function run_upload() {
     SSH_COMMAND="ssh -i $SSH_KEY_FILE_PATH -p $SSH_PORT -o StrictHostKeyChecking=no"
-    rsync -avz --delete -e "$SSH_COMMAND" dist/ $SSH_USER@$SSH_HOST:$SSH_REMOTE_DIR
+    rsync -avz --delete -e "$SSH_COMMAND" dist/ $SSH_USER@$SSH_HOST:$SSH_REMOTE_TEMP_DIR
+}
+
+function run_release() {
+    SSH_COMMAND="ssh -i $SSH_KEY_FILE_PATH -p $SSH_PORT -o StrictHostKeyChecking=no"
+    OLD_SSH_REMOTE_DIR=$SSH_REMOTE_DIR"_old_$(date +%s)"
+
+    COMMANDS="rm -rf $OLD_SSH_REMOTE_DIR && mv $SSH_REMOTE_DIR $OLD_SSH_REMOTE_DIR && mv $SSH_REMOTE_TEMP_DIR $SSH_REMOTE_DIR && rm -rf $OLD_SSH_REMOTE_DIR"
+    $SSH_COMMAND $SSH_USER@$SSH_HOST "$COMMANDS"
 }
 
 ACTION=$1
@@ -28,5 +36,8 @@ case $ACTION in
     ;;
   "upload")
     run_upload
+    ;;
+  "release")
+    run_release
     ;;
 esac
