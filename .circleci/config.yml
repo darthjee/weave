@@ -35,6 +35,14 @@ workflows:
             branches:
               only:
                 - main
+      - release_static_files:
+          requires: [build-and-release, upload_static_files]
+          filters:
+            tags:
+              only: /.*/
+            branches:
+              only:
+                - main
 jobs:
   pytest:
     docker:
@@ -139,3 +147,17 @@ jobs:
       - run:
           name: Upload assets
           command: bin/deploy.sh upload
+  release_static_files:
+    docker:
+      - image: darthjee/vite_weave-base:0.0.2
+    steps:
+      - checkout
+      - run:
+          name: Set folder
+          command: cp frontend/* frontend/.??* ./ -r; rm frontend backend -rf
+      - run:
+          name: Generate key file
+          command: bin/deploy.sh generate_key_file
+      - run:
+          name: Release assets
+          command: bin/deploy.sh release
