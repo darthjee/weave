@@ -132,7 +132,7 @@ jobs:
           command: yarn install
       - run:
           name: Build assets
-          command: npm run build
+          command: bin/deploy.sh build
       - run:
           name: Generate key file
           command: |
