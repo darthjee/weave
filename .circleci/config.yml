@@ -130,7 +130,8 @@ jobs:
       - run:
           name: Build assets
           command: npm run build
-      - run: Generate key file
+      - run:
+          name: Generate key file
           command: |
             echo "$SSH_PRIVATE_KEY" > ~/ssh_key
             chmod 600 ~/ssh_key
