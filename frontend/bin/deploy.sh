@@ -17,6 +17,9 @@ function run_upload() {
     rsync -avz --delete -e "$SSH_COMMAND" dist/ $SSH_USER@$SSH_HOST:$SSH_REMOTE_DIR
 }
 
+function run_release() {
+}
+
 ACTION=$1
 
 case $ACTION in
@@ -28,5 +31,8 @@ case $ACTION in
     ;;
   "upload")
     run_upload
+    ;;
+  "release")
+    run_release
     ;;
 esac
