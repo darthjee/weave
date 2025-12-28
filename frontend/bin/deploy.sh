@@ -19,7 +19,10 @@ function run_upload() {
 
 function run_release() {
     SSH_COMMAND="ssh -i $SSH_KEY_FILE_PATH -p $SSH_PORT -o StrictHostKeyChecking=no"
-    COMMANDS="rm -rf old_$SSH_REMOTE_DIR && mv $SSH_REMOTE_DIR old_$SSH_REMOTE_DIR && mv $SSH_REMOTE_TEMP_DIR $SSH_REMOTE_DIR && rm -rf old_$SSH_REMOTE_DIR"
+    OLD_SSH_REMOTE_DIR=$SSH_REMOTE_DIR"_old_$(date +%s)"
+
+    COMMANDS="rm -rf $OLD_SSH_REMOTE_DIR && mv $SSH_REMOTE_DIR $OLD_SSH_REMOTE_DIR && mv $SSH_REMOTE_TEMP_DIR $SSH_REMOTE_DIR && rm -rf $OLD_SSH_REMOTE_DIR"
+
     $SSH_COMMAND $SSH_USER@$SSH_HOST "$COMMANDS"
 }
 
