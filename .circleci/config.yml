@@ -28,7 +28,7 @@ workflows:
               only:
                 - main
       - upload_static_files:
-          requires: [build-and-release]
+          requires: [pytest, jasmine, frontend-checks, checks]
           filters:
             tags:
               only: /.*/
