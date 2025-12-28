@@ -21,6 +21,7 @@ services:
     image: darthjee/weave
     volumes:
       - ./backend:/home/app/app
+      - ./frontend/:/home/app/app/templates
     links:
       - weave_mysql:mysql
     env_file: .env
