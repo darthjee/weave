@@ -23,7 +23,7 @@ workflows:
           requires: [pytest, jasmine, frontend-checks, checks]
           filters:
             tags:
-              only: /.*/
+              only: /\d+\.\d+\.\d+/
             branches:
               only:
                 - main
@@ -31,7 +31,7 @@ workflows:
           requires: [pytest, jasmine, frontend-checks, checks]
           filters:
             tags:
-              only: /.*/
+              only: /\d+\.\d+\.\d+/
             branches:
               only:
                 - main
@@ -39,7 +39,7 @@ workflows:
           requires: [build-and-release, upload_static_files]
           filters:
             tags:
-              only: /.*/
+              only: /\d+\.\d+\.\d+/
             branches:
               only:
                 - main
