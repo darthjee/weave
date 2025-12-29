@@ -88,7 +88,9 @@ services:
     environment:
       PMA_HOST: mysql
       PMA_PORT: 3306
-      PMA_PASSWORD: weave
+      MYSQL_USER: root
+      MYSQL_ROOT_PASSWORD: weave
+      MYSQL_PASSWORD: weave
     ports:
       - 127.0.0.1:3050:80
 
