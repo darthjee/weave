@@ -48,7 +48,7 @@ services:
     command: echo done
 
 
-  #################### CONTAINERS ####################
+  #################### DEV CONTAINERS ####################
 
   weave_app: &weave_app
     <<: *base
@@ -78,6 +78,8 @@ services:
     <<: *weave_app
     user: root
     command: /bin/bash
+
+  #################### PROD CONTAINERS ####################
 
   weave_prod_app:
     <<: *base_prod
