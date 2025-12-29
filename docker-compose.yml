@@ -53,7 +53,7 @@ services:
   weave_app: &weave_app
     <<: *base
     container_name: weave_app
-    depends_on: [base_build, weave_mysql, weave_fe]
+    depends_on: [base_build, weave_mysql, weave_fe, weave_phpmyadmin]
     ports:
       - 127.0.0.1:3030:8080
     environment:
@@ -78,6 +78,21 @@ services:
     <<: *weave_app
     user: root
     command: /bin/bash
+  
+  weave_phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: weave_phpmyadmin
+    depends_on: [weave_mysql]
+    links:
+      - weave_mysql:mysql
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+      MYSQL_USER: root
+      MYSQL_ROOT_PASSWORD: weave
+      MYSQL_PASSWORD: weave
+    ports:
+      - 127.0.0.1:3050:80
 
   #################### PROD CONTAINERS ####################
 
@@ -88,27 +103,27 @@ services:
       - base_prod_build
       - weave_prod_mysql
       - weave_prod_static
-      - weave_prod_ssh
     ports:
-      - 127.0.0.1:3000:8080
+      - 127.0.0.1:3030:8080
     environment:
       - STAGE=production
 
   weave_prod_static:
     image: httpd:latest
-    volumes:
-      - ./httpd:/usr/local/apache2/htdocs
     ports:
-      - 127.0.0.1:3001:80
-  
-  weave_prod_ssh:
-    image: linuxserver/openssh-server
-    container_name: weave_prod_ssh
+      - 127.0.0.1:3000:80
+
+  weave_prod_phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: weave_prod_phpmyadmin
+    depends_on: [weave_prod_mysql]
+    links:
+      - weave_prod_mysql:mysql
     environment:
-      - PUID=1000
-      - PGID=1000
-      - USER_NAME=app
-      - PUBLIC_KEY=ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOhux+BjquEbSALd4AC32vMX1hzYG/2JWuJpLF3yaDX+
-    volumes:
-      - ./httpd:/data
-    restart: always
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+      MYSQL_USER: root
+      MYSQL_ROOT_PASSWORD: weave
+      MYSQL_PASSWORD: weave
+    ports:
+      - 127.0.0.1:3050:80
