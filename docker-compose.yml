@@ -112,3 +112,18 @@ services:
     image: httpd:latest
     ports:
       - 127.0.0.1:3000:80
+
+  weave_prod_phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: weave_prod_phpmyadmin
+    depends_on: [weave_prod_mysql]
+    links:
+      - weave_prod_mysql:mysql
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+      MYSQL_USER: root
+      MYSQL_ROOT_PASSWORD: weave
+      MYSQL_PASSWORD: weave
+    ports:
+      - 127.0.0.1:3050:80
