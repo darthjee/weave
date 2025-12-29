@@ -53,7 +53,7 @@ services:
   weave_app: &weave_app
     <<: *base
     container_name: weave_app
-    depends_on: [base_build, weave_mysql, weave_fe]
+    depends_on: [base_build, weave_mysql, weave_fe, weave_phpmyadmin]
     ports:
       - 127.0.0.1:3030:8080
     environment:
@@ -78,6 +78,19 @@ services:
     <<: *weave_app
     user: root
     command: /bin/bash
+  
+  weave_phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: weave_phpmyadmin
+    depends_on: [weave_mysql]
+    links:
+      - weave_mysql:mysql
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+      PMA_PASSWORD: weave
+    ports:
+      - 127.0.0.1:3050:80
 
   #################### PROD CONTAINERS ####################
 
