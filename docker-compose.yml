@@ -88,27 +88,12 @@ services:
       - base_prod_build
       - weave_prod_mysql
       - weave_prod_static
-      - weave_prod_ssh
     ports:
-      - 127.0.0.1:3000:8080
+      - 127.0.0.1:3030:8080
     environment:
       - STAGE=production
 
   weave_prod_static:
     image: httpd:latest
-    volumes:
-      - ./httpd:/usr/local/apache2/htdocs
     ports:
-      - 127.0.0.1:3001:80
-  
-  weave_prod_ssh:
-    image: linuxserver/openssh-server
-    container_name: weave_prod_ssh
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - USER_NAME=app
-      - PUBLIC_KEY=ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOhux+BjquEbSALd4AC32vMX1hzYG/2JWuJpLF3yaDX+
-    volumes:
-      - ./httpd:/data
-    restart: always
+      - 127.0.0.1:3000:80
