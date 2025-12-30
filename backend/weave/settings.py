@@ -41,8 +41,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # Local apps
-    'accounts',
 ]
 
 MIDDLEWARE = [
@@ -137,9 +135,6 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-# Custom User model
-AUTH_USER_MODEL = 'accounts.User'
 
 # Logging configuration
 LOGGING = {
