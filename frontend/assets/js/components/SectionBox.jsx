@@ -7,7 +7,7 @@ import Col from 'react-bootstrap/Col';
 export default function SectionBox({ children }) {
   return (
     <Container fluid>
-      <Row>
+      <Row className="justify-content-md-center">
         <Col lg={8} md={10} sm={12}>
           <div className="section-box">
           <div className="section-box-header">
