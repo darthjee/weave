@@ -6,9 +6,9 @@ import Col from 'react-bootstrap/Col';
 
 export default function SectionBox({ children }) {
   return (
-    <Container>
+    <Container fluid>
       <Row>
-        <Col>
+        <Col lg={8} md={10} sm={12}>
           <div className="section-box">
           <div className="section-box-header">
             <div className="section-box-top-left-corner"></div>
