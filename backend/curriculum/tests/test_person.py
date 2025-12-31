@@ -1,5 +1,5 @@
 from django.test import TestCase
-from curriculum.models import Person
+from curriculum.models.person import Person
 
 
 class PersonModelTest(TestCase):
