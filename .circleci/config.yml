@@ -50,7 +50,7 @@ jobs:
           WEAVE_MYSQL_USER: weave
           WEAVE_MYSQL_NAME: weave
           WEAVE_MYSQL_PASSWORD: weave
-      - image: cimg/mysql:9.3
+      - image: cimg/mysql:8.0
         name: mysql
         environment:
           MYSQL_ROOT_PASSWORD: weave
