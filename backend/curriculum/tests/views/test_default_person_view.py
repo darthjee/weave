@@ -44,7 +44,7 @@ class DefaultPersonViewTest(TestCase):
     
     def test_retrieve_first_person_with_middle_name(self):
         """Test retrieving the first person with a middle name."""
-        person = Person.objects.create(
+        Person.objects.create(
             first_name='John',
             middle_name='Michael',
             last_name='Doe',
