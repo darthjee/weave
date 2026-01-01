@@ -5,9 +5,9 @@ from rest_framework.test import APIClient
 from curriculum.models.person import Person
 
 
-class FirstPersonViewTest(TestCase):
+class DefaultPersonViewTest(TestCase):
     """
-    Test cases for FirstPersonView endpoint.
+    Test cases for DefaultPersonView endpoint.
     """
     
     def setUp(self):

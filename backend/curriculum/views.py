@@ -15,7 +15,7 @@ class PersonRetrieveView(generics.RetrieveAPIView):
     serializer_class = PersonSerializer
 
 
-class FirstPersonView(generics.GenericAPIView):
+class DefaultPersonView(generics.GenericAPIView):
     """
     API endpoint that retrieves the first person.
     
