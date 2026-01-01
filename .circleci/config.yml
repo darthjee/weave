@@ -53,9 +53,7 @@ jobs:
       - image: cimg/mysql:8.0
         name: mysql
         environment:
-          MYSQL_DATABASE: weave
-          MYSQL_USER: weave
-          MYSQL_PASSWORD: weave
+          MYSQL_ROOT_PASSWORD: weave
     steps:
       - checkout
       - run:
