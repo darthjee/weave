@@ -7,6 +7,8 @@ services:
       MYSQL_ROOT_PASSWORD: weave
     ports:
       - 127.0.0.1:$WEAVE_MYSQL_PORT:3306
+    volumes:
+      - ./mysql_data:/var/lib/mysql
 
   weave_prod_mysql:
     image: mysql:9.3.0
@@ -14,6 +16,8 @@ services:
     env_file: .env.prod
     environment:
       MYSQL_ROOT_PASSWORD: weave
+    volumes:
+      - ./mysql_data:/var/lib/mysql
 
   #################### Base  ####################
 

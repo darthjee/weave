@@ -21,3 +21,5 @@ frontend/dist
 
 httpd/*
 .env.prod
+
+mysql_data
