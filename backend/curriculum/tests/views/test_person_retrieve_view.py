@@ -26,6 +26,7 @@ class PersonRetrieveViewTest(TestCase):
         response = self.client.get(self.url)
         
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response['Content-Type'], 'application/json')
         self.assertEqual(response.data['id'], self.person.id)
         self.assertEqual(response.data['first_name'], 'John')
         self.assertEqual(response.data['middle_name'], 'Michael')
