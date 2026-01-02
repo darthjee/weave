@@ -37,6 +37,7 @@ class DefaultPersonViewTest(TestCase):
         response = self.client.get(self.url)
         
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response['Content-Type'], 'application/json')
         self.assertEqual(response.data['id'], person1.id)
         self.assertEqual(response.data['first_name'], 'Alice')
         self.assertEqual(response.data['last_name'], 'Anderson')

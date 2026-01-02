@@ -1,4 +1,5 @@
 from rest_framework import generics
+from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
 from rest_framework import status
 from curriculum.models.person import Person
@@ -12,6 +13,7 @@ class DefaultPersonView(generics.GenericAPIView):
     GET /api/curriculum/person/
     """
     serializer_class = PersonSerializer
+    renderer_classes = [JSONRenderer]
     
     def get(self, request, *args, **kwargs):
         person = Person.objects.first()
