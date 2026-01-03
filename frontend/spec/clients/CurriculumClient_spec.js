@@ -1,4 +1,4 @@
-import { CurriculumClient } from '../assets/js/clients/CurriculumClient.js';
+import { CurriculumClient } from '../../assets/js/clients/CurriculumClient.js';
 
 describe('CurriculumClient', function() {
   let client;
