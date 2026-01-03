@@ -72,6 +72,7 @@ services:
       - ./frontend:/home/node/app
     ports:
       - 127.0.0.1:3000:8080
+    env_file: .env
 
   weave_tests:
     <<: *base

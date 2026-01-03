@@ -1,11 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
 import Header from './Header';
 
+const API_URL = import.meta.env.VITE_WEAVE_API_URL || 'http://localhost:3030';
+
 export default function App() {
   const { data, isLoading, error } = useQuery({
     queryKey: ['person'],
     queryFn: async () => {
-      const response = await fetch('http://localhost:3030/api/curriculum/person/');
+      const response = await fetch(`${API_URL}/api/curriculum/person/`);
       if (!response.ok) {
         throw new Error('Failed to fetch person data');
       }
