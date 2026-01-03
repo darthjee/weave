@@ -11,16 +11,17 @@
     "lint": "eslint .",
     "lint_fix": "eslint . --fix",
     "coverage": "nyc jasmine",
-    "report": "plato -r --exclude '^(static|node_modules|spec|report)/.*' -d report ."
+    "report": "plato -r -d report assets/"
   },
   "author": "darthjee",
   "license": "MIT",
   "dependencies": {
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0",
+    "@tanstack/react-query": "^5.62.23",
     "bootstrap": "^5.3.0",
+    "complexity-report": "^2.0.0-alpha",
+    "react": "^19.2.0",
     "react-bootstrap": "2.10.10",
-    "@tanstack/react-query": "^5.62.23"
+    "react-dom": "^19.2.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
