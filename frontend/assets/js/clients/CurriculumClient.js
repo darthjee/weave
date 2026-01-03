@@ -1,14 +1,5 @@
-// Support both Vite (import.meta.env) and Node.js test environments
-const getApiUrl = () => {
-  // In Vite environment (browser)
-  if (typeof import.meta !== 'undefined' && import.meta.env) {
-    return import.meta.env.VITE_WEAVE_API_URL || 'http://localhost:3030';
-  }
-  // In test environment - tests will pass explicit URL to constructor
-  return 'http://server:3000';
-};
-
-const API_URL = getApiUrl();
+// Support both Vite (browser) and Node.js (test) environments
+const API_URL = import.meta?.env?.VITE_WEAVE_API_URL || 'http://server:3000';
 
 class CurriculumClient {
   constructor(baseUrl) {
