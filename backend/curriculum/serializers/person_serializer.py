@@ -16,6 +16,8 @@ class PersonSerializer(serializers.ModelSerializer):
             'middle_name',
             'last_name',
             'email',
+            'date_of_birth',
+            'first_experience',
             'full_name',
             'created_at',
             'updated_at',

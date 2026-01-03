@@ -1,4 +1,5 @@
 from django.test import TestCase
+from datetime import date
 from curriculum.models.person import Person
 from curriculum.serializers import PersonSerializer
 
@@ -14,7 +15,9 @@ class PersonSerializerTest(TestCase):
             first_name='John',
             middle_name='Michael',
             last_name='Doe',
-            email='john.doe@example.com'
+            email='john.doe@example.com',
+            date_of_birth=date(1990, 5, 15),
+            first_experience=date(2010, 1, 1)
         )
         
         serializer = PersonSerializer(person)
@@ -25,6 +28,8 @@ class PersonSerializerTest(TestCase):
         self.assertEqual(data['middle_name'], 'Michael')
         self.assertEqual(data['last_name'], 'Doe')
         self.assertEqual(data['email'], 'john.doe@example.com')
+        self.assertEqual(data['date_of_birth'], '1990-05-15')
+        self.assertEqual(data['first_experience'], '2010-01-01')
         self.assertEqual(data['full_name'], 'John Michael Doe')
         self.assertIn('created_at', data)
         self.assertIn('updated_at', data)
@@ -44,6 +49,8 @@ class PersonSerializerTest(TestCase):
         self.assertIsNone(data['middle_name'])
         self.assertEqual(data['last_name'], 'Smith')
         self.assertEqual(data['full_name'], 'Jane Smith')
+        self.assertIsNone(data['date_of_birth'])
+        self.assertIsNone(data['first_experience'])
     
     def test_deserialize_valid_data(self):
         """Test deserializing valid data to create a person."""
@@ -51,7 +58,9 @@ class PersonSerializerTest(TestCase):
             'first_name': 'Alice',
             'middle_name': 'Marie',
             'last_name': 'Johnson',
-            'email': 'alice.johnson@example.com'
+            'email': 'alice.johnson@example.com',
+            'date_of_birth': '1985-03-20',
+            'first_experience': '2005-06-15'
         }
         
         serializer = PersonSerializer(data=data)
@@ -63,6 +72,8 @@ class PersonSerializerTest(TestCase):
         self.assertEqual(person.middle_name, 'Marie')
         self.assertEqual(person.last_name, 'Johnson')
         self.assertEqual(person.email, 'alice.johnson@example.com')
+        self.assertEqual(person.date_of_birth, date(1985, 3, 20))
+        self.assertEqual(person.first_experience, date(2005, 6, 15))
     
     def test_deserialize_without_middle_name(self):
         """Test deserializing data without middle name (optional field)."""
