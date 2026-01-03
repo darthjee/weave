@@ -27,10 +27,6 @@ export default function Curriculum() {
   }
 
   return (
-    <Header 
-      full_name={data.full_name}
-      years_of_experience={data.years_of_experience}
-      roles={data.roles}
-    />
+    <Header person={data} />
   );
 }

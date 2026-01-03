@@ -5,7 +5,9 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Badge from 'react-bootstrap/Badge';
 
-export default function Header({ full_name, years_of_experience, roles = [] }) {
+export default function Header({ person }) {
+  const { full_name, years_of_experience, roles = [] } = person;
+
   return (
     <Container fluid>
       <Row className="justify-content-md-center">
