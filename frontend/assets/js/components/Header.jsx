@@ -1,4 +1,5 @@
 import SectionBox from './SectionBox';
+import { differenceInYears } from 'date-fns';
 
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -7,14 +8,7 @@ import Badge from 'react-bootstrap/Badge';
 
 const calculateYearsOfExperience = (firstExperience) => {
   if (!firstExperience) return 0;
-  
-  const firstDate = new Date(firstExperience);
-  const today = new Date();
-  
-  const diffTime = today - firstDate;
-  const diffYears = diffTime / (1000 * 60 * 60 * 24 * 365.25);
-  
-  return Math.floor(diffYears);
+  return differenceInYears(new Date(), new Date(firstExperience));
 };
 
 export default function Header({ person }) {
