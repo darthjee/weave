@@ -40,6 +40,9 @@ tests:
 dev:
 	docker-compose run $(PROJECT)_app /bin/bash
 
+dev-fe:
+	docker-compose run $(PROJECT)_fe /bin/bash
+
 dev-up:
 	docker-compose up $(PROJECT)_app
 
