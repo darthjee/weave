@@ -29,9 +29,8 @@ An app to display curriculum vitae as a D&D character sheet, where:
 
 ### Prerequisites
 
-- Docker and Docker Compose
-- Node.js 18+ (for local frontend development)
-- Python 3.11+ (for local backend development)
+- Docker
+- Docker Compose
 
 ### Running with Docker
 
@@ -49,7 +48,7 @@ cp .env.example .env
 
 3. Start the services:
 ```bash
-docker-compose up weave_app weave_fe
+make dev-up
 ```
 
 4. Access the application:
@@ -61,13 +60,12 @@ docker-compose up weave_app weave_fe
 
 **Backend:**
 ```bash
-docker-compose run weave_tests python manage.py test
+docker-compose run weave_tests poetry run pytest
 ```
 
 **Frontend:**
 ```bash
-cd frontend
-npm test
+docker-compose run weave_fe npm test
 ```
 
 ---
