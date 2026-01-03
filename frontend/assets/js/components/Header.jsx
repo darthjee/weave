@@ -5,8 +5,21 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Badge from 'react-bootstrap/Badge';
 
+const calculateYearsOfExperience = (firstExperience) => {
+  if (!firstExperience) return 0;
+  
+  const firstDate = new Date(firstExperience);
+  const today = new Date();
+  
+  const diffTime = today - firstDate;
+  const diffYears = diffTime / (1000 * 60 * 60 * 24 * 365.25);
+  
+  return Math.floor(diffYears);
+};
+
 export default function Header({ person }) {
-  const { full_name, years_of_experience, roles = [] } = person;
+  const { full_name, first_experience, roles = [] } = person;
+  const years_of_experience = calculateYearsOfExperience(first_experience);
 
   return (
     <Container fluid>
