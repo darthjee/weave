@@ -1,5 +1,5 @@
 // Support both Vite (browser) and Node.js (test) environments
-const API_URL = import.meta?.env?.VITE_WEAVE_API_URL || 'http://server:3000';
+const API_URL = import.meta.env?.VITE_WEAVE_API_URL || 'http://server:3000';
 
 class CurriculumClient {
   constructor(baseUrl) {
