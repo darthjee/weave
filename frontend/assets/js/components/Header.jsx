@@ -21,17 +21,17 @@ export default function Header({ person }) {
                 <small className="text-muted d-block text-uppercase">Name</small>
                 <strong className="fs-5">{full_name}</strong>
               </Col>
-              <Col md={3} className="text-center border-start">
+              <Col md={3} className="text-center">
                 <small className="text-muted d-block text-uppercase">Email</small>
                 <span className="d-block">{email || '—'}</span>
               </Col>
-              <Col md={3} className="text-center border-start">
+              <Col md={3} className="text-center">
                 <small className="text-muted d-block text-uppercase">Age</small>
                 <strong className="fs-5">{age}</strong>
               </Col>
             </Row>
             <Row>
-              <Col md={8} className="text-center">
+              <Col md={9} className="text-center">
                 <small className="text-muted d-block text-uppercase">Roles</small>
                 <div className="mt-1">
                   {roles.length > 0 ? (
@@ -45,7 +45,7 @@ export default function Header({ person }) {
                   )}
                 </div>
               </Col>
-              <Col md={4} className="text-center border-start">
+              <Col md={3} className="text-center">
                 <small className="text-muted d-block text-uppercase">Years of Experience</small>
                 <strong className="fs-5">{years_of_experience}</strong>
               </Col>
