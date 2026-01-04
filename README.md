@@ -3,8 +3,8 @@
 [![Build Status](https://circleci.com/gh/darthjee/weave.svg?style=shield)](https://circleci.com/gh/darthjee/weave)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/35480a5e82e74ff7a0186697b3f61a4b)](https://app.codacy.com/gh/darthjee/weave/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 
-**Current Version:** [0.1.9](https://github.com/darthjee/weave/releases/tag/0.1.9)
-**Next Release:** [0.1.10](https://github.com/darthjee/weave/compare/0.1.9...master)
+**Current Version:** [0.2.0](https://github.com/darthjee/weave/releases/tag/0.2.0)
+**Next Release:** [0.2.1](https://github.com/darthjee/weave/compare/0.2.0...master)
 
 ---
 
@@ -83,6 +83,10 @@ weave/
 │   ├── assets/          # JS, CSS, images
 │   ├── spec/            # Tests
 │   └── package.json
+├── dockerfiles/         # Docker build definitions
+├── docker_volumes/      # Docker persistent data (gitignored)
+│   ├── mysql_data/      # MySQL database files
+│   └── node_modules/    # Frontend dependencies
 └── docker-compose.yml   # Docker services configuration
 ```
 
