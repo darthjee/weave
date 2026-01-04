@@ -145,13 +145,13 @@ jobs:
           command: yarn install
       - run:
           name: Build assets
-          command: bin/deploy.sh build
+          command: deploy_frontend.sh build
       - run:
           name: Generate key file
-          command: bin/deploy.sh generate_key_file
+          command: deploy_frontend.sh generate_key_file
       - run:
           name: Upload assets
-          command: SOURCE=dist/ bin/deploy.sh upload
+          command: SOURCE=dist/ deploy_frontend.sh upload
   upload_static_files:
     docker:
       - image: darthjee/vite_weave-base:0.0.3
@@ -170,7 +170,7 @@ jobs:
       - checkout
       - run:
           name: Generate key file
-          command: bin/deploy.sh generate_key_file
+          command: deploy_frontend.sh generate_key_file
       - run:
           name: Release assets
           command: deploy_frontend.sh release
