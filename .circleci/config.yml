@@ -151,7 +151,7 @@ jobs:
           command: bin/deploy.sh generate_key_file
       - run:
           name: Upload assets
-          command: bin/deploy.sh upload
+          command: SOURCE=dist/ bin/deploy.sh upload
   upload_static_files:
     docker:
       - image: darthjee/vite_weave-base:0.0.2
