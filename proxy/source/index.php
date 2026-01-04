@@ -14,6 +14,11 @@ if ($requestMethod === 'GET' &&
     $ch = curl_init($frontendUrl);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_HEADER, true);
+    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, [
+        'Host: localhost:3000',
+        'Accept: */*'
+    ]);
     
     $response = curl_exec($ch);
     $headerSize = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
