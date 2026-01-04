@@ -107,6 +107,12 @@ services:
     ports:
       - 127.0.0.1:3040:80
 
+  weave_proxy:
+    image: php:8.4-apache
+    container_name: weave_proxy
+    ports:
+      - 127.0.0.1:3000:80
+
   #################### PROD CONTAINERS ####################
 
   weave_prod_app:
