@@ -24,29 +24,21 @@ workflows:
           filters:
             tags:
               only: /\d+\.\d+\.\d+/
-            branches:
-              ignore: /.*/
       - upload_fe_files:
           requires: [pytest, jasmine, frontend-checks, checks]
           filters:
             tags:
               only: /\d+\.\d+\.\d+/
-            branches:
-              ignore: /.*/
       - upload_static_files:
           requires: [pytest, jasmine, frontend-checks, checks]
           filters:
             tags:
               only: /\d+\.\d+\.\d+/
-            branches:
-              ignore: /.*/
       - release_static_files:
           requires: [build-and-release, upload_fe_files, upload_static_files]
           filters:
             tags:
               only: /\d+\.\d+\.\d+/
-            branches:
-              ignore: /.*/
 jobs:
   pytest:
     docker:
