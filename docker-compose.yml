@@ -8,7 +8,7 @@ services:
     ports:
       - 127.0.0.1:$WEAVE_MYSQL_PORT:3306
     volumes:
-      - ./mysql_data:/var/lib/mysql
+      - ./docker_volumes/mysql_data:/var/lib/mysql
 
   weave_prod_mysql:
     image: mysql:9.3.0
@@ -17,7 +17,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: weave
     volumes:
-      - ./mysql_data:/var/lib/mysql
+      - ./docker_volumes/mysql_data:/var/lib/mysql
 
   #################### Base  ####################
 
@@ -25,7 +25,6 @@ services:
     image: darthjee/weave
     volumes:
       - ./backend:/home/app/app
-      - ./frontend/:/home/app/app/templates
     links:
       - weave_mysql:mysql
     env_file: .env
@@ -34,7 +33,7 @@ services:
     <<: *base
     build:
       context: .
-      dockerfile: Dockerfile.weave
+      dockerfile: dockerfiles/Dockerfile.weave
     command: echo done
 
   base_prod: &base_prod
@@ -48,7 +47,7 @@ services:
     <<: *base_prod
     build:
       context: .
-      dockerfile: Dockerfile.production_weave
+      dockerfile: dockerfiles/Dockerfile.production_weave
     command: echo done
 
 
@@ -67,9 +66,10 @@ services:
     container_name: weave_fe
     build:
       context: .
-      dockerfile: Dockerfile.vite_weave
+      dockerfile: dockerfiles/Dockerfile.vite_weave
     volumes:
       - ./frontend:/home/node/app
+      - ./docker_volumes/node_modules:/home/node/app/node_modules
     ports:
       - 127.0.0.1:3000:8080
     env_file: .env
