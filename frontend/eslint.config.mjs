@@ -2,6 +2,7 @@ import js from '@eslint/js';
 import complexity from 'eslint-plugin-complexity';
 import react from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
+import jasmine from 'eslint-plugin-jasmine';
 import globals from 'globals';
 
 export default [
@@ -63,6 +64,22 @@ export default [
       // React Hooks rules
       'react-hooks/rules-of-hooks': 'error',
       'react-hooks/exhaustive-deps': 'warn',
+    },
+  },
+  // Jasmine spec files configuration
+  {
+    files: ['spec/**/*_spec.js', 'spec/**/*[sS]pec.js'],
+    plugins: {
+      jasmine,
+    },
+    languageOptions: {
+      globals: {
+        ...globals.jasmine,
+      },
+    },
+    rules: {
+      'jasmine/no-focused-tests': 'error',
+      'jasmine/no-disabled-tests': 'warn',
     },
   },
 ];
