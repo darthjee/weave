@@ -103,7 +103,7 @@ services:
     image: httpd:latest
     container_name: weave_static
     volumes:
-      - ./static:/usr/local/apache2/htdocs/
+      - ./static/source:/usr/local/apache2/htdocs/
     ports:
       - 127.0.0.1:3040:80
 
