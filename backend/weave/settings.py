@@ -131,10 +131,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-# STATIC_URL = os.environ.get('STATIC_URL', 'assets/')
-# STATIC_URL="https://weave-static.tamanduati.tech/assets/"
-STATIC_URL="https://localhost:3040/assets/"
-
+STATIC_URL = os.environ.get('STATIC_URL', 'assets/')
 STATIC_ROOT = BASE_DIR / 'assets'
 STATICFILES_DIRS = [
     BASE_DIR / 'assets_files',
