@@ -162,7 +162,7 @@ jobs:
           command: deploy_frontend.sh generate_key_file
       - run:
           name: Upload assets
-          command: SOURCE=static/assets/ deploy_frontend.sh upload
+          command: SOURCE=static/ deploy_frontend.sh upload
   release_static_files:
     docker:
       - image: darthjee/vite_weave-base:0.0.3
