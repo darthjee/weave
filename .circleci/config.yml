@@ -26,7 +26,7 @@ workflows:
               only: /\d+\.\d+\.\d+/
             branches:
               ignore: /.*/
-      - upload_static_files:
+      - upload_fe_files:
           requires: [pytest, jasmine, frontend-checks, checks]
           filters:
             tags:
@@ -34,7 +34,7 @@ workflows:
             branches:
               ignore: /.*/
       - release_static_files:
-          requires: [build-and-release, upload_static_files]
+          requires: [build-and-release, upload_fe_files]
           filters:
             tags:
               only: /\d+\.\d+\.\d+/
@@ -125,7 +125,7 @@ jobs:
       - run:
           name: Trigger Deploy
           command: scripts/deploy.sh deploy
-  upload_static_files:
+  upload_fe_files:
     docker:
       - image: darthjee/vite_weave-base:0.0.2
     steps:
