@@ -68,7 +68,7 @@ jobs:
       - checkout
       - run:
           name: Set folder
-          command: cp backend/* ./ -r; rm frontend backend -rf
+          command: cp backend/* ./ -r; rm frontend backend static -rf
       - run:
           name: Poetry Install
           command: poetry install --no-root --no-interaction --no-ansi
@@ -86,7 +86,7 @@ jobs:
       - checkout
       - run:
           name: Set folder
-          command: cp frontend/* frontend/.??* ./ -r; rm frontend backend -rf
+          command: cp frontend/* frontend/.??* ./ -r; rm frontend backend static -rf
       - run:
           name: Yarn install
           command: yarn install
@@ -101,7 +101,7 @@ jobs:
       - checkout
       - run:
           name: Set folder
-          command: cp backend/* ./ -r; rm frontend backend -rf
+          command: cp backend/* ./ -r; rm frontend backend static -rf
       - run:
           name: Poetry Install
           command: poetry install --no-root --no-interaction --no-ansi
@@ -118,7 +118,7 @@ jobs:
       - checkout
       - run:
           name: Set folder
-          command: cp frontend/* frontend/.??* ./ -r; rm frontend backend -rf
+          command: cp frontend/* frontend/.??* ./ -r; rm frontend backend static-rf
       - run:
           name: Yarn install
           command: yarn install
@@ -139,7 +139,7 @@ jobs:
       - checkout
       - run:
           name: Set folder
-          command: cp frontend/* frontend/.??* ./ -r; rm frontend backend -rf
+          command: cp frontend/* frontend/.??* ./ -r; rm frontend backend static -rf
       - run:
           name: Yarn install
           command: yarn install
@@ -159,7 +159,7 @@ jobs:
       - checkout
       - run:
           name: Set folder
-          command: cp static/* ./ -r; rm frontend backend -rf
+          command: cp static/* ./ -r; rm frontend backend static -rf
       - run:
           name: Generate key file
           command: deploy_frontend.sh generate_key_file
@@ -173,7 +173,7 @@ jobs:
       - checkout
       - run:
           name: Set folder
-          command: cp frontend/* frontend/.??* ./ -r; rm frontend backend -rf
+          command: cp frontend/* frontend/.??* ./ -r; rm frontend backend static -rf
       - run:
           name: Generate key file
           command: bin/deploy.sh generate_key_file
