@@ -1,17 +1,19 @@
 <?php
 
-// Get the request URI and method
-$requestUri = $_SERVER['REQUEST_URI'];
-$requestMethod = $_SERVER['REQUEST_METHOD'];
+class Response {
+    public $body;
+    public $httpCode;
+    public $headerLines;
+    
+    public function __construct($body, $httpCode, $headerLines) {
+        $this->body = $body;
+        $this->httpCode = $httpCode;
+        $this->headerLines = $headerLines;
+    }
+}
 
-// Check if request should be proxied to frontend
-if ($requestMethod === 'GET' && 
-    (strpos($requestUri, '/') === 0 || strpos($requestUri, '/assets/js/') === 0 || strpos($requestUri, '/assets/css/') === 0)) {
-    
-    // Proxy to frontend
-    $frontendUrl = 'http://frontend:8080' . $requestUri;
-    
-    $ch = curl_init($frontendUrl);
+function proxy_request($url) {
+    $ch = curl_init($url);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_HEADER, true);
     curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
@@ -29,18 +31,34 @@ if ($requestMethod === 'GET' &&
     
     curl_close($ch);
     
-    // Forward response headers
-    http_response_code($httpCode);
+    // Parse headers into array
     $headerLines = explode("\n", $headers);
-    foreach ($headerLines as $header) {
-        $header = trim($header);
-        if (!empty($header) && strpos($header, 'HTTP/') !== 0) {
-            header($header);
-        }
-    }
+    $headerLines = array_map('trim', $headerLines);
+    $headerLines = array_filter($headerLines, function($header) {
+        return !empty($header) && strpos($header, 'HTTP/') !== 0;
+    });
     
-    // Return response body
-    echo $body;
+    return new Response($body, $httpCode, $headerLines);
+}
+
+// Get the request URI and method
+$requestUri = $_SERVER['REQUEST_URI'];
+$requestMethod = $_SERVER['REQUEST_METHOD'];
+
+// Check if request should be proxied to frontend
+if ($requestMethod === 'GET' && 
+    (strpos($requestUri, '/') === 0 || strpos($requestUri, '/assets/js/') === 0 || strpos($requestUri, '/assets/css/') === 0)) {
+    
+    // Proxy to frontend
+    $frontendUrl = 'http://frontend:8080' . $requestUri;
+    $response = proxy_request($frontendUrl);
+    
+    // Forward response
+    http_response_code($response->httpCode);
+    foreach ($response->headerLines as $header) {
+        header($header);
+    }
+    echo $response->body;
 } else {
     // Return the path as plain text
     header('Content-Type: text/plain');
