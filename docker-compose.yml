@@ -56,7 +56,13 @@ services:
   weave_app: &weave_app
     <<: *base
     container_name: weave_app
-    depends_on: [base_build, weave_mysql, weave_fe, weave_phpmyadmin, weave_static]
+    depends_on:
+      - base_build
+      - weave_mysql
+      - weave_fe
+      - weave_phpmyadmin
+      - weave_static
+      - weave_proxy
     ports:
       - 127.0.0.1:3030:8080
     environment:
