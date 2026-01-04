@@ -116,6 +116,8 @@ services:
   weave_proxy:
     image: php:8.4-apache
     container_name: weave_proxy
+    volumes:
+      - ./proxy/source:/var/www/html/
     ports:
       - 127.0.0.1:3000:80
 
