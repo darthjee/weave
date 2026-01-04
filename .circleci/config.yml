@@ -172,9 +172,6 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Set folder
-          command: cp frontend/* frontend/.??* ./ -r; rm frontend backend static -rf
-      - run:
           name: Generate key file
           command: bin/deploy.sh generate_key_file
       - run:
