@@ -1,16 +1,6 @@
 <?php
 
-class Response {
-    public $body;
-    public $httpCode;
-    public $headerLines;
-    
-    public function __construct($body, $httpCode, $headerLines) {
-        $this->body = $body;
-        $this->httpCode = $httpCode;
-        $this->headerLines = $headerLines;
-    }
-}
+require_once __DIR__ . '/lib/models/Response.php';
 
 function proxy_request($url) {
     $ch = curl_init($url);
