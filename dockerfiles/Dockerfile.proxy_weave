@@ -1,5 +1,6 @@
-FROM darthjee/proxy_weave-base:0.0.1 as base
+FROM darthjee/proxy_weave-base:0.0.3 as base
 
-WORKDIR /var/www/html
+COPY --chown=app:app ./proxy/composer.* /home/app/app/
 
-USER www-data
+RUN composer install; \
+    composer dump-autoload
