@@ -58,7 +58,7 @@ export default [
       // React rules
       'react/jsx-uses-react': 'error',
       'react/jsx-uses-vars': 'error',
-      'react/prop-types': 'warn',
+      'react/prop-types': 'off', // Disabled - project doesn't use PropTypes
       'react/react-in-jsx-scope': 'off', // React 17+ doesn't need this
 
       // React Hooks rules
