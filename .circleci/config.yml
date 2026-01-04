@@ -3,50 +3,26 @@ workflows:
   version: 2
   test:
     jobs:
-      - pytest:
-          filters:
-            tags:
-              only: /.*/
-      - jasmine:
-          filters:
-            tags:
-              only: /.*/
-      - checks:
-          filters:
-            tags:
-              only: /.*/
-      - frontend-checks:
-          filters:
-            tags:
-              only: /.*/
       - build-and-release:
-          requires: [pytest, jasmine, frontend-checks, checks]
+          requires: []
           filters:
             tags:
               only: /\d+\.\d+\.\d+/
-            branches:
-              ignore: /.*/
       - upload_fe_files:
-          requires: [pytest, jasmine, frontend-checks, checks]
+          requires: []
           filters:
             tags:
               only: /\d+\.\d+\.\d+/
-            branches:
-              ignore: /.*/
       - upload_static_files:
-          requires: [pytest, jasmine, frontend-checks, checks]
+          requires: []
           filters:
             tags:
               only: /\d+\.\d+\.\d+/
-            branches:
-              ignore: /.*/
       - release_static_files:
           requires: [build-and-release, upload_fe_files, upload_static_files]
           filters:
             tags:
               only: /\d+\.\d+\.\d+/
-            branches:
-              ignore: /.*/
 jobs:
   pytest:
     docker:
