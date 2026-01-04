@@ -121,6 +121,9 @@ services:
       dockerfile: dockerfiles/Dockerfile.proxy_weave
     volumes:
       - ./proxy:/home/app/app
+    links:
+      - weave_app:backend
+      - weave_fe:frontend
     ports:
       - 127.0.0.1:3000:80
 
