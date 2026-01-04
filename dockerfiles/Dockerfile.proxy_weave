@@ -1,0 +1,5 @@
+FROM darthjee/proxy_weave-base:0.0.1 as base
+
+WORKDIR /var/www/html
+
+USER www-data
