@@ -6,6 +6,7 @@ BASE_VERSION?=0.0.3
 BASE_IMAGE?=$(DOCKER_ID_USER)/$(PROJECT)-base
 PUSH_IMAGE=$(DOCKER_ID_USER)/$(PROJECT)
 DOCKER_FILE_BASE=dockerfiles/Dockerfile.$(PROJECT)-base
+DOCKER_FILE=dockerfiles/Dockerfile.$(PROJECT)
 
 all:
 	@echo "Usage:"
@@ -27,7 +28,7 @@ push-base:
 	docker push $(BASE_IMAGE):$(BASE_VERSION)
 
 build:
-	docker build -f dockerfiles/Dockerfile.$(PROJECT) . -t $(IMAGE) -t $(PUSH_IMAGE) -t $(PUSH_IMAGE):$(BASE_VERSION)
+	docker build -f $(DOCKER_FILE) . -t $(IMAGE) -t $(PUSH_IMAGE) -t $(PUSH_IMAGE):$(BASE_VERSION)
 
 push:
 	make build
