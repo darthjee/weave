@@ -114,8 +114,11 @@ services:
       - 127.0.0.1:3040:80
 
   weave_proxy:
-    image: php:8.4-apache
+    image: darthjee/proxy_weave
     container_name: weave_proxy
+    build:
+      context: .
+      dockerfile: dockerfiles/Dockerfile.proxy_weave
     volumes:
       - ./proxy/source:/var/www/html/
     ports:
