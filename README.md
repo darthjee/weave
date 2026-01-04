@@ -53,6 +53,8 @@ An app to display curriculum vitae as a D&D character sheet, where:
 
 - **Frontend:** <http://localhost:3000>
 - **Backend API:** <http://localhost:3030>
+- **Django Admin:** <http://localhost:3030/admin>
+- **Static Files Server:** <http://localhost:3040>
 - **PhpMyAdmin:** <http://localhost:3050>
 
 ### Running Tests
@@ -96,6 +98,7 @@ WEAVE_MYSQL_USER=root
 WEAVE_MYSQL_PASSWORD=weave
 WEAVE_MYSQL_HOST=mysql
 WEAVE_MYSQL_PORT=3306
+STATIC_URL="http://localhost:3040/assets/"
 CORS_ALLOWED_ORIGINS="http://localhost:3000,http://127.0.0.1:3000"
 ```
 
@@ -108,7 +111,26 @@ VITE_WEAVE_API_URL=http://localhost:3030
 ---
 
 ## Production Deployment
+Static Files Architecture
 
+The project uses a **separate static files server** for serving Django Admin assets and other static content:
+
+**Development:**
+- Static files served by Apache httpd container (`weave_static`)
+- Accessible at `http://localhost:3040/assets/`
+- Django collectstatic output mounted to container
+
+**Production:**
+- Static files served from `https://weave-static.tamanduati.tech/assets/`
+- Configured via `STATIC_URL` environment variable
+- Enables CDN deployment and better caching
+
+**Generate static files:**
+```bash
+docker-compose run weave_app poetry run python manage.py collectstatic
+```
+
+### 
 ### Backend (Django)
 
 The backend runs in Docker using a production-optimized image:
