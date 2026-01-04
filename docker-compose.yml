@@ -59,10 +59,7 @@ services:
     depends_on:
       - base_build
       - weave_mysql
-      - weave_fe
       - weave_phpmyadmin
-      - weave_static
-      - weave_proxy
     ports:
       - 127.0.0.1:3030:8080
     environment:
@@ -124,6 +121,10 @@ services:
     links:
       - weave_app:backend
       - weave_fe:frontend
+    depends_on:
+      - weave_app
+      - weave_fe
+      - weave_static
     ports:
       - 127.0.0.1:3000:80
 
