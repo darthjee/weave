@@ -70,6 +70,7 @@ services:
       dockerfile: dockerfiles/Dockerfile.vite_weave
     volumes:
       - ./frontend:/home/node/app
+      - ./docker_volumes/node_modules:/home/node/app/node_modules
     ports:
       - 127.0.0.1:3000:8080
     env_file: .env
