@@ -34,7 +34,7 @@ services:
     <<: *base
     build:
       context: .
-      dockerfile: Dockerfile.weave
+      dockerfile: dockerfiles/Dockerfile.weave
     command: echo done
 
   base_prod: &base_prod
@@ -48,7 +48,7 @@ services:
     <<: *base_prod
     build:
       context: .
-      dockerfile: Dockerfile.production_weave
+      dockerfile: dockerfiles/Dockerfile.production_weave
     command: echo done
 
 
@@ -67,7 +67,7 @@ services:
     container_name: weave_fe
     build:
       context: .
-      dockerfile: Dockerfile.vite_weave
+      dockerfile: dockerfiles/Dockerfile.vite_weave
     volumes:
       - ./frontend:/home/node/app
     ports:
