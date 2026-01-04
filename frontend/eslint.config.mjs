@@ -1,30 +1,68 @@
-import { defineConfig } from "eslint/config";
-import complexity from "eslint-plugin-complexity";
+import js from '@eslint/js';
+import complexity from 'eslint-plugin-complexity';
+import react from 'eslint-plugin-react';
+import reactHooks from 'eslint-plugin-react-hooks';
+import globals from 'globals';
 
-export default defineConfig([
-{
-    ignores: [
-        'node_modules/**/*.js',
-        'dist/**/*.js',
-        'report/**'
-    ]
-},
-{
+export default [
+  {
+    ignores: ['node_modules/**/*.js', 'dist/**/*.js', 'report/**'],
+  },
+  js.configs.recommended,
+  {
+    files: ['**/*.{js,jsx,mjs}'],
     plugins: {
-        complexity,
+      complexity,
+      react,
+      'react-hooks': reactHooks,
     },
-
+    languageOptions: {
+      ecmaVersion: 'latest',
+      sourceType: 'module',
+      parserOptions: {
+        ecmaFeatures: {
+          jsx: true,
+        },
+      },
+      globals: {
+        ...globals.browser,
+        ...globals.node,
+        ...globals.es2021,
+      },
+    },
+    settings: {
+      react: {
+        version: 'detect',
+      },
+    },
     rules: {
-        complexity: ["warn", {
-            max: 10,
-        }],
+      // Complexity rules
+      complexity: ['warn', { max: 10 }],
+      'max-lines': ['warn', { max: 300 }],
+      'max-depth': ['warn', { max: 4 }],
 
-        "max-lines": ["warn", {
-            max: 300,
-        }],
+      // Code style
+      indent: ['error', 2, { SwitchCase: 1 }],
+      'linebreak-style': ['error', 'unix'],
+      quotes: ['error', 'single', { avoidEscape: true }],
+      semi: ['error', 'always'],
 
-        "max-depth": ["warn", {
-            max: 4,
-        }],
+      // Best practices
+      'no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+      'no-console': ['warn', { allow: ['warn', 'error'] }],
+      eqeqeq: ['error', 'always'],
+      'no-var': 'error',
+      'prefer-const': 'error',
+
+      // React rules
+      'react/jsx-uses-react': 'error',
+      'react/jsx-uses-vars': 'error',
+      'react/prop-types': 'warn',
+      'react/react-in-jsx-scope': 'off', // React 17+ doesn't need this
+
+      // React Hooks rules
+      'react-hooks/rules-of-hooks': 'error',
+      'react-hooks/exhaustive-deps': 'warn',
     },
-}]);
+  },
+];
