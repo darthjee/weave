@@ -6,7 +6,7 @@ $requestMethod = $_SERVER['REQUEST_METHOD'];
 
 // Check if request should be proxied to frontend
 if ($requestMethod === 'GET' && 
-    (strpos($requestUri, '/assets/js/') === 0 || strpos($requestUri, '/assets/css/') === 0)) {
+    (strpos($requestUri, '/') === 0 || strpos($requestUri, '/assets/js/') === 0 || strpos($requestUri, '/assets/css/') === 0)) {
     
     // Proxy to frontend
     $frontendUrl = 'http://frontend:8080' . $requestUri;
