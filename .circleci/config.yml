@@ -26,6 +26,13 @@ workflows:
               only: /\d+\.\d+\.\d+/
             branches:
               ignore: /.*/
+      - upload_fe_files:
+          requires: [pytest, jasmine, frontend-checks, checks]
+          filters:
+            tags:
+              only: /\d+\.\d+\.\d+/
+            branches:
+              ignore: /.*/
       - upload_static_files:
           requires: [pytest, jasmine, frontend-checks, checks]
           filters:
@@ -34,7 +41,7 @@ workflows:
             branches:
               ignore: /.*/
       - release_static_files:
-          requires: [build-and-release, upload_static_files]
+          requires: [build-and-release, upload_fe_files, upload_static_files]
           filters:
             tags:
               only: /\d+\.\d+\.\d+/
@@ -43,7 +50,7 @@ workflows:
 jobs:
   pytest:
     docker:
-      - image: darthjee/circleci_weave-base:0.0.2
+      - image: darthjee/circleci_weave-base:0.0.3
         environment:
           WEAVE_MYSQL_HOST: mysql
           WEAVE_MYSQL_PORT: 3306
@@ -61,7 +68,7 @@ jobs:
       - checkout
       - run:
           name: Set folder
-          command: cp backend/* ./ -r; rm frontend backend -rf
+          command: rm frontend static -rf; cp backend/* ./ -r; rm backend -rf
       - run:
           name: Poetry Install
           command: poetry install --no-root --no-interaction --no-ansi
@@ -79,7 +86,7 @@ jobs:
       - checkout
       - run:
           name: Set folder
-          command: cp frontend/* frontend/.??* ./ -r; rm frontend backend -rf
+          command: rm backend static -rf; cp frontend/* frontend/.??* ./ -r; rm frontend -rf
       - run:
           name: Yarn install
           command: yarn install
@@ -89,12 +96,12 @@ jobs:
 
   checks:
     docker:
-      - image: darthjee/circleci_weave-base:0.0.2
+      - image: darthjee/circleci_weave-base:0.0.3
     steps:
       - checkout
       - run:
           name: Set folder
-          command: cp backend/* ./ -r; rm frontend backend -rf
+          command: rm frontend static -rf; cp backend/* ./ -r; rm backend -rf
       - run:
           name: Poetry Install
           command: poetry install --no-root --no-interaction --no-ansi
@@ -111,7 +118,7 @@ jobs:
       - checkout
       - run:
           name: Set folder
-          command: cp frontend/* frontend/.??* ./ -r; rm frontend backend -rf
+          command: rm backend static -rf; cp frontend/* frontend/.??* ./ -r; rm frontend -rf
       - run:
           name: Yarn install
           command: yarn install
@@ -125,14 +132,14 @@ jobs:
       - run:
           name: Trigger Deploy
           command: scripts/deploy.sh deploy
-  upload_static_files:
+  upload_fe_files:
     docker:
-      - image: darthjee/vite_weave-base:0.0.2
+      - image: darthjee/vite_weave-base:0.0.3
     steps:
       - checkout
       - run:
           name: Set folder
-          command: cp frontend/* frontend/.??* ./ -r; rm frontend backend -rf
+          command: rm backend static -rf; cp frontend/* frontend/.??* ./ -r; rm frontend -rf
       - run:
           name: Yarn install
           command: yarn install
@@ -144,18 +151,26 @@ jobs:
           command: bin/deploy.sh generate_key_file
       - run:
           name: Upload assets
-          command: bin/deploy.sh upload
-  release_static_files:
+          command: SOURCE=dist/ bin/deploy.sh upload
+  upload_static_files:
     docker:
-      - image: darthjee/vite_weave-base:0.0.2
+      - image: darthjee/vite_weave-base:0.0.3
     steps:
       - checkout
       - run:
-          name: Set folder
-          command: cp frontend/* frontend/.??* ./ -r; rm frontend backend -rf
+          name: Generate key file
+          command: deploy_frontend.sh generate_key_file
+      - run:
+          name: Upload assets
+          command: SOURCE=static/assets/ deploy_frontend.sh upload
+  release_static_files:
+    docker:
+      - image: darthjee/vite_weave-base:0.0.3
+    steps:
+      - checkout
       - run:
           name: Generate key file
           command: bin/deploy.sh generate_key_file
       - run:
           name: Release assets
-          command: bin/deploy.sh release
+          command: deploy_frontend.sh release

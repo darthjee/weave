@@ -57,7 +57,7 @@ services:
   weave_app: &weave_app
     <<: *base
     container_name: weave_app
-    depends_on: [base_build, weave_mysql, weave_fe, weave_phpmyadmin]
+    depends_on: [base_build, weave_mysql, weave_fe, weave_phpmyadmin, weave_static]
     ports:
       - 127.0.0.1:3030:8080
     environment:
@@ -98,6 +98,14 @@ services:
       MYSQL_PASSWORD: weave
     ports:
       - 127.0.0.1:3050:80
+
+  weave_static:
+    image: httpd:latest
+    container_name: weave_static
+    volumes:
+      - ./static:/usr/local/apache2/htdocs/
+    ports:
+      - 127.0.0.1:3040:80
 
   #################### PROD CONTAINERS ####################
 
