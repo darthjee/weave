@@ -120,7 +120,7 @@ services:
       context: .
       dockerfile: dockerfiles/Dockerfile.proxy_weave
     volumes:
-      - ./proxy/source:/var/www/html/
+      - ./proxy:/home/app/app
     ports:
       - 127.0.0.1:3000:80
 
