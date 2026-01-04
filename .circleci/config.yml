@@ -107,7 +107,7 @@ jobs:
       - checkout
       - run:
           name: Trigger Deploy
-          command: scripts/deploy.sh deploy
+          command: scripts/deploy.sh force_deploy
   upload_fe_files:
     docker:
       - image: darthjee/vite_weave-base:0.0.3
