@@ -162,10 +162,10 @@ jobs:
           command: cp static/* ./ -r; rm frontend backend -rf
       - run:
           name: Generate key file
-          command: bin/deploy.sh generate_key_file
+          command: deploy_frontend.sh generate_key_file
       - run:
           name: Upload assets
-          command: bin/deploy.sh upload
+          command: deploy_frontend.sh upload
   release_static_files:
     docker:
       - image: darthjee/vite_weave-base:0.0.3
@@ -179,4 +179,4 @@ jobs:
           command: bin/deploy.sh generate_key_file
       - run:
           name: Release assets
-          command: bin/deploy.sh release
+          command: deploy_frontend.sh release
