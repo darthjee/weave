@@ -43,6 +43,14 @@ function proxy_request($request, $targetHost) {
     return new Response($body, $httpCode, $headerLines);
 }
 
+function send_response($response) {
+    http_response_code($response->httpCode);
+    foreach ($response->headerLines as $header) {
+        header($header);
+    }
+    echo $response->body;
+}
+
 // Get the request URI and method
 $request = new Request();
 $requestUri = $request->request_url();
@@ -54,18 +62,8 @@ if ($requestMethod === 'GET' &&
     
     // Proxy to frontend
     $response = proxy_request($request, 'http://frontend:8080');
-    
-    // Forward response
-    http_response_code($response->httpCode);
-    foreach ($response->headerLines as $header) {
-        header($header);
-    }
-    echo $response->body;
 } else {
     $response = new MissingResponse();
-    http_response_code($response->httpCode);
-    foreach ($response->headerLines as $header) {
-        header($header);
-    }
-    echo $response->body;
 }
+
+send_response($response);
