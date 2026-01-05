@@ -1,6 +1,7 @@
 <?php
 
 require_once __DIR__ . '/lib/models/Response.php';
+require_once __DIR__ . '/lib/models/MissingResponse.php';
 require_once __DIR__ . '/lib/models/Request.php';
 
 function proxy_request($request, $targetHost) {
@@ -61,8 +62,10 @@ if ($requestMethod === 'GET' &&
     }
     echo $response->body;
 } else {
-    // Return the path as plain text
-    http_response_code(404);
-    header('Content-Type: text/plain');
-    echo "Not Found";
+    $response = new MissingResponse();
+    http_response_code($response->httpCode);
+    foreach ($response->headerLines as $header) {
+        header($header);
+    }
+    echo $response->body;
 }
