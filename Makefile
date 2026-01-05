@@ -45,7 +45,7 @@ dev-fe:
 	docker-compose run $(PROJECT)_fe /bin/bash
 
 dev-up:
-	docker-compose up $(PROJECT)_app
+	docker-compose up $(PROJECT)_proxy
 
 production-up: .env.prod
 	docker-compose up $(PROJECT)_prod_app
