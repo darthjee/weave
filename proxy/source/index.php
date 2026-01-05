@@ -3,9 +3,14 @@
 require_once __DIR__ . '/lib/models/Response.php';
 require_once __DIR__ . '/lib/models/Request.php';
 
-function proxy_request($url) {
+function proxy_request($request, $targetHost) {
+    // Build full URL from target host and request path
+    $url = $targetHost . $request->request_url();
+    if ($request->query()) {
+        $url .= '?' . $request->query();
+    }
+    
     // Get all request headers
-    $request = new Request();
     $requestHeaders = $request->headers();
     $headers = [];
     foreach ($requestHeaders as $name => $value) {
@@ -47,8 +52,7 @@ if ($requestMethod === 'GET' &&
     (strpos($requestUri, '/') === 0 || strpos($requestUri, '/assets/js/') === 0 || strpos($requestUri, '/assets/css/') === 0)) {
     
     // Proxy to frontend
-    $frontendUrl = 'http://frontend:8080' . $requestUri;
-    $response = proxy_request($frontendUrl);
+    $response = proxy_request($request, 'http://frontend:8080');
     
     // Forward response
     http_response_code($response->httpCode);
