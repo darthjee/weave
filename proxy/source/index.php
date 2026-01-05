@@ -1,10 +1,12 @@
 <?php
 
 require_once __DIR__ . '/lib/models/Response.php';
+require_once __DIR__ . '/lib/models/Request.php';
 
 function proxy_request($url) {
     // Get all request headers
-    $requestHeaders = getallheaders();
+    $request = new Request();
+    $requestHeaders = $request->headers();
     $headers = [];
     foreach ($requestHeaders as $name => $value) {
         $headers[] = "$name: $value";
@@ -36,8 +38,9 @@ function proxy_request($url) {
 }
 
 // Get the request URI and method
-$requestUri = $_SERVER['REQUEST_URI'];
-$requestMethod = $_SERVER['REQUEST_METHOD'];
+$request = new Request();
+$requestUri = $request->request_url();
+$requestMethod = $request->request_method();
 
 // Check if request should be proxied to frontend
 if ($requestMethod === 'GET' && 
