@@ -3,14 +3,18 @@
 require_once __DIR__ . '/lib/models/Response.php';
 
 function proxy_request($url) {
+    // Get all request headers
+    $requestHeaders = getallheaders();
+    $headers = [];
+    foreach ($requestHeaders as $name => $value) {
+        $headers[] = "$name: $value";
+    }
+    
     $ch = curl_init($url);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_HEADER, true);
     curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, [
-        'Host: localhost:3000',
-        'Accept: */*'
-    ]);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
     
     $response = curl_exec($ch);
     $headerSize = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
