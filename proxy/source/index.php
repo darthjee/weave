@@ -62,6 +62,7 @@ if ($requestMethod === 'GET' &&
     echo $response->body;
 } else {
     // Return the path as plain text
+    http_response_code(404);
     header('Content-Type: text/plain');
-    echo $requestUri;
+    echo "Not Found";
 }
