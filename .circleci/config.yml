@@ -11,6 +11,10 @@ workflows:
           filters:
             tags:
               only: /.*/
+      - php-tests:
+          filters:
+            tags:
+              only: /.*/
       - checks:
           filters:
             tags:
@@ -20,21 +24,21 @@ workflows:
             tags:
               only: /.*/
       - build-and-release:
-          requires: [pytest, jasmine, frontend-checks, checks]
+          requires: [pytest, jasmine, php-tests,frontend-checks, checks]
           filters:
             tags:
               only: /\d+\.\d+\.\d+/
             branches:
               ignore: /.*/
       - upload_fe_files:
-          requires: [pytest, jasmine, frontend-checks, checks]
+          requires: [pytest, jasmine, php-tests,frontend-checks, checks]
           filters:
             tags:
               only: /\d+\.\d+\.\d+/
             branches:
               ignore: /.*/
       - upload_static_files:
-          requires: [pytest, jasmine, frontend-checks, checks]
+          requires: [pytest, jasmine, php-tests, frontend-checks, checks]
           filters:
             tags:
               only: /\d+\.\d+\.\d+/
@@ -93,6 +97,21 @@ jobs:
       - run:
           name: Tests
           command: npm test
+
+  php-tests:
+    docker:
+      - image: darthjee/proxy_weave-base:0.0.3
+    steps:
+      - checkout
+      - run:
+          name: Set folder
+          command: rm backend static frontend -rf; cp proxy/* ./ -r; rm proxy -rf
+      - run:
+          name: composer install
+          command: composer install
+      - run:
+          name: Tests
+          command: composer tests:unit
 
   checks:
     docker:
