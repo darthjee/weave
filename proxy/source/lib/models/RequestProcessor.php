@@ -24,10 +24,21 @@ class RequestProcessor {
     }
 
     private function matchesFrontendRoute() {
-        $requestUri = $this->request->request_url();
-        $requestMethod = $this->request->request_method();
+        $matchers = [
+            new RequestMatcher('GET', '/', 'exact'),
+            new RequestMatcher('GET', '/assets/js/', 'begins_with'),
+            new RequestMatcher('GET', '/assets/css/', 'begins_with'),
+            new RequestMatcher('GET', '/@vite/', 'begins_with'),
+            new RequestMatcher('GET', '/node_modules/', 'begins_with'),
+            new RequestMatcher('GET', '/@react-refresh', 'exact')
+        ];
 
-        return $requestMethod === 'GET' && 
-            ($requestUri == '/' || strpos($requestUri, '/assets/js/') === 0 || strpos($requestUri, '/assets/css/') === 0 || strpos($requestUri, '/@vite/') === 0 || strpos($requestUri, '/node_modules/') === 0 || $requestUri == '/@react-refresh');
+        foreach ($matchers as $matcher) {
+            if ($matcher->matches($this->request)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
