@@ -117,6 +117,7 @@ services:
       context: .
       dockerfile: dockerfiles/Dockerfile.proxy_weave
     volumes:
+      - ./docker_volumes/vendor:/home/app/app/vendor
       - ./proxy:/home/app/app
     links:
       - weave_app:backend
