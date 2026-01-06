@@ -6,7 +6,7 @@ class CurlHttpClient implements HttpClientInterface
 {
     public function request($url, $headers)
     {
-        $headerLines = $this->buildHeaderLines($headers);
+        $headerLines = CurlUtils::buildHeaderLines($headers);
 
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -35,14 +35,5 @@ class CurlHttpClient implements HttpClientInterface
             'httpCode' => $httpCode,
             'headers' => $headerLines
         ];
-    }
-
-    private function buildHeaderLines($headers)
-    {
-        $headerLines = [];
-        foreach ($headers as $name => $value) {
-            $headerLines[] = "$name: $value";
-        }
-        return $headerLines;
     }
 }
