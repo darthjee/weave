@@ -9,7 +9,7 @@ require_once __DIR__ . '/lib/models/Request.php';
 require_once __DIR__ . '/lib/models/ProxyRequest.php';
 require_once __DIR__ . '/lib/models/MissingRequestHandler.php';
 require_once __DIR__ . '/lib/models/RequestMatcher.php';
-require_once __DIR__ . '/lib/models/RequestProcessor.php';
+require_once __DIR__ . '/lib/service/RequestProcessor.php';
 
 function send_response($response)
 {
