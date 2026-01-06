@@ -2,7 +2,7 @@
 
 namespace Weave\Proxy;
 
-class ProxyRequest
+class ProxyRequestHandler
 {
     private $targetHost;
 
