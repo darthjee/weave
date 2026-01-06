@@ -133,7 +133,7 @@ class ProxyRequestHandlerTest extends TestCase
     private function createMockHttpClient($expectedUrl, $expectedHeaders, $returnValue)
     {
         $httpClient = $this->createMock(\Weave\Proxy\HttpClientInterface::class);
-        
+
         $httpClient->expects($this->once())
             ->method('request')
             ->with($expectedUrl, $expectedHeaders)
