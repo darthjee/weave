@@ -1,4 +1,4 @@
-FROM darthjee/proxy_weave-base:0.0.3 as base
+FROM darthjee/tent-base:0.0.1
 
 COPY --chown=app:app ./proxy/composer.* /home/app/app/
 
