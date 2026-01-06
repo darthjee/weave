@@ -100,7 +100,7 @@ jobs:
 
   php-tests:
     docker:
-      - image: darthjee/proxy_weave-base:0.0.3
+      - image: darthjee/circleci_tent-base:0.0.1
     steps:
       - checkout
       - run:
