@@ -11,7 +11,7 @@ class RequestProcessor {
             
             // Proxy to frontend
             $proxyRequest = new ProxyRequest('http://frontend:8080');
-            return $proxyRequest->proxy_request($request);
+            return $proxyRequest->handle_request($request);
         } else {
             return new MissingResponse();
         }
