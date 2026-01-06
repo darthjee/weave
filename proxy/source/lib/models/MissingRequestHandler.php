@@ -1,7 +1,11 @@
 <?php
 
-class MissingRequestHandler {
-    public function handle_request($request) {
+namespace Weave\Proxy;
+
+class MissingRequestHandler
+{
+    public function handleRequest($request)
+    {
         return new MissingResponse();
     }
 }

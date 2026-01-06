@@ -1,17 +1,23 @@
 <?php
 
-class RequestProcessor {
+namespace Weave\Proxy;
+
+class RequestProcessor
+{
     private $request;
 
-    public function __construct($request) {
+    public function __construct($request)
+    {
         $this->request = $request;
     }
 
-    public static function handleRequest($request) {
+    public static function handleRequest($request)
+    {
         return (new RequestProcessor($request))->handle();
     }
 
-    public function handle() {
+    public function handle()
+    {
         // Check if request should be proxied to frontend
         if ($this->matchesFrontendRoute()) {
             // Proxy to frontend
@@ -20,10 +26,11 @@ class RequestProcessor {
             $handler = new MissingRequestHandler();
         }
 
-        return $handler->handle_request($this->request);
+        return $handler->handleRequest($this->request);
     }
 
-    private function matchesFrontendRoute() {
+    private function matchesFrontendRoute()
+    {
         $matchers = [
             new RequestMatcher('GET', '/', 'exact'),
             new RequestMatcher('GET', '/assets/js/', 'begins_with'),
