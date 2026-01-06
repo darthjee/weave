@@ -5,10 +5,12 @@ namespace Weave\Proxy;
 class ProxyRequestHandler
 {
     private $targetHost;
+    private $httpClient;
 
-    public function __construct($targetHost)
+    public function __construct($targetHost, $httpClient = null)
     {
         $this->targetHost = $targetHost;
+        $this->httpClient = $httpClient ?? new CurlHttpClient();
     }
 
     public function handleRequest($request)
@@ -26,28 +28,12 @@ class ProxyRequestHandler
             $headers[] = "$name: $value";
         }
 
-        $ch = curl_init($url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HEADER, true);
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        $response = $this->httpClient->request($url, $headers);
 
-        $response = curl_exec($ch);
-        $headerSize = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
-        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-
-        $headers = substr($response, 0, $headerSize);
-        $body = substr($response, $headerSize);
-
-        curl_close($ch);
-
-        // Parse headers into array
-        $headerLines = explode("\n", $headers);
-        $headerLines = array_map('trim', $headerLines);
-        $headerLines = array_filter($headerLines, function ($header) {
-            return !empty($header) && strpos($header, 'HTTP/') !== 0;
-        });
-
-        return new Response($body, $httpCode, $headerLines);
+        return new Response(
+            $response['body'],
+            $response['httpCode'],
+            $response['headers']
+        );
     }
 }
