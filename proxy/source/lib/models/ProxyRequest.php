@@ -7,7 +7,7 @@ class ProxyRequest {
         $this->targetHost = $targetHost;
     }
 
-    public function proxy_request($request) {
+    public function handle_request($request) {
         // Build full URL from target host and request path
         $url = $this->targetHost . $request->request_url();
         if ($request->query()) {
