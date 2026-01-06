@@ -1,5 +1,7 @@
 <?php
 
+namespace Weave\Proxy;
+
 class MissingResponse extends Response
 {
     public function __construct()

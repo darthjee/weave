@@ -1,5 +1,7 @@
 <?php
 
+namespace Weave\Proxy;
+
 class RequestMatcher
 {
     private $requestMethod;

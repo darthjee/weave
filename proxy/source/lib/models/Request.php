@@ -1,5 +1,7 @@
 <?php
 
+namespace Weave\Proxy;
+
 class Request
 {
     public function request_method()

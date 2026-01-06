@@ -1,6 +1,8 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
+use Weave\Proxy\RequestMatcher;
+use Weave\Proxy\Request;
 
 require_once __DIR__ . '/../../../../source/lib/models/RequestMatcher.php';
 require_once __DIR__ . '/../../../../source/lib/models/Request.php';
