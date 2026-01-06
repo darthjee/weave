@@ -23,12 +23,7 @@ class CurlHttpClient implements HttpClientInterface
 
         curl_close($ch);
 
-        // Parse headers into array
-        $headerLines = explode("\n", $headers);
-        $headerLines = array_map('trim', $headerLines);
-        $headerLines = array_filter($headerLines, function ($header) {
-            return !empty($header) && strpos($header, 'HTTP/') !== 0;
-        });
+        $headerLines = CurlUtils::parseResponseHeaders($headers);
 
         return [
             'body' => $body,

@@ -12,4 +12,14 @@ class CurlUtils
         }
         return $headerLines;
     }
+
+    public static function parseResponseHeaders($headers)
+    {
+        $headerLines = explode("\n", $headers);
+        $headerLines = array_map('trim', $headerLines);
+        $headerLines = array_filter($headerLines, function ($header) {
+            return !empty($header) && strpos($header, 'HTTP/') !== 0;
+        });
+        return $headerLines;
+    }
 }
