@@ -1,9 +1,19 @@
 <?php
 
 class RequestProcessor {
+    private $request;
+
+    public function __construct($request) {
+        $this->request = $request;
+    }
+
     public static function handleRequest($request) {
-        $requestUri = $request->request_url();
-        $requestMethod = $request->request_method();
+        return (new RequestProcessor($request))->handle();
+    }
+
+    public function handle() {
+        $requestUri = $this->request->request_url();
+        $requestMethod = $this->request->request_method();
 
         // Check if request should be proxied to frontend
         if ($requestMethod === 'GET' && 
@@ -15,6 +25,6 @@ class RequestProcessor {
             $handler = new MissingRequestHandler();
         }
 
-        return $handler->handle_request($request);
+        return $handler->handle_request($this->request);
     }
 }
