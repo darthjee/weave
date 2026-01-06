@@ -12,10 +12,14 @@ class RequestMatcher {
     }
 
     public function matches($request) {
-        if ($this->requestMethod !== null && $request->request_method() !== $this->requestMethod) {
-            return false;
-        }
+        return $this->matchRequestMethod($request) && $this->matchRequestUri($request);
+    }
 
+    private function matchRequestMethod($request) {
+        return $this->requestMethod == null || $request->request_method() == $this->requestMethod;
+    }
+
+    private function matchRequestUri($request) {
         $requestUrl = $request->request_url();
 
         if ($this->matchType === 'exact') {
