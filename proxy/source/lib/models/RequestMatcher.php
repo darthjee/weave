@@ -20,6 +20,10 @@ class RequestMatcher {
     }
 
     private function matchRequestUri($request) {
+        if ($this->requestUri == null) {
+            return true;
+        }
+
         $requestUrl = $request->request_url();
 
         if ($this->matchType === 'exact') {
