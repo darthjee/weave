@@ -5,7 +5,7 @@ class RequestMatcher {
     private $requestUri;
     private $matchType;
 
-    public function __construct($requestMethod, $requestUri, $matchType = 'exact') {
+    public function __construct($requestMethod = NULL, $requestUri = NULL, $matchType = 'exact') {
         $this->requestMethod = $requestMethod;
         $this->requestUri = $requestUri;
         $this->matchType = $matchType;

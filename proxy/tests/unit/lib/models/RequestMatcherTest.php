@@ -69,6 +69,27 @@ class RequestMatcherTest extends TestCase {
         $this->assertTrue($matcher->matches($request)); // All paths begin with '/'
     }
 
+    public function testMatchesPathOnlyWhenMethodIsNull() {
+        $request = $this->createMockRequest('POST', '/home');
+        $matcher = new RequestMatcher(null, '/home', 'exact');
+
+        $this->assertTrue($matcher->matches($request));
+    }
+
+    public function testMatchesPathOnlyWithBeginsWithWhenMethodIsNull() {
+        $request = $this->createMockRequest('DELETE', '/assets/js/main.js');
+        $matcher = new RequestMatcher(null, '/assets/js/', 'begins_with');
+
+        $this->assertTrue($matcher->matches($request));
+    }
+
+    public function testDoesNotMatchWhenMethodIsNullAndPathDifferent() {
+        $request = $this->createMockRequest('PUT', '/about');
+        $matcher = new RequestMatcher(null, '/home', 'exact');
+
+        $this->assertFalse($matcher->matches($request));
+    }
+
     private function createMockRequest($method, $url) {
         $mock = $this->createMock(Request::class);
         $mock->method('request_method')->willReturn($method);
