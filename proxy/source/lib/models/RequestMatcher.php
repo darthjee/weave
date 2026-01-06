@@ -12,7 +12,7 @@ class RequestMatcher {
     }
 
     public function matches($request) {
-        if ($request->request_method() !== $this->requestMethod) {
+        if ($this->requestMethod !== null && $request->request_method() !== $this->requestMethod) {
             return false;
         }
 
