@@ -1,5 +1,7 @@
 <?php
 
+namespace Weave\Proxy\Tests;
+
 use PHPUnit\Framework\TestCase;
 use Weave\Proxy\RequestMatcher;
 use Weave\Proxy\Request;

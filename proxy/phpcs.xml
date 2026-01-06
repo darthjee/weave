@@ -8,6 +8,7 @@
     <!-- Exclude side effects rule for tests directory -->
     <rule ref="PSR1.Files.SideEffects.FoundWithSymbols">
         <exclude-pattern>tests/*</exclude-pattern>
+        <exclude-pattern>source/index.php</exclude-pattern>
     </rule>
 
     <!-- Exclude namespace requirement for entry point -->
