@@ -11,10 +11,10 @@ class ProxyRequest
         $this->targetHost = $targetHost;
     }
 
-    public function handle_request($request)
+    public function handleRequest($request)
     {
         // Build full URL from target host and request path
-        $url = $this->targetHost . $request->request_url();
+        $url = $this->targetHost . $request->requestUrl();
         if ($request->query()) {
             $url .= '?' . $request->query();
         }

@@ -26,7 +26,7 @@ class RequestProcessor
             $handler = new MissingRequestHandler();
         }
 
-        return $handler->handle_request($this->request);
+        return $handler->handleRequest($this->request);
     }
 
     private function matchesFrontendRoute()

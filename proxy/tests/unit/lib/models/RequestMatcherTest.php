@@ -132,8 +132,8 @@ class RequestMatcherTest extends TestCase
     private function createMockRequest($method, $url)
     {
         $mock = $this->createMock(Request::class);
-        $mock->method('request_method')->willReturn($method);
-        $mock->method('request_url')->willReturn($url);
+        $mock->method('requestMethod')->willReturn($method);
+        $mock->method('requestUrl')->willReturn($url);
         return $mock;
     }
 }

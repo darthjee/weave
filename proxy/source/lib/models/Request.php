@@ -4,7 +4,7 @@ namespace Weave\Proxy;
 
 class Request
 {
-    public function request_method()
+    public function requestMethod()
     {
         return $_SERVER['REQUEST_METHOD'];
     }
@@ -19,7 +19,7 @@ class Request
         return getallheaders();
     }
 
-    public function request_url()
+    public function requestUrl()
     {
         $uri = $_SERVER['REQUEST_URI'];
         $parts = parse_url($uri);

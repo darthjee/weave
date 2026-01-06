@@ -22,7 +22,7 @@ class RequestMatcher
 
     private function matchRequestMethod($request)
     {
-        return $this->requestMethod == null || $request->request_method() == $this->requestMethod;
+        return $this->requestMethod == null || $request->requestMethod() == $this->requestMethod;
     }
 
     private function matchRequestUri($request)
@@ -31,7 +31,7 @@ class RequestMatcher
             return true;
         }
 
-        $requestUrl = $request->request_url();
+        $requestUrl = $request->requestUrl();
 
         if ($this->matchType === 'exact') {
             return $requestUrl === $this->requestUri;
