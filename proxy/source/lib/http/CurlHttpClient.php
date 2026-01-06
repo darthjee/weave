@@ -6,11 +6,17 @@ class CurlHttpClient implements HttpClientInterface
 {
     public function request($url, $headers)
     {
+        // Transform associative headers array to cURL format
+        $headerLines = [];
+        foreach ($headers as $name => $value) {
+            $headerLines[] = "$name: $value";
+        }
+
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_HEADER, true);
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headerLines);
 
         $response = curl_exec($ch);
         $headerSize = curl_getinfo($ch, CURLINFO_HEADER_SIZE);

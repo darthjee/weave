@@ -21,14 +21,7 @@ class ProxyRequestHandler
             $url .= '?' . $request->query();
         }
 
-        // Get all request headers
-        $requestHeaders = $request->headers();
-        $headers = [];
-        foreach ($requestHeaders as $name => $value) {
-            $headers[] = "$name: $value";
-        }
-
-        $response = $this->httpClient->request($url, $headers);
+        $response = $this->httpClient->request($url, $request->headers());
 
         return new Response(
             $response['body'],

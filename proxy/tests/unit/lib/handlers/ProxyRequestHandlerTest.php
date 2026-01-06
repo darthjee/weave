@@ -52,8 +52,8 @@ class ProxyRequestHandlerTest extends TestCase
         ]);
 
         $expectedHeaders = [
-            'Content-Type: application/json',
-            'Authorization: Bearer token123'
+            'Content-Type' => 'application/json',
+            'Authorization' => 'Bearer token123'
         ];
 
         $httpClient = $this->createMockHttpClient(
