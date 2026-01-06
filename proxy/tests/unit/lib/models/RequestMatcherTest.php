@@ -1,0 +1,78 @@
+<?php
+
+use PHPUnit\Framework\TestCase;
+
+require_once __DIR__ . '/../../../../source/lib/models/RequestMatcher.php';
+require_once __DIR__ . '/../../../../source/lib/models/Request.php';
+
+class RequestMatcherTest extends TestCase {
+    public function testMatchesWithExactMatch() {
+        $request = $this->createMockRequest('GET', '/home');
+        $matcher = new RequestMatcher('GET', '/home', 'exact');
+
+        $this->assertTrue($matcher->matches($request));
+    }
+
+    public function testDoesNotMatchWithDifferentMethod() {
+        $request = $this->createMockRequest('POST', '/home');
+        $matcher = new RequestMatcher('GET', '/home', 'exact');
+
+        $this->assertFalse($matcher->matches($request));
+    }
+
+    public function testDoesNotMatchWithDifferentUrlExact() {
+        $request = $this->createMockRequest('GET', '/home');
+        $matcher = new RequestMatcher('GET', '/about', 'exact');
+
+        $this->assertFalse($matcher->matches($request));
+    }
+
+    public function testMatchesWithBeginsWithPattern() {
+        $request = $this->createMockRequest('GET', '/assets/js/main.js');
+        $matcher = new RequestMatcher('GET', '/assets/js/', 'begins_with');
+
+        $this->assertTrue($matcher->matches($request));
+    }
+
+    public function testDoesNotMatchWithBeginsWithWhenNotStarting() {
+        $request = $this->createMockRequest('GET', '/home/assets/js/main.js');
+        $matcher = new RequestMatcher('GET', '/assets/js/', 'begins_with');
+
+        $this->assertFalse($matcher->matches($request));
+    }
+
+    public function testDefaultMatchTypeIsExact() {
+        $request = $this->createMockRequest('GET', '/home');
+        $matcher = new RequestMatcher('GET', '/home');
+
+        $this->assertTrue($matcher->matches($request));
+    }
+
+    public function testDoesNotMatchWithInvalidMatchType() {
+        $request = $this->createMockRequest('GET', '/home');
+        $matcher = new RequestMatcher('GET', '/home', 'invalid_type');
+
+        $this->assertFalse($matcher->matches($request));
+    }
+
+    public function testMatchesRootPathExactly() {
+        $request = $this->createMockRequest('GET', '/');
+        $matcher = new RequestMatcher('GET', '/', 'exact');
+
+        $this->assertTrue($matcher->matches($request));
+    }
+
+    public function testDoesNotMatchRootWithBeginsWithForDifferentPath() {
+        $request = $this->createMockRequest('GET', '/home');
+        $matcher = new RequestMatcher('GET', '/', 'begins_with');
+
+        $this->assertTrue($matcher->matches($request)); // All paths begin with '/'
+    }
+
+    private function createMockRequest($method, $url) {
+        $mock = $this->createMock(Request::class);
+        $mock->method('request_method')->willReturn($method);
+        $mock->method('request_url')->willReturn($url);
+        return $mock;
+    }
+}
