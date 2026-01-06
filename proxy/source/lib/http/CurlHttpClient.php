@@ -6,11 +6,7 @@ class CurlHttpClient implements HttpClientInterface
 {
     public function request($url, $headers)
     {
-        // Transform associative headers array to cURL format
-        $headerLines = [];
-        foreach ($headers as $name => $value) {
-            $headerLines[] = "$name: $value";
-        }
+        $headerLines = $this->buildHeaderLines($headers);
 
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -39,5 +35,14 @@ class CurlHttpClient implements HttpClientInterface
             'httpCode' => $httpCode,
             'headers' => $headerLines
         ];
+    }
+
+    private function buildHeaderLines($headers)
+    {
+        $headerLines = [];
+        foreach ($headers as $name => $value) {
+            $headerLines[] = "$name: $value";
+        }
+        return $headerLines;
     }
 }
