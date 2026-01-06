@@ -90,6 +90,27 @@ class RequestMatcherTest extends TestCase {
         $this->assertFalse($matcher->matches($request));
     }
 
+    public function testMatchesMethodOnlyWhenUriIsNull() {
+        $request = $this->createMockRequest('GET', '/any/path');
+        $matcher = new RequestMatcher('GET', null);
+
+        $this->assertTrue($matcher->matches($request));
+    }
+
+    public function testMatchesMethodOnlyWithDifferentPathsWhenUriIsNull() {
+        $request = $this->createMockRequest('POST', '/completely/different');
+        $matcher = new RequestMatcher('POST', null);
+
+        $this->assertTrue($matcher->matches($request));
+    }
+
+    public function testDoesNotMatchWhenUriIsNullAndMethodDifferent() {
+        $request = $this->createMockRequest('DELETE', '/home');
+        $matcher = new RequestMatcher('GET', null);
+
+        $this->assertFalse($matcher->matches($request));
+    }
+
     private function createMockRequest($method, $url) {
         $mock = $this->createMock(Request::class);
         $mock->method('request_method')->willReturn($method);
