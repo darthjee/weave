@@ -1,25 +1,30 @@
 <?php
 
-class RequestMatcher {
+class RequestMatcher
+{
     private $requestMethod;
     private $requestUri;
     private $matchType;
 
-    public function __construct($requestMethod = NULL, $requestUri = NULL, $matchType = 'exact') {
+    public function __construct($requestMethod = null, $requestUri = null, $matchType = 'exact')
+    {
         $this->requestMethod = $requestMethod;
         $this->requestUri = $requestUri;
         $this->matchType = $matchType;
     }
 
-    public function matches($request) {
+    public function matches($request)
+    {
         return $this->matchRequestMethod($request) && $this->matchRequestUri($request);
     }
 
-    private function matchRequestMethod($request) {
+    private function matchRequestMethod($request)
+    {
         return $this->requestMethod == null || $request->request_method() == $this->requestMethod;
     }
 
-    private function matchRequestUri($request) {
+    private function matchRequestUri($request)
+    {
         if ($this->requestUri == null) {
             return true;
         }
