@@ -33,6 +33,7 @@ class RequestProcessor
     {
         $matchers = [
             new RequestMatcher('GET', '/', 'exact'),
+            new RequestMatcher('GET', '/assets/images/', 'begins_with'),
             new RequestMatcher('GET', '/assets/js/', 'begins_with'),
             new RequestMatcher('GET', '/assets/css/', 'begins_with'),
             new RequestMatcher('GET', '/@vite/', 'begins_with'),
