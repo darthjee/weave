@@ -10,6 +10,8 @@ frontend/dist
 frontend/.nyc_output/
 frontend/report/
 
+proxy/coverage/
+
 httpd/*
 .env.prod
 
