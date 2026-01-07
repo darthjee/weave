@@ -11,12 +11,13 @@ require_once __DIR__ . '/../../../../source/lib/utils/CurlUtils.php';
 
 class CurlHttpClientTest extends TestCase
 {
+    private $baseUrl = 'http://httpbin';
+
     public function testRequestReturnsArrayWithCorrectKeys()
     {
         $client = new CurlHttpClient();
         
-        // Using a simple public API for testing
-        $result = $client->request('https://httpbin.org/get', []);
+        $result = $client->request($this->baseUrl . '/get', []);
 
         $this->assertIsArray($result);
         $this->assertArrayHasKey('body', $result);
@@ -28,7 +29,7 @@ class CurlHttpClientTest extends TestCase
     {
         $client = new CurlHttpClient();
         
-        $result = $client->request('https://httpbin.org/get', []);
+        $result = $client->request($this->baseUrl . '/get', []);
 
         $this->assertEquals(200, $result['httpCode']);
         $this->assertNotEmpty($result['body']);
@@ -43,11 +44,11 @@ class CurlHttpClientTest extends TestCase
             'Accept' => 'application/json'
         ];
 
-        $result = $client->request('https://httpbin.org/headers', $headers);
+        $result = $client->request($this->baseUrl . '/headers', $headers);
 
         $this->assertEquals(200, $result['httpCode']);
         
-        // httpbin.org echoes headers back, verify they were sent
+        // httpbin echoes headers back, verify they were sent
         $body = json_decode($result['body'], true);
         $this->assertArrayHasKey('headers', $body);
         $this->assertEquals('PHPUnit-Test', $body['headers']['User-Agent']);
@@ -57,7 +58,7 @@ class CurlHttpClientTest extends TestCase
     {
         $client = new CurlHttpClient();
         
-        $result = $client->request('https://httpbin.org/get', []);
+        $result = $client->request($this->baseUrl . '/get', []);
 
         $this->assertIsArray($result['headers']);
         $this->assertNotEmpty($result['headers']);
@@ -72,7 +73,7 @@ class CurlHttpClientTest extends TestCase
     {
         $client = new CurlHttpClient();
         
-        $result = $client->request('https://httpbin.org/status/404', []);
+        $result = $client->request($this->baseUrl . '/status/404', []);
 
         $this->assertEquals(404, $result['httpCode']);
     }
@@ -81,8 +82,8 @@ class CurlHttpClientTest extends TestCase
     {
         $client = new CurlHttpClient();
         
-        // httpbin.org/get?param=value should echo back the params
-        $result = $client->request('https://httpbin.org/get?test=value&foo=bar', []);
+        // httpbin/get?param=value should echo back the params
+        $result = $client->request($this->baseUrl . '/get?test=value&foo=bar', []);
 
         $this->assertEquals(200, $result['httpCode']);
         
