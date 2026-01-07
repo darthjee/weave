@@ -11,6 +11,7 @@ frontend/.nyc_output/
 frontend/report/
 
 proxy/coverage/
+proxy/.phpunit.result.cache
 
 httpd/*
 .env.prod
