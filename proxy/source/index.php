@@ -1,7 +1,7 @@
 <?php
 
-use Weave\Proxy\Request;
-use Weave\Proxy\RequestProcessor;
+use Tent\Request;
+use Tent\RequestProcessor;
 
 require_once __DIR__ . '/lib/models/Response.php';
 require_once __DIR__ . '/lib/models/MissingResponse.php';

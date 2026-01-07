@@ -1,9 +1,9 @@
 <?php
 
-namespace Weave\Proxy\Tests;
+namespace Tent\Tests;
 
 use PHPUnit\Framework\TestCase;
-use Weave\Proxy\CurlHttpClient;
+use Tent\CurlHttpClient;
 
 require_once __DIR__ . '/../../../../source/lib/http/HttpClientInterface.php';
 require_once __DIR__ . '/../../../../source/lib/http/CurlHttpClient.php';

@@ -1,6 +1,6 @@
 <?php
 
-namespace Weave\Proxy;
+namespace Tent;
 
 interface HttpClientInterface
 {

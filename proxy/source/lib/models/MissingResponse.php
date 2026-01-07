@@ -1,6 +1,6 @@
 <?php
 
-namespace Weave\Proxy;
+namespace Tent;
 
 class MissingResponse extends Response
 {
