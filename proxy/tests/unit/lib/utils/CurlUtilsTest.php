@@ -1,9 +1,9 @@
 <?php
 
-namespace Weave\Proxy\Tests;
+namespace Tent\Tests;
 
 use PHPUnit\Framework\TestCase;
-use Weave\Proxy\CurlUtils;
+use Tent\CurlUtils;
 
 require_once __DIR__ . '/../../../../source/lib/utils/CurlUtils.php';
 

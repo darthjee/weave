@@ -1,9 +1,9 @@
 <?php
 
-namespace Weave\Proxy\Tests;
+namespace Tent\Tests;
 
 use PHPUnit\Framework\TestCase;
-use Weave\Proxy\MissingResponse;
+use Tent\MissingResponse;
 
 require_once __DIR__ . '/../../../../source/lib/models/Response.php';
 require_once __DIR__ . '/../../../../source/lib/models/MissingResponse.php';
@@ -35,6 +35,6 @@ class MissingResponseTest extends TestCase
     {
         $response = new MissingResponse();
 
-        $this->assertInstanceOf(\Weave\Proxy\Response::class, $response);
+        $this->assertInstanceOf(\Tent\Response::class, $response);
     }
 }

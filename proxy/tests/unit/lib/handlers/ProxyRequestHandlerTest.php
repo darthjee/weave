@@ -1,11 +1,11 @@
 <?php
 
-namespace Weave\Proxy\Tests;
+namespace Tent\Tests;
 
 use PHPUnit\Framework\TestCase;
-use Weave\Proxy\ProxyRequestHandler;
-use Weave\Proxy\Request;
-use Weave\Proxy\Response;
+use Tent\ProxyRequestHandler;
+use Tent\Request;
+use Tent\Response;
 
 require_once __DIR__ . '/../../../../source/lib/handlers/ProxyRequestHandler.php';
 require_once __DIR__ . '/../../../../source/lib/models/Request.php';
@@ -132,7 +132,7 @@ class ProxyRequestHandlerTest extends TestCase
 
     private function createMockHttpClient($expectedUrl, $expectedHeaders, $returnValue)
     {
-        $httpClient = $this->createMock(\Weave\Proxy\HttpClientInterface::class);
+        $httpClient = $this->createMock(\Tent\HttpClientInterface::class);
 
         $httpClient->expects($this->once())
             ->method('request')
