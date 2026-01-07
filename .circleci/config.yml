@@ -117,10 +117,7 @@ jobs:
           command: composer install
       - run:
           name: Tests
-          command: composer tests:unit
-      - run:
-          name: Integration Tests
-          command: composer tests:integration
+          command: composer tests
 
   php-checks:
     docker:
