@@ -105,6 +105,8 @@ jobs:
   php-tests:
     docker:
       - image: darthjee/circleci_tent-base:0.0.1
+      - image: kennethreitz/httpbin
+        name: httpbin
     steps:
       - checkout
       - run:
@@ -115,7 +117,7 @@ jobs:
           command: composer install
       - run:
           name: Tests
-          command: composer tests:unit
+          command: composer tests
 
   php-checks:
     docker:

@@ -110,6 +110,12 @@ services:
     ports:
       - 127.0.0.1:3040:80
 
+  weave_httpbin:
+    image: kennethreitz/httpbin
+    container_name: weave_httpbin
+    ports:
+      - 127.0.0.1:3060:80
+
   weave_proxy:
     image: darthjee/proxy_weave
     container_name: weave_proxy
@@ -122,10 +128,12 @@ services:
     links:
       - weave_app:backend
       - weave_fe:frontend
+      - weave_httpbin:httpbin
     depends_on:
       - weave_app
       - weave_fe
       - weave_static
+      - weave_httpbin
     ports:
       - 127.0.0.1:3000:80
 
