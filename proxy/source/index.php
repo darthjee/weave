@@ -15,6 +15,7 @@ require_once __DIR__ . '/lib/handlers/RequestHandler.php';
 require_once __DIR__ . '/lib/handlers/ProxyRequestHandler.php';
 require_once __DIR__ . '/lib/handlers/MissingRequestHandler.php';
 require_once __DIR__ . '/lib/models/RequestMatcher.php';
+require_once __DIR__ . '/lib/Configuration.php';
 require_once __DIR__ . '/lib/service/RequestProcessor.php';
 
 function send_response($response)
