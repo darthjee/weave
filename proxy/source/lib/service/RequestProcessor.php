@@ -18,7 +18,18 @@ class RequestProcessor
 
     public function handle()
     {
-        $targets = [
+        $targets = $this->getTargets();
+
+        foreach ($targets as $target) {
+            if ($target->match($this->request)) {
+                return $target->handleRequest($this->request);
+            }
+        }
+    }
+
+    private function getTargets()
+    {
+        return [
             new ProxyTarget(
                 new ProxyRequestHandler(new Server('http://frontend:8080')),
                 [
@@ -33,11 +44,5 @@ class RequestProcessor
             ),
             new ProxyTarget(new MissingRequestHandler())
         ];
-
-        foreach ($targets as $target) {
-            if ($target->match($this->request)) {
-                return $target->handleRequest($this->request);
-            }
-        }
     }
 }
