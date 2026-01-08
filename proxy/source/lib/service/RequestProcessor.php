@@ -22,7 +22,8 @@ class RequestProcessor
 
         foreach ($targets as $target) {
             if ($target->match($this->request)) {
-                return $target->handleRequest($this->request);
+                $handler = $target->handler();
+                return $handler->handleRequest($this->request);
             }
         }
     }

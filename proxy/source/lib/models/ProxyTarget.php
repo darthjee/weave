@@ -13,6 +13,11 @@ class ProxyTarget
         $this->matchers = $matchers;
     }
 
+    public function handler()
+    {
+        return $this->handler;
+    }
+
     public function match($request)
     {
         foreach ($this->matchers as $matcher) {
