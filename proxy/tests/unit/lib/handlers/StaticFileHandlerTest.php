@@ -145,9 +145,7 @@ class StaticFileHandlerTest extends TestCase
 
     public function testHandleRequestReturnsCorrectContentTypeForPng()
     {
-        // Create a minimal valid PNG file (1x1 transparent pixel)
-        $pngData = base64_decode('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==');
-        file_put_contents($this->testDir . '/image.png', $pngData);
+        copy(__DIR__ . '/../../../fixtures/test_image.png', $this->testDir . '/image.png');
 
         $location = new FolderLocation($this->testDir);
         $handler = new StaticFileHandler($location);
@@ -164,9 +162,7 @@ class StaticFileHandlerTest extends TestCase
 
     public function testHandleRequestReturnsCorrectContentTypeForJpg()
     {
-        // Create a minimal valid JPEG file
-        $jpgData = base64_decode('/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCwAA8A/9k=');
-        file_put_contents($this->testDir . '/image.jpg', $jpgData);
+        copy(__DIR__ . '/../../../fixtures/test_image.jpg', $this->testDir . '/image.jpg');
 
         $location = new FolderLocation($this->testDir);
         $handler = new StaticFileHandler($location);
