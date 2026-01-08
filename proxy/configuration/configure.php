@@ -1,13 +1,13 @@
 <?php
 
 use Tent\Configuration;
-use Tent\ProxyTarget;
+use Tent\Rule;
 use Tent\ProxyRequestHandler;
 use Tent\Server;
 use Tent\RequestMatcher;
 
-Configuration::addTarget(
-    new ProxyTarget(
+Configuration::addRule(
+    new Rule(
         new ProxyRequestHandler(new Server('http://frontend:8080')),
         [
             new RequestMatcher('GET', '/', 'exact'),

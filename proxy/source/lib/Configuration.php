@@ -4,18 +4,18 @@ namespace Tent;
 
 class Configuration
 {
-    private static $targets = [];
+    private static $rules = [];
 
-    public static function addTarget($target)
+    public static function addRule($rule)
     {
-        self::$targets[] = $target;
+        self::$rules[] = $rule;
     }
 
-    public static function getTargets()
+    public static function getRules()
     {
         return array_merge(
-            self::$targets,
-            [new ProxyTarget(new MissingRequestHandler())]
+            self::$rules,
+            [new Rule(new MissingRequestHandler())]
         );
     }
 }

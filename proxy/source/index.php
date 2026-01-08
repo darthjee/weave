@@ -7,7 +7,7 @@ require_once __DIR__ . '/lib/models/Response.php';
 require_once __DIR__ . '/lib/models/MissingResponse.php';
 require_once __DIR__ . '/lib/models/Request.php';
 require_once __DIR__ . '/lib/models/Server.php';
-require_once __DIR__ . '/lib/models/ProxyTarget.php';
+require_once __DIR__ . '/lib/models/Rule.php';
 require_once __DIR__ . '/lib/utils/CurlUtils.php';
 require_once __DIR__ . '/lib/http/HttpClientInterface.php';
 require_once __DIR__ . '/lib/http/CurlHttpClient.php';
