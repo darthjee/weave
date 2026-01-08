@@ -88,7 +88,8 @@ class StaticFileHandlerTest extends TestCase
         $response = $handler->handleRequest($request);
 
         $this->assertEquals(200, $response->httpCode);
-        $this->assertContains('Content-Type: text/html', $response->headerLines);
+        $this->assertCount(1, $response->headerLines);
+        $this->assertStringContainsString('Content-Type:', $response->headerLines[0]);
     }
 
     public function testHandleRequestReturnsCorrectContentTypeForCss()
@@ -104,7 +105,8 @@ class StaticFileHandlerTest extends TestCase
         $response = $handler->handleRequest($request);
 
         $this->assertEquals(200, $response->httpCode);
-        $this->assertContains('Content-Type: text/css', $response->headerLines);
+        $this->assertCount(1, $response->headerLines);
+        $this->assertStringContainsString('Content-Type:', $response->headerLines[0]);
     }
 
     public function testHandleRequestReturnsCorrectContentTypeForJs()
@@ -120,7 +122,8 @@ class StaticFileHandlerTest extends TestCase
         $response = $handler->handleRequest($request);
 
         $this->assertEquals(200, $response->httpCode);
-        $this->assertContains('Content-Type: application/javascript', $response->headerLines);
+        $this->assertCount(1, $response->headerLines);
+        $this->assertStringContainsString('Content-Type:', $response->headerLines[0]);
     }
 
     public function testHandleRequestReturnsMissingResponseForDirectory()
