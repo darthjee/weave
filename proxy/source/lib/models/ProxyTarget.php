@@ -28,9 +28,4 @@ class ProxyTarget
 
         return false;
     }
-
-    public function handleRequest($request)
-    {
-        return $this->handler->handleRequest($request);
-    }
 }

@@ -82,21 +82,12 @@ class ProxyTargetTest extends TestCase
         $this->assertTrue($target->match($request));
     }
 
-    public function testHandleRequestDelegatesToHandler()
+    public function testHandlerReturnsTheHandler()
     {
-        $request = $this->createMock(Request::class);
-        $response = $this->createMock(\stdClass::class);
-
         $handler = $this->createMock(\Tent\RequestHandler::class);
-        $handler->expects($this->once())
-                ->method('handleRequest')
-                ->with($request)
-                ->willReturn($response);
 
         $target = new ProxyTarget($handler);
 
-        $result = $target->handleRequest($request);
-
-        $this->assertSame($response, $result);
+        $this->assertSame($handler, $target->handler());
     }
 }
