@@ -2,7 +2,7 @@
 
 namespace Tent;
 
-class ProxyRequestHandler
+class ProxyRequestHandler implements RequestHandler
 {
     private $server;
     private $httpClient;

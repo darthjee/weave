@@ -10,6 +10,7 @@ require_once __DIR__ . '/lib/models/Server.php';
 require_once __DIR__ . '/lib/utils/CurlUtils.php';
 require_once __DIR__ . '/lib/http/HttpClientInterface.php';
 require_once __DIR__ . '/lib/http/CurlHttpClient.php';
+require_once __DIR__ . '/lib/handlers/RequestHandler.php';
 require_once __DIR__ . '/lib/handlers/ProxyRequestHandler.php';
 require_once __DIR__ . '/lib/handlers/MissingRequestHandler.php';
 require_once __DIR__ . '/lib/models/RequestMatcher.php';
