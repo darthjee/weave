@@ -21,7 +21,8 @@ class RequestProcessor
         // Check if request should be proxied to frontend
         if ($this->matchesFrontendRoute()) {
             // Proxy to frontend
-            $handler = new ProxyRequestHandler('http://frontend:8080');
+            $server = new Server('http://frontend:8080');
+            $handler = new ProxyRequestHandler($server);
         } else {
             $handler = new MissingRequestHandler();
         }
