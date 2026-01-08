@@ -143,6 +143,44 @@ class StaticFileHandlerTest extends TestCase
         $this->assertMatchesRegularExpression('/Content-Type: application\/json/', $response->headerLines[0]);
     }
 
+    public function testHandleRequestReturnsCorrectContentTypeForPng()
+    {
+        // Create a minimal valid PNG file (1x1 transparent pixel)
+        $pngData = base64_decode('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==');
+        file_put_contents($this->testDir . '/image.png', $pngData);
+
+        $location = new FolderLocation($this->testDir);
+        $handler = new StaticFileHandler($location);
+
+        $request = $this->createMock(Request::class);
+        $request->method('requestUrl')->willReturn('/image.png');
+
+        $response = $handler->handleRequest($request);
+
+        $this->assertEquals(200, $response->httpCode);
+        $this->assertCount(1, $response->headerLines);
+        $this->assertMatchesRegularExpression('/Content-Type: image\/png/', $response->headerLines[0]);
+    }
+
+    public function testHandleRequestReturnsCorrectContentTypeForJpg()
+    {
+        // Create a minimal valid JPEG file
+        $jpgData = base64_decode('/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCwAA8A/9k=');
+        file_put_contents($this->testDir . '/image.jpg', $jpgData);
+
+        $location = new FolderLocation($this->testDir);
+        $handler = new StaticFileHandler($location);
+
+        $request = $this->createMock(Request::class);
+        $request->method('requestUrl')->willReturn('/image.jpg');
+
+        $response = $handler->handleRequest($request);
+
+        $this->assertEquals(200, $response->httpCode);
+        $this->assertCount(1, $response->headerLines);
+        $this->assertMatchesRegularExpression('/Content-Type: image\/jpeg/', $response->headerLines[0]);
+    }
+
     public function testHandleRequestReturnsMissingResponseForDirectory()
     {
         mkdir($this->testDir . '/subdir');
