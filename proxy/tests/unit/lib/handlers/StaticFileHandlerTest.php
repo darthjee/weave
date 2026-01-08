@@ -126,6 +126,23 @@ class StaticFileHandlerTest extends TestCase
         $this->assertMatchesRegularExpression('/Content-Type: text\//', $response->headerLines[0]);
     }
 
+    public function testHandleRequestReturnsCorrectContentTypeForJson()
+    {
+        file_put_contents($this->testDir . '/data.json', '{"key": "value"}');
+
+        $location = new FolderLocation($this->testDir);
+        $handler = new StaticFileHandler($location);
+
+        $request = $this->createMock(Request::class);
+        $request->method('requestUrl')->willReturn('/data.json');
+
+        $response = $handler->handleRequest($request);
+
+        $this->assertEquals(200, $response->httpCode);
+        $this->assertCount(1, $response->headerLines);
+        $this->assertMatchesRegularExpression('/Content-Type: application\/json/', $response->headerLines[0]);
+    }
+
     public function testHandleRequestReturnsMissingResponseForDirectory()
     {
         mkdir($this->testDir . '/subdir');
