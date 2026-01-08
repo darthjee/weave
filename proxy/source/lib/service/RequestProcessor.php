@@ -18,12 +18,18 @@ class RequestProcessor
 
     public function handle()
     {
+        $handler = $this->getRequestHandler();
+        
+        return $handler->handleRequest($this->request);
+    }
+
+    private function getRequestHandler()
+    {
         $targets = $this->getTargets();
 
         foreach ($targets as $target) {
             if ($target->match($this->request)) {
-                $handler = $target->handler();
-                return $handler->handleRequest($this->request);
+                return $target->handler();
             }
         }
     }
