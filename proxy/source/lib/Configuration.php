@@ -13,7 +13,10 @@ class Configuration
 
     public static function getTargets()
     {
-        return self::$targets;
+        return array_merge(
+            self::$targets,
+            [new ProxyTarget(new MissingRequestHandler())]
+        );
     }
 }
 
@@ -31,5 +34,3 @@ Configuration::addTarget(
         ]
     )
 );
-
-Configuration::addTarget(new ProxyTarget(new MissingRequestHandler()));
