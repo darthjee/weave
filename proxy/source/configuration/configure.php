@@ -13,6 +13,7 @@ Configuration::addRule(
         new StaticFileHandler(new FolderLocation('/var/www/html/static')),
         [
             new RequestMatcher('GET', '/assets/images/', 'begins_with'),
+            new RequestMatcher('GET', '/assets/admin/', 'begins_with'),
         ]
     )
 );
