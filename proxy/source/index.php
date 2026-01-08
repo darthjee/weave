@@ -18,6 +18,11 @@ require_once __DIR__ . '/lib/models/RequestMatcher.php';
 require_once __DIR__ . '/lib/Configuration.php';
 require_once __DIR__ . '/lib/service/RequestProcessor.php';
 
+$configFile = __DIR__ . '/../configuration/configure.php';
+if (file_exists($configFile)) {
+    require_once $configFile;
+}
+
 function send_response($response)
 {
     http_response_code($response->httpCode);
