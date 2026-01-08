@@ -18,36 +18,26 @@ class RequestProcessor
 
     public function handle()
     {
-        // Check if request should be proxied to frontend
-        if ($this->matchesFrontendRoute()) {
-            // Proxy to frontend
-            $server = new Server('http://frontend:8080');
-            $handler = new ProxyRequestHandler($server);
-        } else {
-            $handler = new MissingRequestHandler();
-        }
-
-        return $handler->handleRequest($this->request);
-    }
-
-    private function matchesFrontendRoute()
-    {
-        $matchers = [
-            new RequestMatcher('GET', '/', 'exact'),
-            new RequestMatcher('GET', '/assets/images/', 'begins_with'),
-            new RequestMatcher('GET', '/assets/js/', 'begins_with'),
-            new RequestMatcher('GET', '/assets/css/', 'begins_with'),
-            new RequestMatcher('GET', '/@vite/', 'begins_with'),
-            new RequestMatcher('GET', '/node_modules/', 'begins_with'),
-            new RequestMatcher('GET', '/@react-refresh', 'exact')
+        $targets = [
+            new ProxyTarget(
+                new ProxyRequestHandler(new Server('http://frontend:8080')),
+                [
+                    new RequestMatcher('GET', '/', 'exact'),
+                    new RequestMatcher('GET', '/assets/images/', 'begins_with'),
+                    new RequestMatcher('GET', '/assets/js/', 'begins_with'),
+                    new RequestMatcher('GET', '/assets/css/', 'begins_with'),
+                    new RequestMatcher('GET', '/@vite/', 'begins_with'),
+                    new RequestMatcher('GET', '/node_modules/', 'begins_with'),
+                    new RequestMatcher('GET', '/@react-refresh', 'exact')
+                ]
+            ),
+            new ProxyTarget(new MissingRequestHandler())
         ];
 
-        foreach ($matchers as $matcher) {
-            if ($matcher->matches($this->request)) {
-                return true;
+        foreach ($targets as $target) {
+            if ($target->match($this->request)) {
+                return $target->handleRequest($this->request);
             }
         }
-
-        return false;
     }
 }
