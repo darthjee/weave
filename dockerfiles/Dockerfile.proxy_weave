@@ -1,4 +1,4 @@
-FROM darthjee/tent-base:0.0.1
+FROM darthjee/dev_tent-base:0.0.1
 
 COPY --chown=app:app ./proxy/composer.* /home/app/app/
 
