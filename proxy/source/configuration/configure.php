@@ -3,15 +3,25 @@
 use Tent\Configuration;
 use Tent\Rule;
 use Tent\ProxyRequestHandler;
+use Tent\StaticFileHandler;
 use Tent\Server;
+use Tent\FolderLocation;
 use Tent\RequestMatcher;
+
+Configuration::addRule(
+    new Rule(
+        new StaticFileHandler(new FolderLocation('/var/www/html/static')),
+        [
+            new RequestMatcher('GET', '/assets/images/', 'begins_with'),
+        ]
+    )
+);
 
 Configuration::addRule(
     new Rule(
         new ProxyRequestHandler(new Server('http://frontend:8080')),
         [
             new RequestMatcher('GET', '/', 'exact'),
-            new RequestMatcher('GET', '/assets/images/', 'begins_with'),
             new RequestMatcher('GET', '/assets/js/', 'begins_with'),
             new RequestMatcher('GET', '/assets/css/', 'begins_with'),
             new RequestMatcher('GET', '/@vite/', 'begins_with'),
