@@ -18,35 +18,38 @@ class RequestProcessor
 
     public function handle()
     {
-        // Check if request should be proxied to frontend
-        if ($this->matchesFrontendRoute()) {
-            // Proxy to frontend
-            $handler = new ProxyRequestHandler('http://frontend:8080');
-        } else {
-            $handler = new MissingRequestHandler();
-        }
+        $handler = $this->getRequestHandler();
 
         return $handler->handleRequest($this->request);
     }
 
-    private function matchesFrontendRoute()
+    private function getRequestHandler()
     {
-        $matchers = [
-            new RequestMatcher('GET', '/', 'exact'),
-            new RequestMatcher('GET', '/assets/images/', 'begins_with'),
-            new RequestMatcher('GET', '/assets/js/', 'begins_with'),
-            new RequestMatcher('GET', '/assets/css/', 'begins_with'),
-            new RequestMatcher('GET', '/@vite/', 'begins_with'),
-            new RequestMatcher('GET', '/node_modules/', 'begins_with'),
-            new RequestMatcher('GET', '/@react-refresh', 'exact')
-        ];
+        $targets = $this->getTargets();
 
-        foreach ($matchers as $matcher) {
-            if ($matcher->matches($this->request)) {
-                return true;
+        foreach ($targets as $target) {
+            if ($target->match($this->request)) {
+                return $target->handler();
             }
         }
+    }
 
-        return false;
+    private function getTargets()
+    {
+        return [
+            new ProxyTarget(
+                new ProxyRequestHandler(new Server('http://frontend:8080')),
+                [
+                    new RequestMatcher('GET', '/', 'exact'),
+                    new RequestMatcher('GET', '/assets/images/', 'begins_with'),
+                    new RequestMatcher('GET', '/assets/js/', 'begins_with'),
+                    new RequestMatcher('GET', '/assets/css/', 'begins_with'),
+                    new RequestMatcher('GET', '/@vite/', 'begins_with'),
+                    new RequestMatcher('GET', '/node_modules/', 'begins_with'),
+                    new RequestMatcher('GET', '/@react-refresh', 'exact')
+                ]
+            ),
+            new ProxyTarget(new MissingRequestHandler())
+        ];
     }
 }
