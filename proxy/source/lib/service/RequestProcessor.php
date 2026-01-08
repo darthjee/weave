@@ -19,7 +19,7 @@ class RequestProcessor
     public function handle()
     {
         $handler = $this->getRequestHandler();
-        
+
         return $handler->handleRequest($this->request);
     }
 
