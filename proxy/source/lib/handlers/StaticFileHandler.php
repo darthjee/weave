@@ -21,11 +21,15 @@ class StaticFileHandler implements RequestHandler
 
         $content = file_get_contents($filePath);
         $contentType = $this->getContentType($filePath);
+        $contentLength = strlen($content);
 
         return new Response(
             $content,
             200,
-            ["Content-Type: $contentType"]
+            [
+                "Content-Type: $contentType",
+                "Content-Length: $contentLength"
+            ]
         );
     }
 

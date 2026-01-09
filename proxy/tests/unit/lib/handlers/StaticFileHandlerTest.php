@@ -88,7 +88,7 @@ class StaticFileHandlerTest extends TestCase
         $response = $handler->handleRequest($request);
 
         $this->assertEquals(200, $response->httpCode);
-        $this->assertCount(1, $response->headerLines);
+        $this->assertCount(2, $response->headerLines);
         $this->assertMatchesRegularExpression('/Content-Type: text\//', $response->headerLines[0]);
     }
 
@@ -105,7 +105,7 @@ class StaticFileHandlerTest extends TestCase
         $response = $handler->handleRequest($request);
 
         $this->assertEquals(200, $response->httpCode);
-        $this->assertCount(1, $response->headerLines);
+        $this->assertCount(2, $response->headerLines);
         $this->assertMatchesRegularExpression('/Content-Type: text\//', $response->headerLines[0]);
     }
 
@@ -122,7 +122,7 @@ class StaticFileHandlerTest extends TestCase
         $response = $handler->handleRequest($request);
 
         $this->assertEquals(200, $response->httpCode);
-        $this->assertCount(1, $response->headerLines);
+        $this->assertCount(2, $response->headerLines);
         $this->assertMatchesRegularExpression('/Content-Type: text\//', $response->headerLines[0]);
     }
 
@@ -139,7 +139,7 @@ class StaticFileHandlerTest extends TestCase
         $response = $handler->handleRequest($request);
 
         $this->assertEquals(200, $response->httpCode);
-        $this->assertCount(1, $response->headerLines);
+        $this->assertCount(2, $response->headerLines);
         $this->assertMatchesRegularExpression('/Content-Type: application\/json/', $response->headerLines[0]);
     }
 
@@ -156,7 +156,7 @@ class StaticFileHandlerTest extends TestCase
         $response = $handler->handleRequest($request);
 
         $this->assertEquals(200, $response->httpCode);
-        $this->assertCount(1, $response->headerLines);
+        $this->assertCount(2, $response->headerLines);
         $this->assertMatchesRegularExpression('/Content-Type: image\/png/', $response->headerLines[0]);
     }
 
@@ -173,7 +173,7 @@ class StaticFileHandlerTest extends TestCase
         $response = $handler->handleRequest($request);
 
         $this->assertEquals(200, $response->httpCode);
-        $this->assertCount(1, $response->headerLines);
+        $this->assertCount(2, $response->headerLines);
         $this->assertMatchesRegularExpression('/Content-Type: image\/jpeg/', $response->headerLines[0]);
     }
 
