@@ -102,14 +102,6 @@ services:
     ports:
       - 127.0.0.1:3050:80
 
-  weave_static:
-    image: httpd:latest
-    container_name: weave_static
-    volumes:
-      - ./static:/usr/local/apache2/htdocs/
-    ports:
-      - 127.0.0.1:3040:80
-
   weave_httpbin:
     image: kennethreitz/httpbin
     container_name: weave_httpbin
@@ -132,7 +124,6 @@ services:
     depends_on:
       - weave_app
       - weave_fe
-      - weave_static
       - weave_httpbin
     ports:
       - 127.0.0.1:3000:80
@@ -145,16 +136,10 @@ services:
     depends_on:
       - base_prod_build
       - weave_prod_mysql
-      - weave_prod_static
     ports:
       - 127.0.0.1:3030:8080
     environment:
       - STAGE=production
-
-  weave_prod_static:
-    image: httpd:latest
-    ports:
-      - 127.0.0.1:3000:80
 
   weave_prod_phpmyadmin:
     image: phpmyadmin/phpmyadmin
