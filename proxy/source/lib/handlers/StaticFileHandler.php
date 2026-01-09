@@ -35,6 +35,27 @@ class StaticFileHandler implements RequestHandler
 
     private function getContentType($filePath)
     {
-        return mime_content_type($filePath);
+        $mimeType = mime_content_type($filePath);
+        
+        // If mime_content_type returns a generic type, use extension-based detection
+        if ($mimeType === 'text/plain' || $mimeType === 'application/octet-stream') {
+            $extension = pathinfo($filePath, PATHINFO_EXTENSION);
+            
+            $extensionMap = [
+                'css' => 'text/css',
+                'js' => 'application/javascript',
+                'json' => 'application/json',
+                'html' => 'text/html',
+                'htm' => 'text/html',
+                'svg' => 'image/svg+xml',
+                'xml' => 'application/xml',
+            ];
+            
+            if (isset($extensionMap[$extension])) {
+                return $extensionMap[$extension];
+            }
+        }
+        
+        return $mimeType;
     }
 }
