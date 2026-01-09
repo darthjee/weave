@@ -89,7 +89,7 @@ class StaticFileHandlerTest extends TestCase
 
         $this->assertEquals(200, $response->httpCode);
         $this->assertCount(2, $response->headerLines);
-        $this->assertMatchesRegularExpression('/Content-Type: text\//', $response->headerLines[0]);
+        $this->assertMatchesRegularExpression('/Content-Type: text\/html/', $response->headerLines[0]);
     }
 
     public function testHandleRequestReturnsCorrectContentTypeForCss()
@@ -106,7 +106,7 @@ class StaticFileHandlerTest extends TestCase
 
         $this->assertEquals(200, $response->httpCode);
         $this->assertCount(2, $response->headerLines);
-        $this->assertMatchesRegularExpression('/Content-Type: text\//', $response->headerLines[0]);
+        $this->assertMatchesRegularExpression('/Content-Type: text\/css/', $response->headerLines[0]);
     }
 
     public function testHandleRequestReturnsCorrectContentTypeForJs()
@@ -123,7 +123,7 @@ class StaticFileHandlerTest extends TestCase
 
         $this->assertEquals(200, $response->httpCode);
         $this->assertCount(2, $response->headerLines);
-        $this->assertMatchesRegularExpression('/Content-Type: text\//', $response->headerLines[0]);
+        $this->assertMatchesRegularExpression('/Content-Type: application\/javascript/', $response->headerLines[0]);
     }
 
     public function testHandleRequestReturnsCorrectContentTypeForJson()
