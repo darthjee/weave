@@ -112,6 +112,7 @@ services:
   weave_proxy:
     image: darthjee/proxy_weave
     container_name: weave_proxy
+    env_file: .env
     build:
       context: .
       dockerfile: dockerfiles/Dockerfile.proxy_weave
