@@ -5,4 +5,9 @@
     <rule ref="Squiz.Commenting.FunctionComment">
         <exclude-pattern>proxy/tests/*</exclude-pattern>
     </rule>
+
+    <!-- Require code documentation (PHPDoc) -->
+    <rule ref="Squiz.Commenting.FileComment">
+        <exclude-pattern>proxy/*</exclude-pattern>
+    </rule>
 </ruleset>
