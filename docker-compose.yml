@@ -73,6 +73,7 @@ services:
     volumes:
       - ./frontend:/home/node/app
       - ./docker_volumes/node_modules:/home/node/app/node_modules
+      - ./docker_volumes/static:/home/node/app/dist
     ports:
       - 127.0.0.1:3010:8080
     env_file: .env
@@ -117,6 +118,9 @@ services:
     volumes:
       - ./docker_volumes/vendor:/home/app/app/vendor
       - ./proxy:/home/app/app
+      - ./docker_volumes/static/index.html:/home/app/app/source/static/index.html
+      - ./docker_volumes/static/assets/js/:/home/app/app/source/static/assets/js/
+      - ./docker_volumes/static/assets/css/:/home/app/app/source/static/assets/css/
     links:
       - weave_app:backend
       - weave_fe:frontend
