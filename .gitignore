@@ -12,6 +12,7 @@ frontend/report/
 
 proxy/coverage/
 proxy/.phpunit.result.cache
+proxy/source/static/index.html
 
 httpd/*
 .env.prod
