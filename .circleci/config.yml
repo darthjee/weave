@@ -149,7 +149,7 @@ jobs:
           command: deploy_frontend.sh generate_key_file
       - run:
           name: Upload assets
-          command: SOURCE=dist/ deploy_frontend.sh upload
+          command: SOURCE=dist/ SSH_REMOTE_TEMP_DIR=$SSH_REMOTE_TEMP_DIR/static/ deploy_frontend.sh upload
   upload_static_files:
     docker:
       - image: darthjee/vite_weave-base:0.0.3
