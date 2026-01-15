@@ -58,7 +58,7 @@ workflows:
 jobs:
   pytest:
     docker:
-      - image: darthjee/circleci_weave-base:0.0.3
+      - image: darthjee/circleci_weave-base:0.0.4
         environment:
           WEAVE_MYSQL_HOST: mysql
           WEAVE_MYSQL_PORT: 3306
@@ -136,7 +136,7 @@ jobs:
 
   checks:
     docker:
-      - image: darthjee/circleci_weave-base:0.0.3
+      - image: darthjee/circleci_weave-base:0.0.4
     steps:
       - checkout
       - run:
@@ -174,7 +174,7 @@ jobs:
           command: scripts/deploy.sh deploy
   upload_fe_files:
     docker:
-      - image: darthjee/vite_weave-base:0.0.3
+      - image: darthjee/vite_weave-base:0.0.4
     steps:
       - checkout
       - run:
@@ -197,7 +197,7 @@ jobs:
           command: SOURCE=dist/ SSH_REMOTE_TEMP_DIR=$SSH_REMOTE_TEMP_DIR/static/ deploy_frontend.sh upload
   upload_static_files:
     docker:
-      - image: darthjee/vite_weave-base:0.0.3
+      - image: darthjee/vite_weave-base:0.0.4
     steps:
       - checkout
       - run:
@@ -211,7 +211,7 @@ jobs:
           command: SOURCE=proxy/source/ deploy_frontend.sh upload
   release_static_files:
     docker:
-      - image: darthjee/vite_weave-base:0.0.3
+      - image: darthjee/vite_weave-base:0.0.4
     steps:
       - checkout
       - run:
