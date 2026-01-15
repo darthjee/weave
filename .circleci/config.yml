@@ -156,6 +156,9 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Remove build images
+          command: rm -f $(find proxy/source/static/assets/images/ -iname "*.pbm")
+      - run:
           name: Generate key file
           command: deploy_frontend.sh generate_key_file
       - run:
