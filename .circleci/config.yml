@@ -41,7 +41,7 @@ workflows:
               only: /\d+\.\d+\.\d+/
             branches:
               ignore: /.*/
-      - upload_static_files:
+      - upload_proxy_files:
           requires: [pytest, jasmine, php-tests, php-checks, frontend-checks, checks]
           filters:
             tags:
@@ -49,7 +49,7 @@ workflows:
             branches:
               ignore: /.*/
       - release_static_files:
-          requires: [build-and-release, upload_fe_files, upload_static_files]
+          requires: [build-and-release, upload_fe_files, upload_proxy_files]
           filters:
             tags:
               only: /\d+\.\d+\.\d+/
@@ -195,7 +195,7 @@ jobs:
       - run:
           name: Upload assets
           command: SOURCE=dist/ SSH_REMOTE_TEMP_DIR=$SSH_REMOTE_TEMP_DIR/static/ deploy_frontend.sh upload
-  upload_static_files:
+  upload_proxy_files:
     docker:
       - image: darthjee/vite_weave-base:0.0.4
     steps:
