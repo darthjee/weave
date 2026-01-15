@@ -148,9 +148,6 @@ jobs:
           name: Generate key file
           command: deploy_frontend.sh generate_key_file
       - run:
-          name: Create remote static dir
-          command: ssh -i ~/ssh_key -p $SSH_PORT -o StrictHostKeyChecking=no $SSH_USER@$SSH_HOST "mkdir -p $SSH_REMOTE_TEMP_DIR/static/"
-      - run:
           name: Upload assets
           command: SOURCE=dist/ SSH_REMOTE_TEMP_DIR=$SSH_REMOTE_TEMP_DIR/static/ deploy_frontend.sh upload
   upload_proxy_files:
@@ -161,9 +158,6 @@ jobs:
       - run:
           name: Generate key file
           command: deploy_frontend.sh generate_key_file
-      - run:
-          name: Create remote static dir
-          command: ssh -i ~/ssh_key -p $SSH_PORT -o StrictHostKeyChecking=no $SSH_USER@$SSH_HOST "mkdir -p $SSH_REMOTE_TEMP_DIR/static/"
       - run:
           name: Upload assets
           command: SOURCE=proxy/source/ deploy_frontend.sh upload
