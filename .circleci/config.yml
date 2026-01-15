@@ -3,16 +3,58 @@ workflows:
   version: 2
   test:
     jobs:
+      - pytest:
+          filters:
+            tags:
+              only: /.*/
+      - jasmine:
+          filters:
+            tags:
+              only: /.*/
+      - php-tests:
+          filters:
+            tags:
+              only: /.*/
+      - php-checks:
+          filters:
+            tags:
+              only: /.*/
+      - checks:
+          filters:
+            tags:
+              only: /.*/
+      - frontend-checks:
+          filters:
+            tags:
+              only: /.*/
+      - build-and-release:
+          requires: [pytest, jasmine, php-tests, php-checks, frontend-checks, checks]
+          filters:
+            tags:
+              only: /\d+\.\d+\.\d+/
+            branches:
+              ignore: /.*/
       - upload_fe_files:
-          requires: []
+          requires: [pytest, jasmine, php-tests, php-checks, frontend-checks, checks]
           filters:
             tags:
-              only: /.*/
+              only: /\d+\.\d+\.\d+/
+            branches:
+              ignore: /.*/
       - upload_proxy_files:
-          requires: []
+          requires: [pytest, jasmine, php-tests, php-checks, frontend-checks, checks]
           filters:
             tags:
-              only: /.*/
+              only: /\d+\.\d+\.\d+/
+            branches:
+              ignore: /.*/
+      - release_static_files:
+          requires: [build-and-release, upload_fe_files, upload_proxy_files]
+          filters:
+            tags:
+              only: /\d+\.\d+\.\d+/
+            branches:
+              ignore: /.*/
 jobs:
   pytest:
     docker:
