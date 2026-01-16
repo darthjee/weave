@@ -1,4 +1,4 @@
-FROM darthjee/scripts:0.5.2 as scripts
+FROM darthjee/scripts:0.5.3 as scripts
 FROM darthjee/weave-base:0.0.4 as base
 
 COPY --chown=app:app \

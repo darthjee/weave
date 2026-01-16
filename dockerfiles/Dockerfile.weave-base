@@ -1,4 +1,4 @@
-FROM darthjee/scripts:0.5.2 as scripts
+FROM darthjee/scripts:0.5.3 as scripts
 FROM darthjee/django:0.0.2 as base
 
 CMD ["bin/server.sh"]
