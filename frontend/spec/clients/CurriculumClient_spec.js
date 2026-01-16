@@ -2,10 +2,9 @@ import { CurriculumClient } from '../../assets/js/clients/CurriculumClient.js';
 
 describe('CurriculumClient', function() {
   let client;
-  const mockBaseUrl = 'http://test-api.com';
-
+  
   beforeEach(function() {
-    client = new CurriculumClient(mockBaseUrl);
+    client = new CurriculumClient();
   });
 
   describe('person()', function() {
@@ -29,9 +28,7 @@ describe('CurriculumClient', function() {
 
       const result = await client.person();
 
-      expect(global.fetch).toHaveBeenCalledWith(
-        `${mockBaseUrl}/api/curriculum/person/`
-      );
+      expect(global.fetch).toHaveBeenCalledWith('/api/curriculum/person/');
       expect(result).toEqual(mockPersonData);
     });
 
@@ -51,7 +48,7 @@ describe('CurriculumClient', function() {
       }
 
       expect(global.fetch).toHaveBeenCalledWith(
-        `${mockBaseUrl}/api/curriculum/person/`
+        `/api/curriculum/person/`
       );
     });
 
@@ -106,15 +103,6 @@ describe('CurriculumClient', function() {
 
       expect(mockJsonFn).toHaveBeenCalled();
       expect(result).toEqual(mockData);
-    });
-  });
-
-  describe('constructor', function() {
-    it('should set baseUrl correctly', function() {
-      const customUrl = 'https://custom-api.com';
-      const customClient = new CurriculumClient(customUrl);
-      
-      expect(customClient.baseUrl).toBe(customUrl);
     });
   });
 });
