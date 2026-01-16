@@ -48,7 +48,7 @@ describe('CurriculumClient', function() {
       }
 
       expect(global.fetch).toHaveBeenCalledWith(
-        `/api/curriculum/person/`
+        '/api/curriculum/person/'
       );
     });
 
