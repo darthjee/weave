@@ -122,6 +122,7 @@ services:
       - ./docker_volumes/static/index.html:/home/app/app/source/static/index.html
       - ./docker_volumes/static/assets/js/:/home/app/app/source/static/assets/js/
       - ./docker_volumes/static/assets/css/:/home/app/app/source/static/assets/css/
+      - ./docker_volumes/proxy_configuration:/home/app/app/source/configuration/
     links:
       - weave_app:backend
       - weave_fe:frontend

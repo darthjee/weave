@@ -1,5 +1,5 @@
 images:
-	for IMAGE in $$(find static_assets/images -name '*.pbm'); do \
+	for IMAGE in $$(find source/static/assets/images/ -name '*.pbm'); do \
 		JPG_IMAGE=$${IMAGE%.pbm}.jpg; \
 		make IMAGE=$$IMAGE JPG_IMAGE=$$JPG_IMAGE $$JPG_IMAGE; \
 	done

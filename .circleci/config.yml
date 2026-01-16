@@ -41,7 +41,7 @@ workflows:
               only: /\d+\.\d+\.\d+/
             branches:
               ignore: /.*/
-      - upload_static_files:
+      - upload_proxy_files:
           requires: [pytest, jasmine, php-tests, php-checks, frontend-checks, checks]
           filters:
             tags:
@@ -49,7 +49,7 @@ workflows:
             branches:
               ignore: /.*/
       - release_static_files:
-          requires: [build-and-release, upload_fe_files, upload_static_files]
+          requires: [build-and-release, upload_fe_files, upload_proxy_files]
           filters:
             tags:
               only: /\d+\.\d+\.\d+/
@@ -58,7 +58,7 @@ workflows:
 jobs:
   pytest:
     docker:
-      - image: darthjee/circleci_weave-base:0.0.3
+      - image: darthjee/circleci_weave-base:0.0.4
         environment:
           WEAVE_MYSQL_HOST: mysql
           WEAVE_MYSQL_PORT: 3306
@@ -136,7 +136,7 @@ jobs:
 
   checks:
     docker:
-      - image: darthjee/circleci_weave-base:0.0.3
+      - image: darthjee/circleci_weave-base:0.0.4
     steps:
       - checkout
       - run:
@@ -174,7 +174,7 @@ jobs:
           command: scripts/deploy.sh deploy
   upload_fe_files:
     docker:
-      - image: darthjee/vite_weave-base:0.0.3
+      - image: darthjee/vite_weave-base:0.0.4
     steps:
       - checkout
       - run:
@@ -190,22 +190,28 @@ jobs:
           name: Generate key file
           command: deploy_frontend.sh generate_key_file
       - run:
+          name: Generate folder
+          command: SSH_REMOTE_TEMP_DIR=$SSH_REMOTE_TEMP_DIR/static/ deploy_frontend.sh generate_folder
+      - run:
           name: Upload assets
-          command: SOURCE=dist/ deploy_frontend.sh upload
-  upload_static_files:
+          command: SOURCE=dist/ SSH_REMOTE_TEMP_DIR=$SSH_REMOTE_TEMP_DIR/static/ deploy_frontend.sh upload
+  upload_proxy_files:
     docker:
-      - image: darthjee/vite_weave-base:0.0.3
+      - image: darthjee/vite_weave-base:0.0.4
     steps:
       - checkout
+      - run:
+          name: Remove build images
+          command: rm -f $(find proxy/source/static/assets/images/ -iname "*.pbm")
       - run:
           name: Generate key file
           command: deploy_frontend.sh generate_key_file
       - run:
           name: Upload assets
-          command: SOURCE=static/ deploy_frontend.sh upload
+          command: SOURCE=proxy/source/ deploy_frontend.sh upload
   release_static_files:
     docker:
-      - image: darthjee/vite_weave-base:0.0.3
+      - image: darthjee/vite_weave-base:0.0.4
     steps:
       - checkout
       - run:
