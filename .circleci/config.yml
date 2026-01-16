@@ -31,22 +31,30 @@ workflows:
           requires: [pytest, jasmine, php-tests, php-checks, frontend-checks, checks]
           filters:
             tags:
-              only: /.*/
+              only: /\d+\.\d+\.\d+/
+            branches:
+              ignore: /.*/
       - upload_fe_files:
           requires: [pytest, jasmine, php-tests, php-checks, frontend-checks, checks]
           filters:
             tags:
-              only: /.*/
+              only: /\d+\.\d+\.\d+/
+            branches:
+              ignore: /.*/
       - upload_proxy_files:
           requires: [pytest, jasmine, php-tests, php-checks, frontend-checks, checks]
           filters:
             tags:
-              only: /.*/
+              only: /\d+\.\d+\.\d+/
+            branches:
+              ignore: /.*/
       - release_static_files:
           requires: [build-and-release, upload_fe_files, upload_proxy_files]
           filters:
             tags:
-              only: /.*/
+              only: /\d+\.\d+\.\d+/
+            branches:
+              ignore: /.*/
 jobs:
   pytest:
     docker:
