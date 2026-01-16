@@ -69,10 +69,7 @@ class ProxyRequestHandler extends RequestHandler
             $url .= '?' . $request->query();
         }
 
-        // REMOVE ME
-        $headers = $request->headers();
-        $headers['Host'] = $this->server->targetHost();
-        $response = $this->httpClient->request($url, $headers);
+        $response = $this->httpClient->request($url, $request->headers());
 
         return new Response(
             $response['body'],
