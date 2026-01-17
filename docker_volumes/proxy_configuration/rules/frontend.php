@@ -24,6 +24,15 @@ if (getenv('FRONTEND_DEV_MODE') === 'true') {
             ['method' => 'GET', 'uri' => '/@react-refresh', 'type' => 'exact']
         ]
     ]);
+    Configuration::buildRule([
+        'handler' => [
+            'type' => 'static',
+            'location' => '/var/www/html/static'
+        ],
+        'matchers' => [
+            ['method' => 'GET', 'uri' => '/assets/images/', 'type' => 'begins_with'],
+        ]
+    ]);
 } else {
     Configuration::buildRule([
         'handler' => [
