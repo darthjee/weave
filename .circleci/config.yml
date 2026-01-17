@@ -209,6 +209,9 @@ jobs:
       - run:
           name: Upload assets
           command: SOURCE=proxy/source/ deploy_frontend.sh upload
+      - run:
+          name: Copy configuration files
+          command: TARGET=configuration/ deploy_frontend.sh copy_files
   release_static_files:
     docker:
       - image: darthjee/vite_weave-base:0.0.4
