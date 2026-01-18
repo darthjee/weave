@@ -8,6 +8,7 @@ use Tent\Models\FolderLocation;
 use Tent\Models\Request;
 use Tent\Models\MissingResponse;
 use Tent\Models\ForbiddenResponse;
+use Tent\Models\ProcessingRequest;
 
 class StaticFileHandlerGeneralTest extends TestCase
 {
@@ -47,12 +48,13 @@ class StaticFileHandlerGeneralTest extends TestCase
 
         $request = $this->createMock(Request::class);
         $request->method('requestUrl')->willReturn('/test.txt');
+        $processingRequest = new ProcessingRequest(['request' => $request]);
 
-        $response = $handler->handleRequest($request);
+        $response = $handler->handleRequest($processingRequest);
 
-        $this->assertEquals(200, $response->httpCode);
-        $this->assertEquals('Hello World', $response->body);
-        $this->assertContains('Content-Type: text/plain', $response->headerLines);
+        $this->assertEquals(200, $response->httpCode());
+        $this->assertEquals('Hello World', $response->body());
+        $this->assertContains('Content-Type: text/plain', $response->headerLines());
     }
 
     public function testHandleRequestReturnsMissingResponseWhenFileDoesNotExist()
@@ -62,11 +64,12 @@ class StaticFileHandlerGeneralTest extends TestCase
 
         $request = $this->createMock(Request::class);
         $request->method('requestUrl')->willReturn('/nonexistent.txt');
+        $processingRequest = new ProcessingRequest(['request' => $request]);
 
-        $response = $handler->handleRequest($request);
+        $response = $handler->handleRequest($processingRequest);
 
         $this->assertInstanceOf(MissingResponse::class, $response);
-        $this->assertEquals(404, $response->httpCode);
+        $this->assertEquals(404, $response->httpCode());
     }
 
     public function testHandleRequestReturnsCorrectContentTypeForHtml()
@@ -78,12 +81,13 @@ class StaticFileHandlerGeneralTest extends TestCase
 
         $request = $this->createMock(Request::class);
         $request->method('requestUrl')->willReturn('/index.html');
+        $processingRequest = new ProcessingRequest(['request' => $request]);
 
-        $response = $handler->handleRequest($request);
+        $response = $handler->handleRequest($processingRequest);
 
-        $this->assertEquals(200, $response->httpCode);
-        $this->assertCount(2, $response->headerLines);
-        $this->assertMatchesRegularExpression('/Content-Type: text\/html/', $response->headerLines[0]);
+        $this->assertEquals(200, $response->httpCode());
+        $this->assertCount(2, $response->headerLines());
+        $this->assertMatchesRegularExpression('/Content-Type: text\/html/', $response->headerLines()[0]);
     }
 
     public function testHandleRequestReturnsCorrectContentTypeForCss()
@@ -95,12 +99,13 @@ class StaticFileHandlerGeneralTest extends TestCase
 
         $request = $this->createMock(Request::class);
         $request->method('requestUrl')->willReturn('/style.css');
+        $processingRequest = new ProcessingRequest(['request' => $request]);
 
-        $response = $handler->handleRequest($request);
+        $response = $handler->handleRequest($processingRequest);
 
-        $this->assertEquals(200, $response->httpCode);
-        $this->assertCount(2, $response->headerLines);
-        $this->assertMatchesRegularExpression('/Content-Type: text\/css/', $response->headerLines[0]);
+        $this->assertEquals(200, $response->httpCode());
+        $this->assertCount(2, $response->headerLines());
+        $this->assertMatchesRegularExpression('/Content-Type: text\/css/', $response->headerLines()[0]);
     }
 
     public function testHandleRequestReturnsCorrectContentTypeForJs()
@@ -112,12 +117,13 @@ class StaticFileHandlerGeneralTest extends TestCase
 
         $request = $this->createMock(Request::class);
         $request->method('requestUrl')->willReturn('/script.js');
+        $processingRequest = new ProcessingRequest(['request' => $request]);
 
-        $response = $handler->handleRequest($request);
+        $response = $handler->handleRequest($processingRequest);
 
-        $this->assertEquals(200, $response->httpCode);
-        $this->assertCount(2, $response->headerLines);
-        $this->assertMatchesRegularExpression('/Content-Type: application\/javascript/', $response->headerLines[0]);
+        $this->assertEquals(200, $response->httpCode());
+        $this->assertCount(2, $response->headerLines());
+        $this->assertMatchesRegularExpression('/Content-Type: application\/javascript/', $response->headerLines()[0]);
     }
 
     public function testHandleRequestReturnsCorrectContentTypeForJson()
@@ -129,12 +135,13 @@ class StaticFileHandlerGeneralTest extends TestCase
 
         $request = $this->createMock(Request::class);
         $request->method('requestUrl')->willReturn('/data.json');
+        $processingRequest = new ProcessingRequest(['request' => $request]);
 
-        $response = $handler->handleRequest($request);
+        $response = $handler->handleRequest($processingRequest);
 
-        $this->assertEquals(200, $response->httpCode);
-        $this->assertCount(2, $response->headerLines);
-        $this->assertMatchesRegularExpression('/Content-Type: application\/json/', $response->headerLines[0]);
+        $this->assertEquals(200, $response->httpCode());
+        $this->assertCount(2, $response->headerLines());
+        $this->assertMatchesRegularExpression('/Content-Type: application\/json/', $response->headerLines()[0]);
     }
 
     public function testHandleRequestReturnsCorrectContentTypeForPng()
@@ -146,12 +153,13 @@ class StaticFileHandlerGeneralTest extends TestCase
 
         $request = $this->createMock(Request::class);
         $request->method('requestUrl')->willReturn('/image.png');
+        $processingRequest = new ProcessingRequest(['request' => $request]);
 
-        $response = $handler->handleRequest($request);
+        $response = $handler->handleRequest($processingRequest);
 
-        $this->assertEquals(200, $response->httpCode);
-        $this->assertCount(2, $response->headerLines);
-        $this->assertMatchesRegularExpression('/Content-Type: image\/png/', $response->headerLines[0]);
+        $this->assertEquals(200, $response->httpCode());
+        $this->assertCount(2, $response->headerLines());
+        $this->assertMatchesRegularExpression('/Content-Type: image\/png/', $response->headerLines()[0]);
     }
 
     public function testHandleRequestReturnsCorrectContentTypeForJpg()
@@ -163,12 +171,13 @@ class StaticFileHandlerGeneralTest extends TestCase
 
         $request = $this->createMock(Request::class);
         $request->method('requestUrl')->willReturn('/image.jpg');
+        $processingRequest = new ProcessingRequest(['request' => $request]);
 
-        $response = $handler->handleRequest($request);
+        $response = $handler->handleRequest($processingRequest);
 
-        $this->assertEquals(200, $response->httpCode);
-        $this->assertCount(2, $response->headerLines);
-        $this->assertMatchesRegularExpression('/Content-Type: image\/jpeg/', $response->headerLines[0]);
+        $this->assertEquals(200, $response->httpCode());
+        $this->assertCount(2, $response->headerLines());
+        $this->assertMatchesRegularExpression('/Content-Type: image\/jpeg/', $response->headerLines()[0]);
     }
 
     public function testHandleRequestReturnsMissingResponseForDirectory()
@@ -180,11 +189,12 @@ class StaticFileHandlerGeneralTest extends TestCase
 
         $request = $this->createMock(Request::class);
         $request->method('requestUrl')->willReturn('/subdir');
+        $processingRequest = new ProcessingRequest(['request' => $request]);
 
-        $response = $handler->handleRequest($request);
+        $response = $handler->handleRequest($processingRequest);
 
         $this->assertInstanceOf(MissingResponse::class, $response);
-        $this->assertEquals(404, $response->httpCode);
+        $this->assertEquals(404, $response->httpCode());
     }
 
     public function testHandleRequestReturnsForbiddenResponseForPathTraversal()
@@ -192,9 +202,10 @@ class StaticFileHandlerGeneralTest extends TestCase
         $location = new FolderLocation($this->testDir);
         $handler = new StaticFileHandler($location);
         $request = new Request(['requestUrl' => '../etc/passwd']);
+        $processingRequest = new ProcessingRequest(['request' => $request]);
 
-        $response = $handler->handleRequest($request);
+        $response = $handler->handleRequest($processingRequest);
         $this->assertInstanceOf(ForbiddenResponse::class, $response);
-        $this->assertEquals(403, $response->httpCode);
+        $this->assertEquals(403, $response->httpCode());
     }
 }
