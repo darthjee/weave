@@ -117,12 +117,11 @@ services:
       context: .
       dockerfile: dockerfiles/Dockerfile.proxy_weave
     volumes:
-      - ./docker_volumes/vendor:/home/app/app/vendor
-      - ./proxy:/home/app/app
-      - ./docker_volumes/static/index.html:/home/app/app/source/static/index.html
-      - ./docker_volumes/static/assets/js/:/home/app/app/source/static/assets/js/
-      - ./docker_volumes/static/assets/css/:/home/app/app/source/static/assets/css/
-      - ./docker_volumes/proxy_configuration:/home/app/app/source/configuration/
+      - ./proxy/source/static/:/var/www/html/static/
+      - ./docker_volumes/static/index.html:/var/www/html/static/static/index.html
+      - ./docker_volumes/static/assets/js/:/var/www/html/static/assets/js/
+      - ./docker_volumes/static/assets/css/:/var/www/html/static/assets/css/
+      - ./docker_volumes/proxy_configuration:/var/www/html/configuration/
     links:
       - weave_app:backend
       - weave_fe:frontend
