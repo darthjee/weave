@@ -110,12 +110,9 @@ services:
       - 127.0.0.1:3060:80
 
   weave_proxy:
-    image: darthjee/proxy_weave
+    image: darthjee/tent:0.0.1
     container_name: weave_proxy
     env_file: .env
-    build:
-      context: .
-      dockerfile: dockerfiles/Dockerfile.proxy_weave
     volumes:
       - ./proxy/source/static/:/var/www/html/static/
       - ./docker_volumes/static/index.html:/var/www/html/static/static/index.html
