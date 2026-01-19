@@ -13,5 +13,13 @@ Configuration::buildRule([
     ],
     'matchers' => [
         ['method' => 'GET', 'uri' => '/api/', 'type' => 'begins_with']
+    ],
+    "middlewares" => [
+        [
+            'class' => 'Tent\Middlewares\SetHeadersMiddleware',
+            'headers' => [
+                'Host' => 'localhost'
+            ]
+        ]
     ]
 ]);
