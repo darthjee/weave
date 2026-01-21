@@ -54,10 +54,10 @@ An app to display curriculum vitae as a D&D character sheet, where:
   ```
 4. Access the application:
 
-- **Frontend:** <http://localhost:3000>
+- **Proxy:** <http://localhost:3000>
+- **Frontend:** <http://localhost:3010>
 - **Backend API:** <http://localhost:3030>
 - **Django Admin:** <http://localhost:3030/admin>
-- **Static Files Server:** <http://localhost:3040>
 - **PhpMyAdmin:** <http://localhost:3050>
 
 ### Running Tests
