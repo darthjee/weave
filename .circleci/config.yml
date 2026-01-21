@@ -188,9 +188,18 @@ jobs:
           command: SOURCE=dist/ SSH_REMOTE_TEMP_DIR=$SSH_REMOTE_TEMP_DIR/static/ deploy_frontend.sh upload
   upload_proxy_files:
     docker:
-      - image: darthjee/vite_weave-base:0.0.4
+      - image: darthjee/tent:0.0.1
     steps:
       - checkout
+      - run:
+          name: Debug
+          command: ls
+      - run:
+          name: Debug 2
+          command: pwd
+      - run:
+          name: Error
+          command: aaaaa
       - run:
           name: Remove build images
           command: rm -f $(find proxy/source/static/assets/images/ -iname "*.pbm")
