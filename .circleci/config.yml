@@ -149,6 +149,7 @@ jobs:
   upload_proxy_files:
     docker:
       - image: darthjee/tent:0.0.1
+    workdir: /var/www/html
     steps:
       - run:
           name: Debug
@@ -157,6 +158,9 @@ jobs:
           name: Debug 2
           command: pwd
       - checkout
+      - run:
+          name: Debug 3
+          command: ls
       - run:
           name: Error
           command: aaaaa
