@@ -78,19 +78,22 @@ docker-compose run weave_fe npm test
 
 ```
 weave/
-├── backend/              # Django application
-│   ├── curriculum/       # Curriculum app (models, views, serializers)
-│   ├── weave/           # Project settings
+├── backend/                 # Django application
+│   ├── curriculum/          # Curriculum app (models, views, serializers)
+│   ├── weave/               # Project settings
 │   └── manage.py
-├── frontend/            # React application
-│   ├── assets/          # JS, CSS, images
-│   ├── spec/            # Tests
+├── frontend/                # React application
+│   ├── assets/              # JS, CSS, images
+│   ├── spec/                # Tests
+│   ├── dis.  /              # Built assets (serverd by Proxy)
 │   └── package.json
-├── dockerfiles/         # Docker build definitions
-├── docker_volumes/      # Docker persistent data (gitignored)
-│   ├── mysql_data/      # MySQL database files
-│   └── node_modules/    # Frontend dependencies
-└── docker-compose.yml   # Docker services configuration
+├── dockerfiles/             # Docker build definitions
+├── docker_volumes/          # Docker persistent data (gitignored)
+│   ├── mysql_data/          # MySQL database files
+│   └── node_modules/        # Frontend dependencies
+│   └── proxy_configuration/ # Proxy (Tent) configurations
+│   └── static/              # Static Files built by the frontend and served by proxy
+└── docker-compose.yml       # Docker services configuration
 ```
 
 ---
