@@ -11,6 +11,7 @@ frontend/.nyc_output/
 frontend/report/
 
 proxy/coverage/
+proxy/source/static/
 proxy/.phpunit.result.cache
 proxy/source/static/index.html
 proxy/.phpdoc
