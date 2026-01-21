@@ -3,6 +3,8 @@
 [![Build Status](https://circleci.com/gh/darthjee/weave.svg?style=shield)](https://circleci.com/gh/darthjee/weave)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/35480a5e82e74ff7a0186697b3f61a4b)](https://app.codacy.com/gh/darthjee/weave/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 
+![weave](https://raw.githubusercontent.com/darthjee/weave/master/weave.jpg)
+
 **Current Version:** [0.3.1](https://github.com/darthjee/weave/releases/tag/0.3.1)
 
 **Next Release:** [0.3.2](https://github.com/darthjee/weave/compare/0.3.1...main)
@@ -52,10 +54,10 @@ An app to display curriculum vitae as a D&D character sheet, where:
   ```
 4. Access the application:
 
-- **Frontend:** <http://localhost:3000>
+- **Proxy:** <http://localhost:3000>
+- **Frontend:** <http://localhost:3010>
 - **Backend API:** <http://localhost:3030>
 - **Django Admin:** <http://localhost:3030/admin>
-- **Static Files Server:** <http://localhost:3040>
 - **PhpMyAdmin:** <http://localhost:3050>
 
 ### Running Tests
@@ -76,19 +78,22 @@ docker-compose run weave_fe npm test
 
 ```
 weave/
-├── backend/              # Django application
-│   ├── curriculum/       # Curriculum app (models, views, serializers)
-│   ├── weave/           # Project settings
+├── backend/                 # Django application
+│   ├── curriculum/          # Curriculum app (models, views, serializers)
+│   ├── weave/               # Project settings
 │   └── manage.py
-├── frontend/            # React application
-│   ├── assets/          # JS, CSS, images
-│   ├── spec/            # Tests
+├── frontend/                # React application
+│   ├── assets/              # JS, CSS, images
+│   ├── spec/                # Tests
+│   ├── dis.  /              # Built assets (serverd by Proxy)
 │   └── package.json
-├── dockerfiles/         # Docker build definitions
-├── docker_volumes/      # Docker persistent data (gitignored)
-│   ├── mysql_data/      # MySQL database files
-│   └── node_modules/    # Frontend dependencies
-└── docker-compose.yml   # Docker services configuration
+├── dockerfiles/             # Docker build definitions
+├── docker_volumes/          # Docker persistent data (gitignored)
+│   ├── mysql_data/          # MySQL database files
+│   └── node_modules/        # Frontend dependencies
+│   └── proxy_configuration/ # Proxy (Tent) configurations
+│   └── static/              # Static Files built by the frontend and served by proxy
+└── docker-compose.yml       # Docker services configuration
 ```
 
 ---
