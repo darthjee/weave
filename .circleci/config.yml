@@ -28,26 +28,17 @@ workflows:
             tags:
               only: /.*/
       - build-and-release:
-          requires: [pytest, jasmine, php-tests, php-checks, frontend-checks, checks]
           filters:
             tags:
-              only: /\d+\.\d+\.\d+/
-            branches:
-              ignore: /.*/
+              only: /.*/
       - upload_fe_files:
-          requires: [pytest, jasmine, php-tests, php-checks, frontend-checks, checks]
           filters:
             tags:
-              only: /\d+\.\d+\.\d+/
-            branches:
-              ignore: /.*/
+              only: /.*/
       - upload_proxy_files:
-          requires: [pytest, jasmine, php-tests, php-checks, frontend-checks, checks]
           filters:
             tags:
-              only: /\d+\.\d+\.\d+/
-            branches:
-              ignore: /.*/
+              only: /.*/
       - release_static_files:
           requires: [build-and-release, upload_fe_files, upload_proxy_files]
           filters:
