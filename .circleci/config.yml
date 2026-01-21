@@ -150,13 +150,13 @@ jobs:
     docker:
       - image: darthjee/tent:0.0.1
     steps:
-      - checkout
       - run:
           name: Debug
           command: ls
       - run:
           name: Debug 2
           command: pwd
+      - checkout
       - run:
           name: Error
           command: aaaaa
