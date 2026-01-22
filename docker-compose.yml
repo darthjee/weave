@@ -114,7 +114,7 @@ services:
     container_name: weave_proxy
     env_file: .env
     volumes:
-      - ./proxy/source/static/:/var/www/html/static/
+      - ./proxy/static/:/var/www/html/static/
       - ./docker_volumes/static/index.html:/var/www/html/static/static/index.html
       - ./docker_volumes/static/assets/js/:/var/www/html/static/assets/js/
       - ./docker_volumes/static/assets/css/:/var/www/html/static/assets/css/

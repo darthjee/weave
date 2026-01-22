@@ -163,7 +163,7 @@ jobs:
           command: SOURCE=/var/www/html/ deploy_frontend.sh upload
       - run:
           name: Upload assets
-          command: SOURCE=proxy/source/ deploy_frontend.sh upload
+          command: SOURCE=proxy/ deploy_frontend.sh upload
       - run:
           name: Copy configuration files
           command: TARGET=configuration/ deploy_frontend.sh copy_files
