@@ -151,25 +151,16 @@ jobs:
       - image: darthjee/tent:0.0.2-pre
     workdir: /var/www/html
     steps:
-      - run:
-          name: Debug
-          command: ls
-      - run:
-          name: Debug 2
-          command: pwd
       - checkout
-      - run:
-          name: Debug 3
-          command: ls
-      - run:
-          name: Error
-          command: aaaaa
       - run:
           name: Remove build images
           command: rm -f $(find proxy/source/static/assets/images/ -iname "*.pbm")
       - run:
           name: Generate key file
           command: deploy_frontend.sh generate_key_file
+      - run:
+          name: Upload proxy files
+          command: SOURCE=/var/www/html/ deploy_frontend.sh upload
       - run:
           name: Upload assets
           command: SOURCE=proxy/source/ deploy_frontend.sh upload
@@ -187,3 +178,4 @@ jobs:
       - run:
           name: Release assets
           command: deploy_frontend.sh release
+
