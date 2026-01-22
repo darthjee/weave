@@ -11,14 +11,6 @@ workflows:
           filters:
             tags:
               only: /.*/
-      - php-tests:
-          filters:
-            tags:
-              only: /.*/
-      - php-checks:
-          filters:
-            tags:
-              only: /.*/
       - checks:
           filters:
             tags:
@@ -28,21 +20,21 @@ workflows:
             tags:
               only: /.*/
       - build-and-release:
-          requires: [pytest, jasmine, php-tests, php-checks, frontend-checks, checks]
+          requires: [pytest, jasmine, frontend-checks, checks]
           filters:
             tags:
               only: /\d+\.\d+\.\d+/
             branches:
               ignore: /.*/
       - upload_fe_files:
-          requires: [pytest, jasmine, php-tests, php-checks, frontend-checks, checks]
+          requires: [pytest, jasmine, frontend-checks, checks]
           filters:
             tags:
               only: /\d+\.\d+\.\d+/
             branches:
               ignore: /.*/
       - upload_proxy_files:
-          requires: [pytest, jasmine, php-tests, php-checks, frontend-checks, checks]
+          requires: [pytest, jasmine, frontend-checks, checks]
           filters:
             tags:
               only: /\d+\.\d+\.\d+/
@@ -101,38 +93,6 @@ jobs:
       - run:
           name: Tests
           command: npm test
-
-  php-tests:
-    docker:
-      - image: darthjee/circleci_tent-base:0.0.1
-      - image: kennethreitz/httpbin
-        name: httpbin
-    steps:
-      - checkout
-      - run:
-          name: Set folder
-          command: rm backend static frontend -rf; cp proxy/* ./ -r; rm proxy -rf
-      - run:
-          name: composer install
-          command: composer install
-      - run:
-          name: Tests
-          command: composer tests
-
-  php-checks:
-    docker:
-      - image: darthjee/circleci_tent-base:0.0.1
-    steps:
-      - checkout
-      - run:
-          name: Set folder
-          command: rm backend static frontend -rf; cp proxy/* ./ -r; rm proxy -rf
-      - run:
-          name: composer install
-          command: composer install
-      - run:
-          name: Lint
-          command: composer lint
 
   checks:
     docker:
@@ -197,7 +157,8 @@ jobs:
           command: SOURCE=dist/ SSH_REMOTE_TEMP_DIR=$SSH_REMOTE_TEMP_DIR/static/ deploy_frontend.sh upload
   upload_proxy_files:
     docker:
-      - image: darthjee/vite_weave-base:0.0.4
+      - image: darthjee/tent:0.0.2
+    workdir: /var/www/html
     steps:
       - checkout
       - run:
@@ -207,8 +168,11 @@ jobs:
           name: Generate key file
           command: deploy_frontend.sh generate_key_file
       - run:
+          name: Upload proxy files
+          command: SOURCE=/var/www/html/ deploy_frontend.sh upload
+      - run:
           name: Upload assets
-          command: SOURCE=proxy/source/ deploy_frontend.sh upload
+          command: SOURCE=proxy/ deploy_frontend.sh upload
       - run:
           name: Copy configuration files
           command: TARGET=configuration/ deploy_frontend.sh copy_files
@@ -223,3 +187,4 @@ jobs:
       - run:
           name: Release assets
           command: deploy_frontend.sh release
+
