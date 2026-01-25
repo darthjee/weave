@@ -5,8 +5,8 @@ IMAGE?=$(PROJECT)
 BASE_VERSION?=0.0.4
 BASE_IMAGE?=$(DOCKER_ID_USER)/$(PROJECT)-base
 PUSH_IMAGE=$(DOCKER_ID_USER)/$(PROJECT)
-DOCKER_FILE_BASE=dockerfiles/Dockerfile.$(PROJECT)-base
-DOCKER_FILE=dockerfiles/Dockerfile.$(PROJECT)
+DOCKER_FILE_BASE=dockerfiles/$(PROJECT)-base/Dockerfile
+DOCKER_FILE=dockerfiles/$(PROJECT)/Dockerfile
 
 all:
 	@echo "Usage:"
