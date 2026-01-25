@@ -16,6 +16,11 @@ Configuration::buildRule([
     ],
     "middlewares" => [
         [
+            'class' => 'Tent\Middlewares\FileCacheMiddleware',
+            'location' => "./cache",
+            'httpCodes' => ["2xx"]
+        ],
+        [
             'class' => 'Tent\Middlewares\SetHeadersMiddleware',
             'headers' => [
                 'Host' => 'localhost'
