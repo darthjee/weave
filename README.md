@@ -130,10 +130,10 @@ The project uses a **separate static files server** for serving Django Admin ass
 - Accessible at `http://localhost:3040/assets/`
 - Django collectstatic output mounted to container
 
+
 **Production:**
-- Static files served from `https://weave-static.tamanduati.tech/assets/`
-- Configured via `STATIC_URL` environment variable
-- Enables CDN deployment and better caching
+- Static files are served by [Tent](https://github.com/darthjee/tent), a PHP proxy capable of serving static files and acting as a reverse proxy.
+- This setup enables caching of api calls.
 
 **Generate static files:**
 ```bash
