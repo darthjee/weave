@@ -5,9 +5,9 @@
 
 ![weave](https://raw.githubusercontent.com/darthjee/weave/master/weave.jpg)
 
-**Current Version:** [0.3.2](https://github.com/darthjee/weave/releases/tag/0.3.2)
+**Current Version:** [0.3.3](https://github.com/darthjee/weave/releases/tag/0.3.3)
 
-**Next Release:** [0.3.3](https://github.com/darthjee/weave/compare/0.3.2...main)
+**Next Release:** [0.3.4](https://github.com/darthjee/weave/compare/0.3.3...main)
 
 ---
 
