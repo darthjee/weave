@@ -157,7 +157,7 @@ jobs:
           command: SOURCE=dist/ SSH_REMOTE_TEMP_DIR=$SSH_REMOTE_TEMP_DIR/static/ deploy_frontend.sh upload
   upload_proxy_files:
     docker:
-      - image: darthjee/tent:0.1.0
+      - image: darthjee/tent:0.2.0
     workdir: /var/www/html
     steps:
       - checkout
