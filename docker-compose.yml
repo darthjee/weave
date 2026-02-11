@@ -69,7 +69,7 @@ services:
     container_name: weave_fe
     build:
       context: .
-      dockerfile: dockerfiles/Dockerfile.vite_weave
+      dockerfile: dockerfiles/vite_weave/Dockerfile
     volumes:
       - ./frontend:/home/node/app
       - ./docker_volumes/node_modules:/home/node/app/node_modules
