@@ -18,7 +18,12 @@ Configuration::buildRule([
         [
             'class' => 'Tent\Middlewares\FileCacheMiddleware',
             'location' => "./cache",
-            'httpCodes' => ["2xx"]
+            'matchers' => [
+                [
+                    'class' => 'Tent\Matchers\StatusCodeMatcher',
+                    'httpCodes' => ["2xx"]
+                ]
+            ]
         ],
         [
             'class' => 'Tent\Middlewares\SetHeadersMiddleware',
