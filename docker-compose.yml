@@ -6,7 +6,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: weave
     ports:
-      - 127.0.0.1:$WEAVE_MYSQL_PORT:3306
+      - 0.0.0.0:$WEAVE_MYSQL_PORT:3306
     volumes:
       - ./docker_volumes/mysql_data:/var/lib/mysql
 
@@ -61,7 +61,7 @@ services:
       - weave_mysql
       - weave_phpmyadmin
     ports:
-      - 127.0.0.1:3030:8080
+      - 0.0.0.0:3030:8080
     environment:
       - WEAVE_MYSQL_PORT=3306
 
@@ -75,7 +75,7 @@ services:
       - ./docker_volumes/node_modules:/home/node/app/node_modules
       - ./docker_volumes/static:/home/node/app/dist
     ports:
-      - 127.0.0.1:3010:8080
+      - 0.0.0.0:3010:8080
     env_file: .env
 
   weave_tests:
@@ -101,16 +101,16 @@ services:
       MYSQL_ROOT_PASSWORD: weave
       MYSQL_PASSWORD: weave
     ports:
-      - 127.0.0.1:3050:80
+      - 0.0.0.0:3050:80
 
   weave_httpbin:
     image: kennethreitz/httpbin
     container_name: weave_httpbin
     ports:
-      - 127.0.0.1:3060:80
+      - 0.0.0.0:3060:80
 
   weave_proxy:
-    image: darthjee/tent:0.4.0
+    image: darthjee/tent:0.4.1
     container_name: weave_proxy
     env_file: .env
     volumes:
@@ -128,7 +128,7 @@ services:
       - weave_fe
       - weave_httpbin
     ports:
-      - 127.0.0.1:3000:80
+      - 0.0.0.0:3000:80
 
   #################### PROD CONTAINERS ####################
 
@@ -139,7 +139,7 @@ services:
       - base_prod_build
       - weave_prod_mysql
     ports:
-      - 127.0.0.1:3030:8080
+      - 0.0.0.0:3030:8080
     environment:
       - STAGE=production
 
@@ -156,4 +156,4 @@ services:
       MYSQL_ROOT_PASSWORD: weave
       MYSQL_PASSWORD: weave
     ports:
-      - 127.0.0.1:3050:80
+      - 0.0.0.0:3050:80
