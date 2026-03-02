@@ -110,7 +110,7 @@ services:
       - 0.0.0.0:3060:80
 
   weave_proxy:
-    image: darthjee/tent:0.4.1
+    image: darthjee/tent:0.4.3
     container_name: weave_proxy
     env_file: .env
     volumes:

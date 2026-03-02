@@ -27,6 +27,10 @@ push-base:
 	docker push $(BASE_IMAGE)
 	docker push $(BASE_IMAGE):$(BASE_VERSION)
 
+setup:
+	docker-compose run --rm $(PROJECT)_fe yarn install
+	docker-compose run --rm $(PROJECT)_app bin/configure_database.sh all
+
 build:
 	docker build -f $(DOCKER_FILE) . -t $(IMAGE) -t $(PUSH_IMAGE) -t $(PUSH_IMAGE):$(BASE_VERSION)
 
