@@ -30,6 +30,7 @@ All project documentation lives under [`docs/agents/`](docs/agents/):
 | [Flow](docs/agents/flow.md) | Main runtime flow of the application. |
 | [Plans](docs/agents/plans/) | Implementation plans for ongoing or upcoming features. |
 | [Issues](docs/agents/issues/) | Detailed specs for open issues. |
+| [Contributing](docs/agents/contributing.md) | Commit guidelines, PR standards, code organization, and refactoring rules. |
 
 ### Issues (`docs/agents/issues/`)
 
