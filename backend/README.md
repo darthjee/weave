@@ -1,31 +1,31 @@
 # weave
 
-Projeto inicial com Django 5.2.5 (backend) e React (frontend).
+Initial project with Django 5.2.5 (backend) and React (frontend).
 
-## Estrutura
+## Structure
 - backend/: Django 5.2.5
 - frontend/: React + Yarn
 
-## Como iniciar
+## Getting Started
 
 ### Backend
-1. Crie e ative um ambiente virtual Python 3
-2. Instale o Django 5.2.5:
+1. Create and activate a Python 3 virtual environment
+2. Install Django 5.2.5:
    ```bash
    pip install django==5.2.5
    ```
-3. Inicialize o projeto Django:
+3. Initialize the Django project:
    ```bash
    django-admin startproject weave .
    ```
 
 ### Frontend
-1. Instale o Yarn (se necessário)
-2. Inicialize o projeto React:
+1. Install Yarn (if necessary)
+2. Initialize the React project:
    ```bash
    yarn create react-app .
    ```
 
-## Observações
-- Certifique-se de estar nas pastas corretas ao rodar os comandos.
-- Ajuste configurações conforme necessário para integração entre frontend e backend.
+## Notes
+- Make sure you are in the correct directories when running the commands.
+- Adjust settings as needed for integration between frontend and backend.
