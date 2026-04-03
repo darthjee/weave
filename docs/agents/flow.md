@@ -59,3 +59,51 @@ React SPA (in browser)
 ```
 
 All API calls from the frontend go through Tent, so they benefit from caching automatically.
+
+## GitHub Data Fetching Flow
+
+> **Status: not yet implemented.** Worker technology is TBD.
+
+### Overview
+
+A background worker system fetches and processes GitHub data for a given user. Processing is split across two levels of workers: one that lists repositories, and one per repository that analyzes commits.
+
+### Level 1 — Repository Fetcher
+
+```
+Trigger (user / schedule)
+  └─▶ Repository Worker
+        └─▶ GitHub API: list repositories for user
+              └─▶ for each repository
+                    └─▶ dispatch Repository Processor (Level 2)
+```
+
+### Level 2 — Repository Processor (one per repo)
+
+```
+Repository Processor
+  └─▶ Is this repo already analyzed?
+        ├─▶ No  → fetch full commit history from GitHub API
+        └─▶ Yes → fetch only commits newer than last analyzed commit
+              └─▶ for each commit
+                    └─▶ Commit Analyzer
+```
+
+### Commit Analyzer
+
+```
+Commit Analyzer
+  └─▶ GitHub API: fetch diff / changed lines for commit
+        └─▶ for each changed file
+              └─▶ detect language (by file extension / content)
+              └─▶ count lines added/changed for that language
+        └─▶ update language score (aggregate lines across commits)
+        └─▶ update "last used" timestamp for each language seen
+```
+
+### Data stored per language (per user)
+
+| Field | Description |
+|---|---|
+| `score` | Accumulated lines changed across all analyzed commits |
+| `last_used_at` | Timestamp of the most recent commit touching that language |
