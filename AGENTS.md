@@ -31,6 +31,7 @@ All project documentation lives under [`docs/agents/`](docs/agents/):
 | [Plans](docs/agents/plans/) | Implementation plans for ongoing or upcoming features. |
 | [Issues](docs/agents/issues/) | Detailed specs for open issues. |
 | [Contributing](docs/agents/contributing.md) | Commit guidelines, PR standards, code organization, and refactoring rules. |
+| [Docker Compose](docs/agents/docker-compose.md) | All services, ports, shared volumes, and base image definitions. |
 
 ### Issues (`docs/agents/issues/`)
 
