@@ -11,6 +11,7 @@ frontend/.nyc_output/
 frontend/report/
 
 proxy/static/index.html
+proxy/static/assets/admin/
 
 httpd/*
 .env.prod

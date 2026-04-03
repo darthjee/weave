@@ -40,8 +40,15 @@ workflows:
               only: /\d+\.\d+\.\d+/
             branches:
               ignore: /.*/
+      - upload_admin_assets:
+          requires: [pytest, jasmine, frontend-checks, checks]
+          filters:
+            tags:
+              only: /\d+\.\d+\.\d+/
+            branches:
+              ignore: /.*/
       - release_static_files:
-          requires: [build-and-release, upload_fe_files, upload_proxy_files]
+          requires: [build-and-release, upload_fe_files, upload_proxy_files, upload_admin_assets]
           filters:
             tags:
               only: /\d+\.\d+\.\d+/
@@ -187,4 +194,27 @@ jobs:
       - run:
           name: Release assets
           command: deploy_frontend.sh release
+  upload_admin_assets:
+    docker:
+      - image: darthjee/circleci_weave-base:0.0.4
+    steps:
+      - checkout
+      - run:
+          name: Set folder
+          command: rm frontend static proxy -rf; cp backend/* ./ -r; rm backend -rf
+      - run:
+          name: Poetry Install
+          command: poetry install --no-root --no-interaction --no-ansi
+      - run:
+          name: Collect static files
+          command: python manage.py collectstatic --noinput
+      - run:
+          name: Generate key file
+          command: bin/deploy_frontend.sh generate_key_file
+      - run:
+          name: Generate folder
+          command: SSH_REMOTE_TEMP_DIR=$SSH_REMOTE_TEMP_DIR/static/assets/admin/ bin/deploy_frontend.sh generate_folder
+      - run:
+          name: Upload admin assets
+          command: SOURCE=assets/admin/ SSH_REMOTE_TEMP_DIR=$SSH_REMOTE_TEMP_DIR/static/assets/admin/ bin/deploy_frontend.sh upload
 
