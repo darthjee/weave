@@ -84,7 +84,7 @@ Add the new job to the workflow with the same `requires` and `filters` as `uploa
 
 - `.gitignore` — add `proxy/static/assets/admin/`
 - `proxy/static/assets/admin/` — remove from repository (`git rm -r`)
-- `backend/bin/deploy_frontend.sh` — add script copied from `docker/scripts/0.7.0/home/sbin/deploy_frontend.sh`
+- `backend/bin/deploy_frontend.sh` — add script; source file saved at [`docs/agents/plans/X01_generate_admin_assets_on_deployment/deploy_frontend.sh`](deploy_frontend.sh)
 - `.circleci/config.yml` — add `upload_admin_assets` job and update `release_static_files` dependencies
 
 ## Notes
