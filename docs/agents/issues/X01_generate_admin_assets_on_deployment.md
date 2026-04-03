@@ -23,7 +23,8 @@ Django admin static files are currently committed to the repository under `proxy
 - Add a dedicated deployment step that:
   1. Runs `python manage.py collectstatic` to generate the admin assets.
   2. Uploads the generated assets to the server.
-- This step must run **in parallel** with the existing build-and-release step, not sequentially, to avoid increasing total deployment time.
+- The upload of the generated assets must run **in parallel** with the existing `upload_proxy_files` step, not sequentially, to avoid increasing total deployment time.
+- `release_static_files` must depend on this new upload step (in addition to its existing dependencies), so static files are only released after admin assets are in place.
 - Ensure the `collectstatic` output is directed to the path that Tent serves statically.
 
 ## Benefits
