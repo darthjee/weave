@@ -212,6 +212,9 @@ jobs:
           name: Generate key file
           command: bin/deploy_frontend.sh generate_key_file
       - run:
+          name: Generate folder
+          command: SSH_REMOTE_TEMP_DIR=$SSH_REMOTE_TEMP_DIR/static/assets/admin/ bin/deploy_frontend.sh generate_folder
+      - run:
           name: Upload admin assets
-          command: SOURCE=assets/admin/ bin/deploy_frontend.sh upload
+          command: SOURCE=assets/admin/ SSH_REMOTE_TEMP_DIR=$SSH_REMOTE_TEMP_DIR/static/assets/admin/ bin/deploy_frontend.sh upload
 
