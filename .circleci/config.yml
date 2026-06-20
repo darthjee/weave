@@ -217,7 +217,7 @@ jobs:
           command: poetry install --no-root --no-interaction --no-ansi
       - run:
           name: Collect static files
-          command: python manage.py collectstatic --noinput
+          command: poetry run python manage.py collectstatic --noinput
       - run:
           name: Generate key file
           command: bin/deploy_frontend.sh generate_key_file
