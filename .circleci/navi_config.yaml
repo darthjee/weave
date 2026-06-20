@@ -1,0 +1,20 @@
+web:
+  port: $NAVI_PORT
+workers:
+  quantity: 5
+  retry_cooldown: 10000
+  sleep: 500
+  max-retries: 50
+
+failure:
+  threshold: 0.0
+
+clients:
+  default:
+    base_url: $WEAVE_PRODUCTION_URL
+    timeout: 20000
+
+resources:
+  curriculum_person:
+    - url: /api/curriculum/person/
+      status: 200

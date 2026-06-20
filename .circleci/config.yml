@@ -54,6 +54,13 @@ workflows:
               only: /\d+\.\d+\.\d+/
             branches:
               ignore: /.*/
+      - warm-up-cache:
+          requires: [release_static_files]
+          filters:
+            tags:
+              only: /\d+\.\d+\.\d+/
+            branches:
+              ignore: /.*/
 jobs:
   pytest:
     docker:
@@ -220,4 +227,13 @@ jobs:
       - run:
           name: Upload admin assets
           command: SOURCE=assets/admin/ SSH_REMOTE_TEMP_DIR=$SSH_REMOTE_TEMP_DIR/static/assets/admin/ bin/deploy_frontend.sh upload
+
+  warm-up-cache:
+    docker:
+      - image: darthjee/navi-hey:latest
+    steps:
+      - checkout
+      - run:
+          name: Warm up proxy cache
+          command: navi-hey --config .circleci/navi_config.yaml
 
