@@ -11,7 +11,7 @@ Tent ([GitHub](https://github.com/darthjee/tent), [Docker Hub](https://hub.docke
 Routing is configured via PHP files in `docker_volumes/proxy_configuration/`:
 
 - `configure.php` — entry point that loads the rule files.
-- `rules/backend.php` — routes `GET /api/*` to the Django backend (`weave_app:8080`), with file-based caching for 2xx responses.
+- `rules/backend.php` — routes `GET /api/*` to the Django backend (`weave_app:8080`) using Tent's `default_proxy` handler (automatic `Host` header rewriting and file-based caching), with an explicit `Host: localhost` override middleware to satisfy Django's dev `ALLOWED_HOSTS`.
 - `rules/frontend.php` — routes frontend requests. Behaviour depends on the `FRONTEND_DEV_MODE` environment variable:
 
 ### Development mode (`FRONTEND_DEV_MODE=true`)
@@ -41,6 +41,18 @@ Tent serves all frontend assets from its static folder:
 The static root (`/var/www/html/static` inside the container) is populated from two sources:
 - `proxy/static/` — committed static assets (images, etc.).
 - `docker_volumes/static/` — Vite build output (JS, CSS, `index.html`); this is the shared volume described below.
+
+### Production Proxy Configuration (`prod_proxy_config/`)
+
+Unlike `docker_volumes/proxy_configuration/` (used for local development), `prod_proxy_config/` is the Tent configuration deployed to production. It mirrors the same structure with two key differences:
+
+- There is no dev-mode branch — the frontend is always served statically.
+- The backend host is extracted into `prod_proxy_config/hosts.php`, which is included by `prod_proxy_config/configure.php`. `hosts.php` is gitignored (it holds the real deployment-specific host); `prod_proxy_config/hosts.php.sample` is committed as a template, pointing to `localhost:3030`.
+- `rules/backend.php` uses Tent's `default_proxy` handler (instead of the low-level `proxy` handler used in dev) — it automatically rewrites the `Host` header to the upstream host and enables file-based response caching, so no explicit middlewares are needed in the rule definition.
+
+#### Deployment
+
+The `upload_proxy_files` CI job (`.circleci/config.yml`) uploads the local `prod_proxy_config/` into the remote release's `configuration/` folder, then copies only the previous `hosts.php` from the old configuration into the new one — preserving the deployment-specific host value across releases without carrying over any other stale configuration.
 
 ## Shared Volume: Frontend Build Output
 

@@ -181,8 +181,11 @@ jobs:
           name: Upload assets
           command: SOURCE=proxy/ deploy_frontend.sh upload
       - run:
-          name: Copy configuration files
-          command: TARGET=configuration/ deploy_frontend.sh copy_files
+          name: Upload proxy configuration
+          command: SOURCE=prod_proxy_config/ SSH_REMOTE_TEMP_DIR=$SSH_REMOTE_TEMP_DIR/configuration/ deploy_frontend.sh upload
+      - run:
+          name: Setup hosts
+          command: TARGET=configuration/hosts.php SSH_REMOTE_TEMP_DIR=$SSH_REMOTE_TEMP_DIR/configuration/ deploy_frontend.sh copy_files
   release_static_files:
     docker:
       - image: darthjee/vite_weave-base:0.0.4

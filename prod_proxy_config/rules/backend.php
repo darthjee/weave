@@ -9,17 +9,9 @@ use Tent\Models\RequestMatcher;
 Configuration::buildRule([
     'handler' => [
         'type' => 'default_proxy',
-        'host' => 'http://backend:8080'
+        'host' => $backendHost,
     ],
     'matchers' => [
         ['method' => 'GET', 'uri' => '/api/', 'type' => 'begins_with']
-    ],
-    "middlewares" => [
-        [
-            'class' => 'Tent\Middlewares\SetHeadersMiddleware',
-            'headers' => [
-                'Host' => 'localhost'
-            ]
-        ]
     ]
 ]);
