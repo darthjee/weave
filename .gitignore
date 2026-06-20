@@ -22,3 +22,4 @@ docker_volumes/static
 docker_volumes/vendor
 
 prod_proxy_config/hosts.php
+.claude/state/

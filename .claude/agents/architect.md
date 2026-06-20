@@ -15,6 +15,15 @@ You are the architect and coordinator for the Weave project — a user-agnostic 
 - Cross-cutting decisions that span multiple layers (backend, frontend, proxy)
 - Coordination of the other specialist agents
 
+## Commands
+
+Never invoke `poetry`, `pytest`, `python`, `pip`, `npm`, or `yarn` directly on the host — even for one-off checks (e.g. validating a YAML file). Always go through the project's docker-compose services, e.g.:
+
+```bash
+docker-compose run weave_tests poetry run pytest
+docker-compose run weave_fe npm run lint
+```
+
 ## Specialist agents
 
 Delegate implementation work to the right agent. Never implement what belongs to a specialist yourself.

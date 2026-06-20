@@ -109,6 +109,22 @@ services:
     ports:
       - 0.0.0.0:3060:80
 
+  weave_navi:
+    image: darthjee/navi-hey:latest
+    container_name: weave_navi
+    volumes:
+      - .circleci/:/home/node/app
+    command: navi-hey --config navi_config.yaml
+    environment:
+      - WEAVE_PRODUCTION_URL=http://proxy
+      - NAVI_PORT=3000
+    links:
+      - weave_proxy:proxy
+    depends_on:
+      - weave_proxy
+    ports:
+      - 0.0.0.0:3100:3000
+
   weave_proxy:
     image: darthjee/tent:0.4.3
     container_name: weave_proxy

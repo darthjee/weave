@@ -34,6 +34,7 @@ These services exist only to build shared images — they do not run long-lived 
 | `weave_proxy` | `3000` | Tent proxy — main entry point. Routes to `weave_app` (backend) and `weave_fe` (frontend). See [Architecture](architecture.md) for routing details. |
 | `weave_tests` | — | One-off container for running the backend test suite (`poetry run pytest`). |
 | `weave_root` | — | Same as `weave_app` but runs as root with a bash shell — useful for debugging inside the container. |
+| `weave_navi` | `3100` | `navi-hey` cache warmer. Runs `.circleci/navi_config.yaml` against `weave_proxy` to test the post-deploy cache warm-up config locally. |
 
 ### Shared volumes in development
 
@@ -61,3 +62,4 @@ These services exist only to build shared images — they do not run long-lived 
 | `3030` | Django backend |
 | `3050` | phpMyAdmin |
 | `3060` | httpbin |
+| `3100` | navi-hey cache warmer |
