@@ -11,7 +11,7 @@ Tent ([GitHub](https://github.com/darthjee/tent), [Docker Hub](https://hub.docke
 Routing is configured via PHP files in `docker_volumes/proxy_configuration/`:
 
 - `configure.php` — entry point that loads the rule files.
-- `rules/backend.php` — routes `GET /api/*` to the Django backend (`weave_app:8080`), with file-based caching for 2xx responses.
+- `rules/backend.php` — routes `GET /api/*` to the Django backend (`weave_app:8080`) using Tent's `default_proxy` handler (automatic `Host` header rewriting and file-based caching), with an explicit `Host: localhost` override middleware to satisfy Django's dev `ALLOWED_HOSTS`.
 - `rules/frontend.php` — routes frontend requests. Behaviour depends on the `FRONTEND_DEV_MODE` environment variable:
 
 ### Development mode (`FRONTEND_DEV_MODE=true`)
