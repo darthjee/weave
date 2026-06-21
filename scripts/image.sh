@@ -60,6 +60,11 @@ function push() {
   local tag_suffix
   [ -n "$arch" ] && tag_suffix="-$arch" || tag_suffix=""
 
+  if [ -z "$CIRCLE_TAG" ]; then
+    echo "Not a tag build, skipping release of ${image}-base."
+    exit 0
+  fi
+
   skip_if_unchanged "$image"
 
   echo "$DOCKER_HUB_PASSWORD" | docker login -u "$DOCKER_HUB_USERNAME" --password-stdin
