@@ -241,7 +241,7 @@ jobs:
   upload_proxy_files:
     docker:
       - image: darthjee/tent:0.4.3
-    workdir: /var/www/html
+    working_directory: /var/www/html
     steps:
       - checkout
       - run:
