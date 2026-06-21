@@ -1,5 +1,5 @@
 FROM darthjee/scripts:0.5.3 as scripts
-FROM darthjee/weave-base:0.0.4 as base
+FROM darthjee/weave-base:0.1.0 as base
 
 COPY --chown=app:app \
   ./backend/pyproject.toml ./backend/poetry.lock* \
