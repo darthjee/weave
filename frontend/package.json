@@ -1,7 +1,7 @@
 {
   "name": "weave",
   "type": "module",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "description": "Weave Node.js Proxy",
   "main": "index.js",
   "scripts": {
