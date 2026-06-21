@@ -202,7 +202,7 @@ jobs:
   upload_proxy_files:
     docker:
       - image: darthjee/tent:0.7.7
-    working_directory: /home/app
+    working_directory: /home/app/circleci
     steps:
       - checkout
       - run:
