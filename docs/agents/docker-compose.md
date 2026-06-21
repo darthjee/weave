@@ -55,7 +55,7 @@ These services exist only to build shared images — they do not run long-lived 
 
 ## Base Image Release Flow
 
-The four base images under `dockerfiles/` (`weave-base`, `circleci_weave-base`, `production_weave-base`, `vite_weave-base`) are built and pushed via `scripts/image.sh` (invoked from the root `Makefile`'s `build-base`/`push-base` targets, and from dedicated `release` jobs in `.circleci/config.yml` on every version tag, for both `amd64` and `arm64`). The version is controlled by the `BASE_VERSION` Makefile variable — whenever it changes, the `image:` tag references in `.circleci/config.yml` (`circleci_weave-base`, `vite_weave-base`) must be bumped to match.
+The base images under `dockerfiles/` (`weave-base`, `circleci_weave-base`, `production_weave-base`, `vite_weave-base`, `production_vite_weave-base`) are built and pushed via `scripts/image.sh` (invoked from the root `Makefile`'s `build-base`/`push-base` targets, and from dedicated `release` jobs in `.circleci/config.yml` on every version tag, for both `amd64` and `arm64`). `production_vite_weave-base` mirrors `vite_weave-base` but installs frontend dependencies in production mode (`yarn_builder.sh --production`), the same split `production_weave-base`/`weave-base` already has for the backend; the frontend release jobs (`upload_fe_files`, `release_static_files`) run on this production base, not `vite_weave-base`. The version is controlled by the `BASE_VERSION` Makefile variable — whenever it changes, the `image:` tag references in `.circleci/config.yml` (`circleci_weave-base`, `production_vite_weave-base`) must be bumped to match.
 
 ## Port Map
 
