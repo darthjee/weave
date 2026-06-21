@@ -1,4 +1,7 @@
-version: 2
+# Note: whenever BASE_VERSION (Makefile) changes, the `image:` tag
+# references below for circleci_weave-base / vite_weave-base must be
+# bumped to match the new version.
+version: 2.1
 workflows:
   version: 2
   test:
@@ -19,6 +22,46 @@ workflows:
           filters:
             tags:
               only: /.*/
+      - release:
+          name: release-weave-base
+          image: weave
+          filters: &tag_only
+            tags:
+              only: /\d+\.\d+\.\d+/
+            branches:
+              ignore: /.*/
+      - release:
+          name: release-weave-base-arm64
+          image: weave
+          arch: arm64
+          filters: *tag_only
+      - release:
+          name: release-circleci_weave-base
+          image: circleci_weave
+          filters: *tag_only
+      - release:
+          name: release-circleci_weave-base-arm64
+          image: circleci_weave
+          arch: arm64
+          filters: *tag_only
+      - release:
+          name: release-production_weave-base
+          image: production_weave
+          filters: *tag_only
+      - release:
+          name: release-production_weave-base-arm64
+          image: production_weave
+          arch: arm64
+          filters: *tag_only
+      - release:
+          name: release-vite_weave-base
+          image: vite_weave
+          filters: *tag_only
+      - release:
+          name: release-vite_weave-base-arm64
+          image: vite_weave
+          arch: arm64
+          filters: *tag_only
       - build-and-release:
           requires: [pytest, jasmine, frontend-checks, checks]
           filters:
@@ -27,7 +70,7 @@ workflows:
             branches:
               ignore: /.*/
       - upload_fe_files:
-          requires: [pytest, jasmine, frontend-checks, checks]
+          requires: [pytest, jasmine, frontend-checks, checks, release-vite_weave-base]
           filters:
             tags:
               only: /\d+\.\d+\.\d+/
@@ -41,14 +84,14 @@ workflows:
             branches:
               ignore: /.*/
       - upload_admin_assets:
-          requires: [pytest, jasmine, frontend-checks, checks]
+          requires: [pytest, jasmine, frontend-checks, checks, release-circleci_weave-base]
           filters:
             tags:
               only: /\d+\.\d+\.\d+/
             branches:
               ignore: /.*/
       - release_static_files:
-          requires: [build-and-release, upload_fe_files, upload_proxy_files, upload_admin_assets]
+          requires: [build-and-release, upload_fe_files, upload_proxy_files, upload_admin_assets, release-vite_weave-base]
           filters:
             tags:
               only: /\d+\.\d+\.\d+/
@@ -62,6 +105,23 @@ workflows:
             branches:
               ignore: /.*/
 jobs:
+  release:
+    parameters:
+      image:
+        type: string
+      arch:
+        type: string
+        default: ""
+    machine: true
+    steps:
+      - checkout
+      - run:
+          name: Set up QEMU
+          command: docker run --privileged --rm tonistiigi/binfmt --install all
+      - run:
+          name: Release
+          command: scripts/image.sh push << parameters.image >> << parameters.arch >>
+
   pytest:
     docker:
       - image: darthjee/circleci_weave-base:0.0.4
