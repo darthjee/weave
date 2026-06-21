@@ -89,7 +89,7 @@ jobs:
       - checkout
       - run:
           name: Set up QEMU
-          command: scripts/image.sh qemu
+          command: scripts/image.sh qemu << parameters.image >>
       - run:
           name: Release
           command: scripts/image.sh push << parameters.image >> << parameters.arch >>

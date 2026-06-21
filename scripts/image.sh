@@ -16,7 +16,11 @@ function skip_if_not_tag() {
 }
 
 function setup_qemu() {
+  local image=$1
+
   skip_if_not_tag
+
+  skip_if_unchanged "$image"
 
   docker run --privileged --rm tonistiigi/binfmt --install all
 }
@@ -93,7 +97,7 @@ ARCH=${3:-}
 case $ACTION in
   "build") build "$IMAGE_NAME" "$ARCH" ;;
   "push")  push "$IMAGE_NAME" "$ARCH" ;;
-  "qemu")  setup_qemu ;;
+  "qemu")  setup_qemu "$IMAGE_NAME" ;;
   *)
     echo "Usage: $0 <action> <image_name> [arch]"
     echo "Actions: build, push, qemu"
