@@ -13,11 +13,13 @@ workflows:
           requires: [release-circleci_weave-base, release-circleci_weave-base-arm64]
       - jasmine:
           filters: *all_tags
+          requires: [release-vite_weave-base, release-vite_weave-base-arm64]
       - checks:
           filters: *all_tags
           requires: [release-circleci_weave-base, release-circleci_weave-base-arm64]
       - frontend-checks:
           filters: *all_tags
+          requires: [release-vite_weave-base, release-vite_weave-base-arm64]
       - release:
           name: release-weave-base
           image: weave
@@ -127,7 +129,7 @@ jobs:
 
   jasmine:
     docker:
-      - image: darthjee/circleci_node:0.2.1
+      - image: darthjee/vite_weave-base:0.1.0
     steps:
       - checkout
       - run:
@@ -159,7 +161,7 @@ jobs:
           command: bin/reports.sh ci
   frontend-checks:
     docker:
-      - image: darthjee/circleci_node:0.2.1
+      - image: darthjee/vite_weave-base:0.1.0
     steps:
       - checkout
       - run:
