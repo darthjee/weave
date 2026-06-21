@@ -23,9 +23,7 @@ workflows:
           image: weave
           filters: &tag_only
             tags:
-              only: /\d+\.\d+\.\d+/
-            branches:
-              ignore: /.*/
+              only: /.*/
       - release:
           name: release-weave-base-arm64
           image: weave
