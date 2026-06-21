@@ -70,7 +70,7 @@ workflows:
             branches:
               ignore: /.*/
       - upload_fe_files:
-          requires: [pytest, jasmine, frontend-checks, checks, release-vite_weave-base]
+          requires: [pytest, jasmine, frontend-checks, checks, release-vite_weave-base, release-vite_weave-base-arm64]
           filters:
             tags:
               only: /\d+\.\d+\.\d+/
