@@ -8,6 +8,23 @@ function dockerfile_path() {
   echo "dockerfiles/${image}-base/Dockerfile"
 }
 
+function skip_if_not_tag() {
+  if [ -z "$CIRCLE_TAG" ]; then
+    echo "Not a tag build, skipping."
+    exit 0
+  fi
+}
+
+function setup_qemu() {
+  local image=$1
+
+  skip_if_not_tag
+
+  skip_if_unchanged "$image"
+
+  docker run --privileged --rm tonistiigi/binfmt --install all
+}
+
 function skip_if_unchanged() {
   local image=$1
 
@@ -60,6 +77,8 @@ function push() {
   local tag_suffix
   [ -n "$arch" ] && tag_suffix="-$arch" || tag_suffix=""
 
+  skip_if_not_tag
+
   skip_if_unchanged "$image"
 
   echo "$DOCKER_HUB_PASSWORD" | docker login -u "$DOCKER_HUB_USERNAME" --password-stdin
@@ -78,9 +97,10 @@ ARCH=${3:-}
 case $ACTION in
   "build") build "$IMAGE_NAME" "$ARCH" ;;
   "push")  push "$IMAGE_NAME" "$ARCH" ;;
+  "qemu")  setup_qemu "$IMAGE_NAME" ;;
   *)
     echo "Usage: $0 <action> <image_name> [arch]"
-    echo "Actions: build, push"
+    echo "Actions: build, push, qemu"
     exit 1
     ;;
 esac

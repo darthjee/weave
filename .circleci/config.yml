@@ -7,105 +7,75 @@ workflows:
   test:
     jobs:
       - pytest:
-          filters:
+          filters: &all_tags
             tags:
               only: /.*/
           requires: [release-circleci_weave-base, release-circleci_weave-base-arm64]
       - jasmine:
-          filters:
-            tags:
-              only: /.*/
+          filters: *all_tags
       - checks:
-          filters:
-            tags:
-              only: /.*/
+          filters: *all_tags
           requires: [release-circleci_weave-base, release-circleci_weave-base-arm64]
       - frontend-checks:
-          filters:
-            tags:
-              only: /.*/
+          filters: *all_tags
       - release:
           name: release-weave-base
           image: weave
-          filters: &tag_only
-            tags:
-              only: /\d+\.\d+\.\d+/
-            branches:
-              ignore: /.*/
+          filters: *all_tags
       - release:
           name: release-weave-base-arm64
           image: weave
           arch: arm64
-          filters: *tag_only
+          filters: *all_tags
       - release:
           name: release-circleci_weave-base
           image: circleci_weave
-          filters: *tag_only
+          filters: *all_tags
       - release:
           name: release-circleci_weave-base-arm64
           image: circleci_weave
           arch: arm64
-          filters: *tag_only
+          filters: *all_tags
       - release:
           name: release-production_weave-base
           image: production_weave
-          filters: *tag_only
+          filters: *all_tags
       - release:
           name: release-production_weave-base-arm64
           image: production_weave
           arch: arm64
-          filters: *tag_only
+          filters: *all_tags
       - release:
           name: release-vite_weave-base
           image: vite_weave
-          filters: *tag_only
+          filters: *all_tags
       - release:
           name: release-vite_weave-base-arm64
           image: vite_weave
           arch: arm64
-          filters: *tag_only
+          filters: *all_tags
       - build-and-release:
           requires: [pytest, jasmine, frontend-checks, checks, release-production_weave-base, release-production_weave-base-arm64]
-          filters:
+          filters: &tag_only
             tags:
               only: /\d+\.\d+\.\d+/
             branches:
               ignore: /.*/
       - upload_fe_files:
           requires: [pytest, jasmine, frontend-checks, checks, release-vite_weave-base, release-vite_weave-base-arm64]
-          filters:
-            tags:
-              only: /\d+\.\d+\.\d+/
-            branches:
-              ignore: /.*/
+          filters: *tag_only
       - upload_proxy_files:
           requires: [pytest, jasmine, frontend-checks, checks]
-          filters:
-            tags:
-              only: /\d+\.\d+\.\d+/
-            branches:
-              ignore: /.*/
+          filters: *tag_only
       - upload_admin_assets:
           requires: [pytest, jasmine, frontend-checks, checks, release-circleci_weave-base]
-          filters:
-            tags:
-              only: /\d+\.\d+\.\d+/
-            branches:
-              ignore: /.*/
+          filters: *tag_only
       - release_static_files:
           requires: [build-and-release, upload_fe_files, upload_proxy_files, upload_admin_assets, release-vite_weave-base]
-          filters:
-            tags:
-              only: /\d+\.\d+\.\d+/
-            branches:
-              ignore: /.*/
+          filters: *tag_only
       - warm-up-cache:
           requires: [release_static_files]
-          filters:
-            tags:
-              only: /\d+\.\d+\.\d+/
-            branches:
-              ignore: /.*/
+          filters: *tag_only
 jobs:
   release:
     parameters:
@@ -119,7 +89,7 @@ jobs:
       - checkout
       - run:
           name: Set up QEMU
-          command: docker run --privileged --rm tonistiigi/binfmt --install all
+          command: scripts/image.sh qemu << parameters.image >>
       - run:
           name: Release
           command: scripts/image.sh push << parameters.image >> << parameters.arch >>
@@ -233,8 +203,8 @@ jobs:
           command: SOURCE=dist/ SSH_REMOTE_TEMP_DIR=$SSH_REMOTE_TEMP_DIR/static/ deploy_frontend.sh upload
   upload_proxy_files:
     docker:
-      - image: darthjee/tent:0.4.3
-    working_directory: /var/www/html
+      - image: darthjee/tent:0.7.7
+    working_directory: /home/app/circleci
     steps:
       - checkout
       - run:
