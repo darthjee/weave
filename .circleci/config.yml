@@ -10,6 +10,7 @@ workflows:
           filters:
             tags:
               only: /.*/
+          requires: [release-circleci_weave-base, release-circleci_weave-base-arm64]
       - jasmine:
           filters:
             tags:
@@ -18,6 +19,7 @@ workflows:
           filters:
             tags:
               only: /.*/
+          requires: [release-circleci_weave-base, release-circleci_weave-base-arm64]
       - frontend-checks:
           filters:
             tags:
