@@ -53,6 +53,10 @@ These services exist only to build shared images — they do not run long-lived 
 |---|---|---|
 | `weave_prod_app` | `3030` | Production Django server. Uses the production image, links to `weave_prod_mysql`, sets `STAGE=production`. |
 
+## Base Image Release Flow
+
+The four base images under `dockerfiles/` (`weave-base`, `circleci_weave-base`, `production_weave-base`, `vite_weave-base`) are built and pushed via `scripts/image.sh` (invoked from the root `Makefile`'s `build-base`/`push-base` targets, and from dedicated `release` jobs in `.circleci/config.yml` on every version tag, for both `amd64` and `arm64`). The version is controlled by the `BASE_VERSION` Makefile variable — whenever it changes, the `image:` tag references in `.circleci/config.yml` (`circleci_weave-base`, `vite_weave-base`) must be bumped to match.
+
 ## Port Map
 
 | Port | Service |

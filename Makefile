@@ -2,10 +2,8 @@
 
 PROJECT?=weave
 IMAGE?=$(PROJECT)
-BASE_VERSION?=0.0.4
-BASE_IMAGE?=$(DOCKER_ID_USER)/$(PROJECT)-base
+BASE_VERSION?=0.1.0
 PUSH_IMAGE=$(DOCKER_ID_USER)/$(PROJECT)
-DOCKER_FILE_BASE=dockerfiles/$(PROJECT)-base/Dockerfile
 DOCKER_FILE=dockerfiles/$(PROJECT)/Dockerfile
 
 all:
@@ -15,17 +13,10 @@ all:
 	@echo "  make push-base\n    Pushes base docker image for $(PROJECT) to dockerhub"
 
 build-base:
-	docker tag $(BASE_IMAGE):latest $(BASE_IMAGE):cached; \
-	docker rmi $(BASE_IMAGE):latest; \
-	docker build -f $(DOCKER_FILE_BASE) . -t $(BASE_IMAGE):latest -t $(BASE_IMAGE):$(BASE_VERSION); \
-	if (docker images | grep $(BASE_IMAGE) | grep cached); then \
-	  docker rmi $(BASE_IMAGE):cached; \
-	fi \
+	BASE_VERSION=$(BASE_VERSION) scripts/image.sh build $(PROJECT)
 
 push-base:
-	make build-base
-	docker push $(BASE_IMAGE)
-	docker push $(BASE_IMAGE):$(BASE_VERSION)
+	BASE_VERSION=$(BASE_VERSION) scripts/image.sh push $(PROJECT)
 
 setup:
 	docker-compose run --rm $(PROJECT)_fe yarn install
