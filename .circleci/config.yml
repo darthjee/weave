@@ -21,46 +21,46 @@ workflows:
       - release:
           name: release-weave-base
           image: weave
+          filters: *all_tags
+      - release:
+          name: release-weave-base-arm64
+          image: weave
+          arch: arm64
+          filters: *all_tags
+      - release:
+          name: release-circleci_weave-base
+          image: circleci_weave
+          filters: *all_tags
+      - release:
+          name: release-circleci_weave-base-arm64
+          image: circleci_weave
+          arch: arm64
+          filters: *all_tags
+      - release:
+          name: release-production_weave-base
+          image: production_weave
+          filters: *all_tags
+      - release:
+          name: release-production_weave-base-arm64
+          image: production_weave
+          arch: arm64
+          filters: *all_tags
+      - release:
+          name: release-vite_weave-base
+          image: vite_weave
+          filters: *all_tags
+      - release:
+          name: release-vite_weave-base-arm64
+          image: vite_weave
+          arch: arm64
+          filters: *all_tags
+      - build-and-release:
+          requires: [pytest, jasmine, frontend-checks, checks, release-production_weave-base, release-production_weave-base-arm64]
           filters: &tag_only
             tags:
               only: /\d+\.\d+\.\d+/
             branches:
               ignore: /.*/
-      - release:
-          name: release-weave-base-arm64
-          image: weave
-          arch: arm64
-          filters: *tag_only
-      - release:
-          name: release-circleci_weave-base
-          image: circleci_weave
-          filters: *tag_only
-      - release:
-          name: release-circleci_weave-base-arm64
-          image: circleci_weave
-          arch: arm64
-          filters: *tag_only
-      - release:
-          name: release-production_weave-base
-          image: production_weave
-          filters: *tag_only
-      - release:
-          name: release-production_weave-base-arm64
-          image: production_weave
-          arch: arm64
-          filters: *tag_only
-      - release:
-          name: release-vite_weave-base
-          image: vite_weave
-          filters: *tag_only
-      - release:
-          name: release-vite_weave-base-arm64
-          image: vite_weave
-          arch: arm64
-          filters: *tag_only
-      - build-and-release:
-          requires: [pytest, jasmine, frontend-checks, checks, release-production_weave-base, release-production_weave-base-arm64]
-          filters: *tag_only
       - upload_fe_files:
           requires: [pytest, jasmine, frontend-checks, checks, release-vite_weave-base, release-vite_weave-base-arm64]
           filters: *tag_only
