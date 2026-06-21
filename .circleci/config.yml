@@ -7,23 +7,17 @@ workflows:
   test:
     jobs:
       - pytest:
-          filters:
+          filters: &all_tags
             tags:
               only: /.*/
           requires: [release-circleci_weave-base, release-circleci_weave-base-arm64]
       - jasmine:
-          filters:
-            tags:
-              only: /.*/
+          filters: *all_tags
       - checks:
-          filters:
-            tags:
-              only: /.*/
+          filters: *all_tags
           requires: [release-circleci_weave-base, release-circleci_weave-base-arm64]
       - frontend-checks:
-          filters:
-            tags:
-              only: /.*/
+          filters: *all_tags
       - release:
           name: release-weave-base
           image: weave
@@ -66,46 +60,22 @@ workflows:
           filters: *tag_only
       - build-and-release:
           requires: [pytest, jasmine, frontend-checks, checks, release-production_weave-base, release-production_weave-base-arm64]
-          filters:
-            tags:
-              only: /\d+\.\d+\.\d+/
-            branches:
-              ignore: /.*/
+          filters: *tag_only
       - upload_fe_files:
           requires: [pytest, jasmine, frontend-checks, checks, release-vite_weave-base, release-vite_weave-base-arm64]
-          filters:
-            tags:
-              only: /\d+\.\d+\.\d+/
-            branches:
-              ignore: /.*/
+          filters: *tag_only
       - upload_proxy_files:
           requires: [pytest, jasmine, frontend-checks, checks]
-          filters:
-            tags:
-              only: /\d+\.\d+\.\d+/
-            branches:
-              ignore: /.*/
+          filters: *tag_only
       - upload_admin_assets:
           requires: [pytest, jasmine, frontend-checks, checks, release-circleci_weave-base]
-          filters:
-            tags:
-              only: /\d+\.\d+\.\d+/
-            branches:
-              ignore: /.*/
+          filters: *tag_only
       - release_static_files:
           requires: [build-and-release, upload_fe_files, upload_proxy_files, upload_admin_assets, release-vite_weave-base]
-          filters:
-            tags:
-              only: /\d+\.\d+\.\d+/
-            branches:
-              ignore: /.*/
+          filters: *tag_only
       - warm-up-cache:
           requires: [release_static_files]
-          filters:
-            tags:
-              only: /\d+\.\d+\.\d+/
-            branches:
-              ignore: /.*/
+          filters: *tag_only
 jobs:
   release:
     parameters:
