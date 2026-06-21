@@ -10,6 +10,7 @@ workflows:
           filters:
             tags:
               only: /.*/
+          requires: [release-circleci_weave-base, release-circleci_weave-base-arm64]
       - jasmine:
           filters:
             tags:
@@ -18,6 +19,7 @@ workflows:
           filters:
             tags:
               only: /.*/
+          requires: [release-circleci_weave-base, release-circleci_weave-base-arm64]
       - frontend-checks:
           filters:
             tags:
@@ -63,14 +65,14 @@ workflows:
           arch: arm64
           filters: *tag_only
       - build-and-release:
-          requires: [pytest, jasmine, frontend-checks, checks]
+          requires: [pytest, jasmine, frontend-checks, checks, release-production_weave-base, release-production_weave-base-arm64]
           filters:
             tags:
               only: /\d+\.\d+\.\d+/
             branches:
               ignore: /.*/
       - upload_fe_files:
-          requires: [pytest, jasmine, frontend-checks, checks, release-vite_weave-base]
+          requires: [pytest, jasmine, frontend-checks, checks, release-vite_weave-base, release-vite_weave-base-arm64]
           filters:
             tags:
               only: /\d+\.\d+\.\d+/
