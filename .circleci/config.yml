@@ -89,7 +89,7 @@ jobs:
       - checkout
       - run:
           name: Set up QEMU
-          command: docker run --privileged --rm tonistiigi/binfmt --install all
+          command: scripts/image.sh qemu
       - run:
           name: Release
           command: scripts/image.sh push << parameters.image >> << parameters.arch >>
