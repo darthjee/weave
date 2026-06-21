@@ -127,7 +127,7 @@ jobs:
 
   jasmine:
     docker:
-      - image: darthjee/circleci_node:0.2.1
+      - image: darthjee/circleci_vite_weave-base:0.1.0
     steps:
       - checkout
       - run:
@@ -159,7 +159,7 @@ jobs:
           command: bin/reports.sh ci
   frontend-checks:
     docker:
-      - image: darthjee/circleci_node:0.2.1
+      - image: darthjee/circleci_vite_weave-base:0.1.0
     steps:
       - checkout
       - run:
